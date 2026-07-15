@@ -997,7 +997,7 @@
         <div id="budgetStatus"></div>
         <div id="budgetTips"></div>
         <div class="payslip-note" style="margin-top:10px">
-          Forbrukskategoriene (mat, klær, personlig pleie, fritid/mediebruk, transport, husholdningsartikler) er beregnet fra <strong style="color:#7db5f5">SIFOs referansebudsjett for forbruksutgifter</strong> (OsloMet), basert på antall voksne/barn og alder du oppgir, skalert med forbruksnivået over. Bilkostnader brukes i stedet for kollektivtransport dersom husstanden har bil. Bolig, andre faste utgifter og sparing er dine egne tall. <strong>NB:</strong> SIFOs «fritid/mediebruk»-tall inkluderer allerede internett, TV/strømmetjenester <strong>og innboforsikring</strong> — ikke legg disse inn på nytt under «Andre faste utgifter». Dette er en veiledende fordeling — ikke en fasit, og ikke det samme som hva som faktisk skjer (se «Fremdrift»).
+          Forbrukskategoriene (mat, klær, personlig pleie, fritid/mediebruk, transport, husholdningsartikler) er beregnet fra <strong style="color:#7db5f5">SIFOs referansebudsjett for forbruksutgifter</strong> (OsloMet), basert på antall voksne/barn og alder du oppgir, skalert med forbruksnivået over. Ved delt bosted (barnet bor mindre enn 100% av tiden hos deg) skaleres mat/klær/pleie/fritid/transport-postene for det barnet ned til den faktiske andelen — sett dette per barn under «Husstand». Bilkostnader brukes i stedet for kollektivtransport dersom husstanden har bil. Bolig, andre faste utgifter og sparing er dine egne tall. <strong>NB:</strong> SIFOs «fritid/mediebruk»-tall inkluderer allerede internett, TV/strømmetjenester <strong>og innboforsikring</strong> — ikke legg disse inn på nytt under «Andre faste utgifter». Dette er en veiledende fordeling — ikke en fasit, og ikke det samme som hva som faktisk skjer (se «Fremdrift»).
         </div>
       </div>
     </div>
@@ -2279,7 +2279,7 @@ const SIFO_HOUSEHOLD = {
 const SIFO_BIL = { fossil:[3300,3300,3300,3300,4990,4990,4990], ev:[2195,2195,2195,2195,3015,3015,3015] };
 
 function addChild() {
-  okChildren.push({ bracket:'2-5' });
+  okChildren.push({ bracket:'2-5', share:1 }); // share = andel av tiden barnet bor hos deg (1 = 100%/fast bosted)
   renderChildrenList();
   calcOkonomi();
 }
@@ -2292,16 +2292,36 @@ function setChildBracket(idx, val) {
   okChildren[idx].bracket = val;
   calcOkonomi();
 }
+// Delt bosted: SIFOs mat/klær/pleie/fritid/transport-poster for et barn er ment for et barn som bor
+// FAST hos deg. Bor barnet bare X% av tiden hos deg (delt bosted), er det egen andel av disse
+// forbrukspostene naturlig nok bare X% — det koster f.eks. mindre i mat når barnet bare spiser
+// halvparten av middagene hjemme hos deg. Husholdningsfellesskapet (dagligvarer/husholdningsartikler/
+// møbler/mediebruk, som skalerer med husstandsSTØRRELSE) regnes derimot fortsatt med barnet som fullt
+// medlem uansett andel — du trenger seng/plass/abonnement uansett hvor stor del av tiden hen er der.
+function setChildShare(idx, val) {
+  let pct = parseFloat(val);
+  if (isNaN(pct)) pct = 100;
+  pct = Math.min(100, Math.max(0, pct));
+  okChildren[idx].share = pct / 100;
+  calcOkonomi();
+}
 function renderChildrenList() {
   const wrap = document.getElementById('childrenList');
   if (!wrap) return;
   if (!okChildren.length) { wrap.innerHTML = ''; return; }
-  wrap.innerHTML = '<label class="salary-input-label" style="margin:8px 0 4px;display:block">Barn i husstanden</label>' + okChildren.map((c,i)=>`
-    <div class="child-row">
+  wrap.innerHTML = `
+    <label class="salary-input-label" style="margin:8px 0 2px;display:block">Barn i husstanden</label>
+    <div style="font-size:10px;color:var(--text-muted);margin-bottom:8px">«% hos deg» = andel av tiden barnet bor hos deg. 100% = fast bosted alene hos deg, 50% = delt bosted. Bolig, faste utgifter og husholdningsposter regnes likevel fullt ut — det er mat/klær/pleie/fritid/transport-postene som skaleres ned.</div>
+    ` + okChildren.map((c,i)=>`
+    <div class="child-row" style="flex-wrap:wrap;row-gap:6px">
       <span style="font-size:11px;color:var(--text-muted);min-width:44px">Barn ${i+1}</span>
-      <select class="salary-input" onchange="setChildBracket(${i}, this.value)">
+      <select class="salary-input" style="flex:1 1 130px;min-width:0" onchange="setChildBracket(${i}, this.value)">
         ${CHILD_BRACKETS.map(b=>`<option value="${b.key}" ${b.key===c.bracket?'selected':''}>${b.label}</option>`).join('')}
       </select>
+      <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+        <input type="number" class="salary-input" style="width:58px;flex:0 0 58px;text-align:right" min="0" max="100" step="5" value="${Math.round((c.share ?? 1)*100)}" title="Andel av tiden barnet bor hos deg" onchange="setChildShare(${i}, this.value)" oninput="setChildShare(${i}, this.value)">
+        <span style="font-size:11px;color:var(--text-muted);white-space:nowrap">% hos deg</span>
+      </div>
       <button class="child-row-remove" onclick="removeOkChild(${i})" title="Fjern barn">✕</button>
     </div>`).join('');
 }
@@ -2565,7 +2585,8 @@ function calcOkonomi() {
   for (let i=0;i<adults;i++) { mat+=SIFO_ADULT.mat; klar+=SIFO_ADULT.klar; pleie+=SIFO_ADULT.pleie; fritidPers+=SIFO_ADULT.fritid; transport+=SIFO_ADULT.transport; }
   okChildren.forEach(c=>{
     const d=SIFO_CHILD[c.bracket];
-    mat+=d.mat; klar+=d.klar; pleie+=d.pleie; fritidPers+=d.fritid; transport+=d.transport;
+    const share = (typeof c.share === 'number' && c.share >= 0 && c.share <= 1) ? c.share : 1; // delt bosted: kun andelen av forbruket som faktisk skjer hos deg
+    mat+=d.mat*share; klar+=d.klar*share; pleie+=d.pleie*share; fritidPers+=d.fritid*share; transport+=d.transport*share;
   });
 
   let bilkostnad = 0;

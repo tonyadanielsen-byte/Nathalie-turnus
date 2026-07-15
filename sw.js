@@ -1,4 +1,4 @@
-const CACHE = 'nathalie-turnus-v9';
+const CACHE = 'nathalie-turnus-v10';
 const ASSETS = [
   './index.html',
   './manifest.json',
