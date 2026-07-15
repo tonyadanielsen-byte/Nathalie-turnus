@@ -403,8 +403,14 @@
 
     /* Toolbar: stack year row + month row + edit btn, each row horizontally scrollable (one-pager, no wrap sprawl) */
     .toolbar { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 10px; padding: 10px 0 10px 16px; }
-    .toolbar-left { flex-direction: column; align-items: stretch; gap: 8px; }
-    .filter-group { gap: 6px; }
+    .toolbar-left { flex-direction: column; align-items: stretch; gap: 8px; max-width: 100%; }
+    /* .filter-group is a flex item of the column-direction .toolbar-left AND its own row-direction
+       flex container — nested flex + wrap can make the browser stretch it to its un-shrunk intrinsic
+       content width (e.g. all 13 month buttons laid out in one row) instead of the final, narrower
+       stretch width, letting it silently poke out past the phone's edge and drag document.body into
+       horizontal scroll. Pin it to 100% of the (already-narrow) parent explicitly so it can never
+       expand past the viewport, regardless of how many filter buttons it contains. */
+    .filter-group { gap: 6px; width: 100%; max-width: 100%; box-sizing: border-box; }
     .filter-label { display: block; font-size: 10px; min-width: 40px; }
     .filter-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-right: 16px; scroll-snap-type: x proximity; }
     .filter-scroll::-webkit-scrollbar { display: none; }
