@@ -43,6 +43,88 @@
   }
   .app { max-width: 1140px; margin: 0 auto; padding: 0 0 48px; }
 
+  /* PAGE ROUTING */
+  .page { display: none; }
+  .page.active { display: block; animation: pageFadeIn 0.25s ease-out; }
+  @keyframes pageFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* PAGE TOPBAR (back button + title, shown on every page except home) */
+  .page-topbar { display: flex; align-items: center; gap: 12px; padding: 18px 24px 6px; }
+  .page-back-btn { display: flex; align-items: center; gap: 5px; font-family: var(--font); font-size: 12px; font-weight: 500; color: var(--text-secondary); background: var(--surface2); border: 0.5px solid var(--border-strong); border-radius: 7px; padding: 7px 12px; cursor: pointer; transition: all 0.12s; flex-shrink: 0; }
+  .page-back-btn:hover { background: var(--surface3); color: var(--text-primary); }
+  .page-topbar-title { font-size: 17px; font-weight: 500; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+  .page-icon-badge { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .page-icon-badge.pi-blue   { background: linear-gradient(135deg, rgba(57,135,229,0.30), rgba(57,135,229,0.12)); color: var(--accent-blue); }
+  .page-icon-badge.pi-green  { background: linear-gradient(135deg, rgba(25,158,112,0.30), rgba(25,158,112,0.12)); color: var(--accent-green); }
+  .page-icon-badge.pi-purple { background: linear-gradient(135deg, rgba(144,133,233,0.30), rgba(144,133,233,0.12)); color: var(--accent-purple); }
+  .page-icon-badge.pi-teal   { background: linear-gradient(135deg, rgba(93,202,165,0.30), rgba(93,202,165,0.12)); color: var(--accent-teal); }
+  .page-icon-badge.pi-amber  { background: linear-gradient(135deg, rgba(237,161,0,0.30), rgba(237,161,0,0.12)); color: var(--accent-amber); }
+
+  /* HOME PAGE */
+  .home-greeting { font-size: 13px; color: var(--text-muted); margin: 16px 24px 2px; }
+  .home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 12px; padding: 10px 24px 24px; }
+  .home-card { position: relative; overflow: hidden; border-radius: 14px; padding: 18px 18px 16px; cursor: pointer; border: 0.5px solid var(--border-strong); transition: transform 0.15s ease, box-shadow 0.15s ease; text-align: left; font-family: var(--font); }
+  .home-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
+  .home-card:active { transform: translateY(-1px); }
+  .home-card-icon { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .home-card-title { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+  .home-card-sub { font-size: 11.5px; color: var(--text-secondary); line-height: 1.4; }
+  .home-card-arrow { position: absolute; top: 16px; right: 16px; opacity: 0.35; color: var(--text-primary); }
+  .home-card.hc-blue   { background: linear-gradient(135deg, rgba(57,135,229,0.16), rgba(57,135,229,0.03) 60%); }
+  .home-card.hc-blue   .home-card-icon { background: rgba(57,135,229,0.22); color: var(--accent-blue); }
+  .home-card.hc-green  { background: linear-gradient(135deg, rgba(25,158,112,0.16), rgba(25,158,112,0.03) 60%); }
+  .home-card.hc-green  .home-card-icon { background: rgba(25,158,112,0.22); color: var(--accent-green); }
+  .home-card.hc-purple { background: linear-gradient(135deg, rgba(144,133,233,0.16), rgba(144,133,233,0.03) 60%); }
+  .home-card.hc-purple .home-card-icon { background: rgba(144,133,233,0.22); color: var(--accent-purple); }
+  .home-card.hc-teal   { background: linear-gradient(135deg, rgba(93,202,165,0.16), rgba(93,202,165,0.03) 60%); }
+  .home-card.hc-teal   .home-card-icon { background: rgba(93,202,165,0.22); color: var(--accent-teal); }
+  .home-card.hc-amber  { background: linear-gradient(135deg, rgba(237,161,0,0.16), rgba(237,161,0,0.03) 60%); }
+  .home-card.hc-amber  .home-card-icon { background: rgba(237,161,0,0.22); color: var(--accent-amber); }
+
+  /* ØKONOMI PAGE */
+  .okonomi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .okonomi-section-label { font-size: 10px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; padding: 14px 0 8px; border-top: 0.5px solid var(--border); margin-top: 6px; }
+  .okonomi-section-label:first-child { border-top: none; margin-top: 0; }
+  .child-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .child-row select { flex: 1; }
+  .child-row-remove { background: none; border: 0.5px solid var(--border-strong); color: var(--text-muted); border-radius: 5px; width: 28px; height: 28px; cursor: pointer; font-size: 14px; flex-shrink: 0; }
+  .child-row-remove:hover { color: var(--accent-red); border-color: var(--accent-red); }
+  .okonomi-add-btn { font-family: var(--font); font-size: 11px; color: var(--accent-blue); background: rgba(57,135,229,0.10); border: 0.5px solid rgba(57,135,229,0.4); border-radius: 6px; padding: 6px 12px; cursor: pointer; margin-top: 2px; }
+  .okonomi-add-btn:hover { background: rgba(57,135,229,0.18); }
+  .budget-bar-wrap { margin: 16px 0 8px; }
+  .budget-bar { display: flex; height: 26px; border-radius: 7px; overflow: hidden; background: var(--surface3); }
+  .budget-seg { transition: filter 0.15s; cursor: default; position: relative; }
+  .budget-seg:hover { filter: brightness(1.25); }
+  .budget-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .budget-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-secondary); }
+  .budget-legend-dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+  .budget-status { border-radius: 8px; padding: 12px 16px; font-size: 13px; margin: 14px 0; display: flex; align-items: center; gap: 8px; }
+  .budget-status.ok { background: rgba(25,158,112,0.10); border: 0.5px solid var(--accent-green); color: var(--text-secondary); }
+  .budget-status.tight { background: rgba(237,161,0,0.10); border: 0.5px solid var(--accent-amber); color: var(--text-secondary); }
+  .budget-status.over { background: rgba(227,73,72,0.10); border: 0.5px solid var(--accent-red); color: var(--text-secondary); }
+  .budget-tips-list { margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .budget-tips-list li { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
+  .budget-tips-list li strong { color: #e8c34a; font-weight: 500; }
+  /* Økonomi: delt inn i en "mini-forside" (hub) med egne underdsider (Inntekter / Budsjett / Gjeld &
+     faste utgifter / Fremdrift) man klikker seg inn i — samme mønster som appens egen Forside — i
+     stedet for én lang, sammenhengende side. Reduserer scroll og gjør det tydelig hva som er PLAN
+     (Budsjett, hypotetisk) og hva som er VIRKELIGHET (Fremdrift, faktiske tall). */
+  .okonomi-box { background: var(--surface2); border: 0.5px solid var(--border); border-radius: 12px; padding: 16px 16px 4px; margin-bottom: 14px; }
+  .okonomi-box .okonomi-section-label:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+  .ok-section { display: none; }
+  .ok-section.active { display: block; animation: pageFadeIn 0.2s ease-out; }
+  .ok-hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 2px 0 6px; }
+  .ok-hub-grid .home-card { padding: 15px 15px 13px; }
+  .ok-hub-grid .home-card-icon { width: 34px; height: 34px; margin-bottom: 10px; }
+  .ok-hub-grid .home-card-title { font-size: 13.5px; }
+  .ok-hub-grid .home-card-sub { font-size: 10.5px; }
+  .ok-sub-back { margin-bottom: 12px; }
+  .ok-progress-bar-wrap { background: var(--surface3); border-radius: 6px; height: 9px; overflow: hidden; margin: 7px 0; }
+  .ok-progress-bar-fill { height: 100%; border-radius: 6px; transition: width 0.2s; }
+  .ok-basis-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 9px; border-radius: 6px; margin-bottom: 10px; }
+  .ok-basis-badge.plan { background: rgba(144,133,233,0.16); color: var(--accent-purple); border: 0.5px solid rgba(144,133,233,0.4); }
+  .ok-basis-badge.real { background: rgba(93,202,165,0.16); color: var(--accent-teal); border: 0.5px solid rgba(93,202,165,0.4); }
+
   /* HEADER */
   .header { padding: 24px 24px 18px; border-bottom: 0.5px solid var(--border-strong); position: relative; }
   .header::before {
@@ -114,7 +196,8 @@
   .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; padding: 16px 24px; }
   .stat-card { background: var(--surface); border: 0.5px solid var(--border-strong); border-radius: 8px; padding: 14px 16px; transition: transform 0.15s ease, box-shadow 0.15s ease; }
   .stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
-  .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; }
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+  .stat-ico { display: inline-flex; opacity: 0.85; }
   .stat-value { font-size: 22px; font-weight: 500; color: var(--text-primary); }
   .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
   .stat-card.warn .stat-value { color: var(--accent-amber); }
@@ -134,13 +217,8 @@
   .salary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 14px; }
   .salary-input-group { display: flex; flex-direction: column; gap: 5px; }
   .salary-input-label { font-size: 11px; color: var(--text-muted); }
-  .salary-select, .salary-input { font-family: var(--font); font-size: 12px; background: var(--surface2); color: var(--text-primary); border: 0.5px solid var(--border-strong); border-radius: 5px; padding: 7px 10px; width: 100%; }
-  .salary-select:focus, .salary-input:focus { outline: none; border-color: var(--accent-blue); }
-  .salary-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; border-top: 0.5px solid var(--border); padding-top: 14px; }
-  .salary-result-card { background: var(--surface2); border-radius: 7px; padding: 12px 14px; border: 0.5px solid var(--border); }
-  .salary-result-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
-  .salary-result-value { font-size: 18px; font-weight: 500; color: #7db5f5; }
-  .salary-result-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+  .salary-input { font-family: var(--font); font-size: 12px; background: var(--surface2); color: var(--text-primary); border: 0.5px solid var(--border-strong); border-radius: 5px; padding: 7px 10px; width: 100%; }
+  .salary-input:focus { outline: none; border-color: var(--accent-blue); }
   .salary-breakdown { margin-top: 12px; font-size: 12px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; }
   .salary-breakdown-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 0.5px solid var(--border); }
   .salary-breakdown-row:last-child { border-bottom: none; font-weight: 500; color: var(--text-secondary); }
@@ -169,10 +247,6 @@
   .payslip-month-table td.val-skatt  { color: #e86767; text-align: right; }
   .payslip-month-table td.utbetalt   { font-weight: 500; }
   .payslip-note { font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 0.5px solid var(--border); padding-top: 8px; }
-  .payslip-input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-  .payslip-input-row label { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
-  .payslip-input-row input { font-family: var(--font); font-size: 13px; background: var(--surface2); color: var(--text-primary); border: 0.5px solid var(--border-strong); border-radius: 5px; padding: 6px 10px; width: 140px; }
-  .payslip-input-row input:focus { outline: none; border-color: var(--accent-blue); }
   .payslip-tag { display: inline-block; font-size: 10px; background: rgba(57,135,229,0.15); color: #7db5f5; border-radius: 3px; padding: 2px 7px; margin-left: 6px; vertical-align: middle; }
 
   /* HOLIDAY WARNING */
@@ -192,7 +266,8 @@
   .mobile-cards { display: none; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th { font-size: 11px; font-weight: 500; color: var(--text-muted); text-align: left; padding: 8px 8px; border-bottom: 0.5px solid var(--border-strong); white-space: nowrap; }
-  tbody tr { border-bottom: 0.5px solid var(--border); transition: background 0.08s; }
+  tbody tr { border-bottom: 0.5px solid var(--border); transition: background 0.08s; animation: rowFadeIn 0.2s ease; }
+  @keyframes rowFadeIn { from { opacity: 0; } to { opacity: 1; } }
   tbody tr:hover { background: var(--surface2); }
   tbody tr.holiday-row { background: rgba(237,161,0,0.05); }
   tbody td { padding: 7px 6px; color: var(--text-secondary); vertical-align: middle; }
@@ -233,10 +308,41 @@
   .shift-chip:not(.chip-F1) { font-weight: 600; }
   .chip-empty { color: var(--text-muted); font-size: 12px; }
   .h-flag { font-size: 9px; background: rgba(237,161,0,0.20); color: var(--accent-amber); border-radius: 2px; padding: 1px 4px; margin-left: 3px; vertical-align: middle; }
-  .no-data { text-align: center; color: var(--text-muted); padding: 36px; font-size: 13px; }
+  .no-data { text-align: center; color: var(--text-muted); padding: 44px 20px; font-size: 13px; display: flex; flex-direction: column; align-items: center; }
   .edit-indicator { font-size: 9px; background: rgba(237,161,0,0.25); color: var(--accent-amber); border-radius: 2px; padding: 1px 3px; margin-left: 2px; vertical-align: middle; }
 
 
+
+  /* ÅRSOVERSIKT / CHART */
+  .chart-head { display: flex; align-items: center; justify-content: space-between; margin: 4px 0 10px; }
+  .chart-title { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .chart-table-toggle { font-family: var(--font); font-size: 11px; color: var(--accent-blue); background: none; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; padding: 2px; }
+  .chart-scroll { overflow-x: auto; padding-bottom: 4px; }
+  .chart-bar { fill: var(--accent-blue); }
+  .chart-bar:hover, .chart-bar.hovered { fill: #6aaef2; }
+  .chart-gridline { stroke: var(--border); stroke-width: 1; }
+  .chart-axis-label { fill: var(--text-muted); font-size: 9px; font-family: var(--font); }
+  .chart-value-label { fill: var(--text-secondary); font-size: 10px; font-family: var(--font); font-weight: 500; }
+  #chartTooltip {
+    position: fixed; z-index: 9999; pointer-events: none;
+    background: #1e1e1c; border: 0.5px solid var(--border-strong); border-radius: 6px;
+    padding: 6px 10px; font-size: 11px; color: var(--text-primary);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.1s;
+  }
+  #chartTooltip.show { opacity: 1; }
+  #chartTooltip .tt-val { color: #7db5f5; font-weight: 500; }
+  .chart-table-wrap { max-height: 320px; overflow-y: auto; margin-top: 8px; }
+  .chart-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .chart-table-wrap th { text-align: left; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 5px 8px; border-bottom: 0.5px solid var(--border-strong); position: sticky; top: 0; background: var(--surface); }
+  .chart-table-wrap td { padding: 5px 8px; border-bottom: 0.5px solid var(--border); color: var(--text-secondary); }
+  .chart-table-wrap td.chart-table-val { text-align: right; color: #7db5f5; font-weight: 500; }
+
+  /* ARBEIDSTIDSSJEKK */
+  .rest-ok { background: rgba(25,158,112,0.10); border: 0.5px solid var(--accent-green); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+  .rest-warn-summary { background: rgba(227,73,72,0.09); border: 0.5px solid var(--accent-red); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+  .rest-violation-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); padding: 8px 12px; border-bottom: 0.5px solid var(--border); }
+  .rest-violation-row:last-child { border-bottom: none; }
+  .rest-violation-hours { color: var(--accent-red); font-weight: 500; white-space: nowrap; }
 
   /* VAKTKODER PANEL */
   .vakt-panel { margin: 0 24px 12px; background: var(--surface); border: 0.5px solid var(--border-strong); border-radius: 10px; overflow: hidden; }
@@ -266,6 +372,15 @@
   ::-webkit-scrollbar-track { background: var(--surface); }
   ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
 
+  /* ACCESSIBILITY: visible keyboard focus */
+  button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible, .shift-chip:focus-visible {
+    outline: 2px solid var(--accent-blue); outline-offset: 2px; border-radius: 4px;
+  }
+
+  /* Payslip month table: zebra striping for easier scanning across many rows */
+  .payslip-month-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
+  .payslip-month-table tbody tr:hover { background: rgba(57,135,229,0.06); }
+
   /* ── RESPONSIVE / MOBILE ── */
   @media (max-width: 700px) {
     .app { padding: 0 0 80px; }
@@ -275,6 +390,16 @@
     .header h1 { font-size: 16px; }
     .unit-badge { font-size: 10px; padding: 2px 8px; }
     .header-sub { font-size: 11px; }
+
+    /* Home + page nav */
+    .home-greeting { margin: 12px 16px 2px; }
+    .home-grid { grid-template-columns: 1fr 1fr; gap: 10px; padding: 8px 16px 20px; }
+    .home-card { padding: 14px 14px 12px; }
+    .home-card-icon { width: 36px; height: 36px; margin-bottom: 10px; }
+    .home-card-title { font-size: 13px; }
+    .home-card-sub { font-size: 10.5px; }
+    .page-topbar { padding: 14px 16px 4px; }
+    .page-topbar-title { font-size: 15px; }
 
     /* Toolbar: stack year row + month row + edit btn, each row horizontally scrollable (one-pager, no wrap sprawl) */
     .toolbar { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 10px; padding: 10px 0 10px 16px; }
@@ -296,7 +421,6 @@
     .salary-panel, .vakt-panel, .holiday-warn { margin: 0 16px 10px; }
     .salary-body { padding: 12px; }
     .salary-grid { grid-template-columns: 1fr; }
-    .salary-results { grid-template-columns: 1fr 1fr; }
     .payslip-grid { grid-template-columns: 1fr 1fr; }
     .payslip-card-value { font-size: 16px; }
 
@@ -382,11 +506,56 @@
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-top">
+  <div class="header-top" onclick="showPage('home')" style="cursor:pointer">
     <h1>Årsturnus 2026–2029 – Sandåker, Nathalie</h1>
     <span class="unit-badge">Hjemmesykepleien · Sone Klokkeråsen</span>
   </div>
   <div class="header-sub">Tønsberg Kommune · 31702 · 100% stilling · Fagforbundet/KS · Oppdatert 15.07.2026</div>
+</div>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <div class="home-greeting">Velkommen! Velg hva du vil se på:</div>
+  <div class="today-bar" id="todayBar"></div>
+  <div class="home-grid">
+    <button class="home-card hc-blue" onclick="showPage('turnus')">
+      <span class="home-card-arrow">→</span>
+      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></div>
+      <div class="home-card-title">Turnus</div>
+      <div class="home-card-sub">Ukeoversikt, vakter og redigering</div>
+    </button>
+    <button class="home-card hc-green" onclick="showPage('lonn')">
+      <span class="home-card-arrow">→</span>
+      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5S10.7 17 12 17s3-1.1 3-2.5"/></svg></div>
+      <div class="home-card-title">Lønn</div>
+      <div class="home-card-sub">Lønnskjøring, utbetaling og tillegg</div>
+    </button>
+    <button class="home-card hc-purple" onclick="showPage('arsoversikt')">
+      <span class="home-card-arrow">→</span>
+      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></svg></div>
+      <div class="home-card-title">Årsoversikt</div>
+      <div class="home-card-sub">Timer per måned og år, 2026–2029</div>
+    </button>
+    <button class="home-card hc-teal" onclick="showPage('arbeidstid')">
+      <span class="home-card-arrow">→</span>
+      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg></div>
+      <div class="home-card-title">Arbeidstid</div>
+      <div class="home-card-sub">Sjekk hviletid mellom vakter</div>
+    </button>
+    <button class="home-card hc-amber" onclick="showPage('okonomi')">
+      <span class="home-card-arrow">→</span>
+      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M19 7H8a5 5 0 0 0 0 10h9"/><circle cx="17" cy="12" r="1.4" fill="currentColor" stroke="none"/><path d="M19 7V5.5a1.5 1.5 0 0 0-1.5-1.5H6"/></svg></div>
+      <div class="home-card-title">Økonomi</div>
+      <div class="home-card-sub">Anbefalt fordeling av lønn</div>
+    </button>
+  </div>
+</div>
+
+<!-- TURNUS PAGE -->
+<div class="page" id="page-turnus">
+<div class="page-topbar">
+  <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
+  <div class="page-topbar-title"><span class="page-icon-badge pi-blue"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span>Turnus</div>
 </div>
 
 <!-- TOOLBAR -->
@@ -395,101 +564,42 @@
     <div class="filter-group">
       <span class="filter-label">År:</span>
       <div class="filter-scroll">
-        <button class="month-btn active" onclick="filterYear('all', this)">Alle</button>
-        <button class="month-btn" onclick="filterYear(2026, this)">2026</button>
-        <button class="month-btn" onclick="filterYear(2027, this)">2027</button>
-        <button class="month-btn" onclick="filterYear(2028, this)">2028</button>
-        <button class="month-btn" onclick="filterYear(2029, this)">2029</button>
+        <button class="month-btn tf-year-btn active" onclick="filterYear('all', this)">Alle</button>
+        <button class="month-btn tf-year-btn" onclick="filterYear(2026, this)">2026</button>
+        <button class="month-btn tf-year-btn" onclick="filterYear(2027, this)">2027</button>
+        <button class="month-btn tf-year-btn" onclick="filterYear(2028, this)">2028</button>
+        <button class="month-btn tf-year-btn" onclick="filterYear(2029, this)">2029</button>
       </div>
     </div>
     <div class="filter-group">
       <span class="filter-label">Måned:</span>
       <div class="filter-scroll">
-        <button class="month-btn active" id="mAll" onclick="filterMonth('all', this)">Alle</button>
-        <button class="month-btn" onclick="filterMonth(1, this)">Jan</button>
-        <button class="month-btn" onclick="filterMonth(2, this)">Feb</button>
-        <button class="month-btn" onclick="filterMonth(3, this)">Mar</button>
-        <button class="month-btn" onclick="filterMonth(4, this)">Apr</button>
-        <button class="month-btn" onclick="filterMonth(5, this)">Mai</button>
-        <button class="month-btn" onclick="filterMonth(6, this)">Jun</button>
-        <button class="month-btn" onclick="filterMonth(7, this)">Jul</button>
-        <button class="month-btn" onclick="filterMonth(8, this)">Aug</button>
-        <button class="month-btn" onclick="filterMonth(9, this)">Sep</button>
-        <button class="month-btn" onclick="filterMonth(10, this)">Okt</button>
-        <button class="month-btn" onclick="filterMonth(11, this)">Nov</button>
-        <button class="month-btn" onclick="filterMonth(12, this)">Des</button>
+        <button class="month-btn tf-month-btn active" id="mAll" onclick="filterMonth('all', this)">Alle</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(1, this)">Jan</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(2, this)">Feb</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(3, this)">Mar</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(4, this)">Apr</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(5, this)">Mai</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(6, this)">Jun</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(7, this)">Jul</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(8, this)">Aug</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(9, this)">Sep</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(10, this)">Okt</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(11, this)">Nov</button>
+        <button class="month-btn tf-month-btn" onclick="filterMonth(12, this)">Des</button>
       </div>
     </div>
   </div>
   <div class="toolbar-actions">
-    <button class="ics-btn" id="icsBtn" onclick="downloadAllICS()">📅 Eksporter kalender</button>
+    <button class="ics-btn" id="icsBtn" onclick="downloadAllICS()"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:3px"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M12 14v4M10 16h4"/></svg>Eksporter kalender</button>
     <button class="reset-btn" id="resetBtn" onclick="resetChanges()">Tilbakestill</button>
     <button class="save-btn" id="saveBtn" onclick="saveChanges()">✓ Lagre endringer</button>
     <button class="edit-btn" id="editBtn" onclick="toggleEditMode()">✎ Rediger vakter</button>
   </div>
 </div>
 
-<!-- TODAY BAR -->
-<div class="today-bar" id="todayBar"></div>
-
 <!-- STATS -->
 <div class="stats-row" id="statsRow"></div>
-
-<!-- SALARY PANEL -->
-<div class="salary-panel">
-  <div class="salary-panel-header" onclick="toggleSalary()">
-    <div class="salary-panel-title">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5S10.7 17 12 17s3-1.1 3-2.5"/></svg>
-      Lønnskjøring & utbetaling
-    </div>
-    <span class="salary-toggle" id="salaryToggle">▼</span>
-  </div>
-  <div class="salary-body" id="salaryBody">
-    <div class="salary-disclaimer">
-      ⚠ Dette er et estimat basert på tallene du oppgir under (grunnlønn, skattetrekk og tillegg-satser) kombinert med de faktiske vaktene i turnusen. Juster tallene til det som stemmer med Nathalie sin avtale for et presist resultat. Grunnlønn regnes <strong>før</strong> tillegg — tilleggene legges på i beregningen.
-    </div>
-
-    <div class="salary-grid">
-      <div class="salary-input-group">
-        <label class="salary-input-label">Grunnlønn (årslønn, brutto, før tillegg)</label>
-        <input type="number" class="salary-input" id="manualAnnual" value="528300" onchange="calcPayslip()" oninput="calcPayslip()" step="100">
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label">Skattetrekk %</label>
-        <input type="number" class="salary-input" id="taxPct" value="25" min="0" max="70" step="0.5" onchange="calcPayslip()" oninput="calcPayslip()">
-      </div>
-    </div>
-
-    <div class="payslip-divider" style="margin-top:14px">Tillegg (kr/time) <span class="payslip-tag">justerbare</span></div>
-    <div class="salary-grid">
-      <div class="salary-input-group">
-        <label class="salary-input-label">Aftentillegg</label>
-        <input type="number" class="salary-input" id="eveningTillegg" value="58" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label">Helgetillegg (lør/søn)</label>
-        <input type="number" class="salary-input" id="weekendTillegg" value="65" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label">Helligdagstillegg</label>
-        <input type="number" class="salary-input" id="holidayTillegg" value="115" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label">Langvakttillegg</label>
-        <input type="number" class="salary-input" id="longTillegg" value="30" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
-      </div>
-    </div>
-
-    <!-- TIMEBASERT LØNN + LØNNSKJØRING -->
-    <div class="payslip-section">
-      <div class="payslip-divider">Timebasert lønn & lønnskjøring <span class="payslip-tag">Utbetaling 20. hver måned</span></div>
-      <div class="payslip-grid" id="payslipCards"></div>
-      <div class="salary-breakdown" id="salaryBreakdown"></div>
-      <table class="payslip-month-table" id="payslipTable"></table>
-      <div class="payslip-note" id="payslipNote"></div>
-    </div>
-  </div>
-</div>
 
 <!-- HOLIDAY WARNINGS -->
 <div id="holidayWarnSection"></div>
@@ -552,9 +662,372 @@
     </thead>
     <tbody id="tableBody"></tbody>
   </table>
-  <div class="no-data" id="noData" style="display:none">Ingen uker funnet for valgt måned</div>
+  <div class="no-data" id="noData" style="display:none">
+    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24" style="opacity:0.5;margin-bottom:8px"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l6 4M15 15l-6 4"/></svg>
+    <div>Ingen uker funnet for valgt kombinasjon av år og måned</div>
+    <div style="font-size:11px;margin-top:4px;opacity:0.7">Prøv et annet filter, eller velg "Alle"</div>
+  </div>
 </div>
 <div class="mobile-cards" id="mobileCards"></div>
+</div><!-- /page-turnus -->
+
+<!-- LØNN PAGE -->
+<div class="page" id="page-lonn">
+<div class="page-topbar">
+  <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
+  <div class="page-topbar-title"><span class="page-icon-badge pi-green"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5S10.7 17 12 17s3-1.1 3-2.5"/></svg></span>Lønnskjøring & utbetaling</div>
+</div>
+<div class="salary-panel" style="margin-top:8px">
+  <div class="salary-body open" id="salaryBody">
+    <div class="salary-disclaimer">
+      ⚠ Dette er et estimat basert på tallene du oppgir under (grunnlønn, skattetrekk og tillegg-satser) kombinert med de faktiske vaktene i turnusen. Juster tallene til det som stemmer med Nathalie sin avtale for et presist resultat. Grunnlønn regnes <strong>før</strong> tillegg — tilleggene legges på i beregningen.
+    </div>
+
+    <div class="salary-input-group" style="margin-bottom:14px">
+      <label class="salary-input-label">Periode vist under (samme filter som Turnus-siden)</label>
+      <div class="filter-group" style="margin-top:4px">
+        <span class="filter-label">År:</span>
+        <div class="filter-scroll">
+          <button class="month-btn tf-year-btn active" onclick="filterYear('all', this)">Alle</button>
+          <button class="month-btn tf-year-btn" onclick="filterYear(2026, this)">2026</button>
+          <button class="month-btn tf-year-btn" onclick="filterYear(2027, this)">2027</button>
+          <button class="month-btn tf-year-btn" onclick="filterYear(2028, this)">2028</button>
+          <button class="month-btn tf-year-btn" onclick="filterYear(2029, this)">2029</button>
+        </div>
+      </div>
+      <div class="filter-group" style="margin-top:6px">
+        <span class="filter-label">Måned:</span>
+        <div class="filter-scroll">
+          <button class="month-btn tf-month-btn active" onclick="filterMonth('all', this)">Alle</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(1, this)">Jan</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(2, this)">Feb</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(3, this)">Mar</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(4, this)">Apr</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(5, this)">Mai</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(6, this)">Jun</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(7, this)">Jul</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(8, this)">Aug</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(9, this)">Sep</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(10, this)">Okt</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(11, this)">Nov</button>
+          <button class="month-btn tf-month-btn" onclick="filterMonth(12, this)">Des</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="salary-grid">
+      <div class="salary-input-group">
+        <label class="salary-input-label">Grunnlønn (årslønn, brutto, før tillegg)</label>
+        <input type="number" class="salary-input" id="manualAnnual" value="528300" onchange="calcPayslip()" oninput="calcPayslip()" step="100">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label">Skattetrekk %</label>
+        <input type="number" class="salary-input" id="taxPct" value="25" min="0" max="70" step="0.5" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+    </div>
+
+    <div class="payslip-divider" style="margin-top:14px">Tillegg (kr/time) <span class="payslip-tag">justerbare</span></div>
+    <div class="salary-grid">
+      <div class="salary-input-group">
+        <label class="salary-input-label">Aftentillegg</label>
+        <input type="number" class="salary-input" id="eveningTillegg" value="58" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label">Helgetillegg (lør/søn)</label>
+        <input type="number" class="salary-input" id="weekendTillegg" value="65" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label">Helligdagstillegg</label>
+        <input type="number" class="salary-input" id="holidayTillegg" value="115" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label">Langvakttillegg</label>
+        <input type="number" class="salary-input" id="longTillegg" value="30" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+    </div>
+
+    <!-- TIMEBASERT LØNN + LØNNSKJØRING -->
+    <div class="payslip-section">
+      <div class="payslip-divider">Timebasert lønn & lønnskjøring <span class="payslip-tag">Utbetaling 20. hver måned</span></div>
+      <div class="payslip-grid" id="payslipCards"></div>
+      <div class="salary-breakdown" id="salaryBreakdown"></div>
+      <table class="payslip-month-table" id="payslipTable"></table>
+      <div class="payslip-note" id="payslipNote"></div>
+    </div>
+  </div>
+</div>
+</div><!-- /page-lonn -->
+
+<!-- ÅRSOVERSIKT PAGE -->
+<div class="page" id="page-arsoversikt">
+<div class="page-topbar">
+  <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
+  <div class="page-topbar-title"><span class="page-icon-badge pi-purple"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></svg></span>Årsoversikt</div>
+</div>
+<div class="salary-panel" style="margin-top:8px">
+  <div class="salary-body open" id="overviewBody">
+    <div class="salary-disclaimer">
+      Viser hele turnusperioden (2026–2029), uavhengig av år/måned-filteret på Turnus-siden. Antall timer beregnes live fra de faktiske vaktene.
+    </div>
+    <div class="stats-row" id="yearCards" style="padding:0 0 16px"></div>
+    <div class="chart-head">
+      <span class="chart-title">Timer per måned</span>
+      <button class="chart-table-toggle" id="chartTableToggle" onclick="toggleChartTable()">Vis som tabell</button>
+    </div>
+    <div class="chart-scroll" id="chartScroll"></div>
+    <div class="chart-table-wrap" id="chartTableWrap" style="display:none"></div>
+  </div>
+</div>
+</div><!-- /page-arsoversikt -->
+
+<!-- ARBEIDSTIDSSJEKK PAGE -->
+<div class="page" id="page-arbeidstid">
+<div class="page-topbar">
+  <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
+  <div class="page-topbar-title"><span class="page-icon-badge pi-teal"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg></span>Arbeidstidssjekk (hviletid)</div>
+</div>
+<div class="salary-panel" style="margin-top:8px">
+  <div class="salary-body open" id="restBody">
+    <div class="salary-disclaimer">
+      ⚠ Enkel teknisk sjekk av hviletiden mellom vakter, jf. arbeidsmiljøloven §10-8 (normalt minst 11 sammenhengende timer). Dette er <strong>ikke</strong> en juridisk vurdering — mange turnusavtaler i helse/omsorg har lokal avtale om unntak, ofte ned til 8 timer. Sjekker hele turnusperioden 2026–2029, uavhengig av filteret på Turnus-siden.
+    </div>
+    <div class="salary-grid" style="margin-bottom:14px">
+      <div class="salary-input-group">
+        <label class="salary-input-label">Minste hviletid mellom vakter (timer)</label>
+        <input type="number" class="salary-input" id="minRestHours" value="11" min="0" max="24" step="0.5" onchange="calcRestCheck()" oninput="calcRestCheck()">
+      </div>
+    </div>
+    <div id="restSummary"></div>
+    <div id="restList"></div>
+  </div>
+</div>
+</div><!-- /page-arbeidstid -->
+
+<!-- ØKONOMI PAGE -->
+<div class="page" id="page-okonomi">
+<div class="page-topbar">
+  <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
+  <div class="page-topbar-title"><span class="page-icon-badge pi-amber"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M19 7H8a5 5 0 0 0 0 10h9"/><circle cx="17" cy="12" r="1.4" fill="currentColor" stroke="none"/><path d="M19 7V5.5a1.5 1.5 0 0 0-1.5-1.5H6"/></svg></span>Økonomi</div>
+</div>
+<div class="salary-panel" style="margin-top:8px">
+  <div class="salary-body open" id="okonomiBody">
+
+    <!-- ====== HUB: mini-forside for Økonomi, samme mønster som appens egen Forside ====== -->
+    <div class="ok-section active" id="okSection-hub">
+      <div class="salary-disclaimer">
+        💡 Dette er en <strong>personlig budsjettveiledning</strong>, ikke rådgivning fra en autorisert økonomisk rådgiver. Anbefalt forbruk for mat, klær, personlig pleie, fritid og husholdning er hentet fra <strong>SIFOs referansebudsjett</strong> (OsloMet/Forbrukerrådets offisielle referansetall for vanlige forbruksutgifter, 2025-tall oppjustert til ca. 2026-nivå). Bolig, faste utgifter, gjeld og sparing varierer for mye til å bli anslått av oss — de legger du inn selv under.
+      </div>
+
+      <div class="okonomi-box">
+        <div class="salary-input-group" style="margin-bottom:2px">
+          <label class="salary-input-label">Periode <span class="payslip-tag ok-period-label"></span></label>
+          <div class="filter-group" style="margin-top:4px">
+            <span class="filter-label">År:</span>
+            <div class="filter-scroll">
+              <button class="month-btn ok-year-btn active" onclick="okFilterYear('all', this)">Alle</button>
+              <button class="month-btn ok-year-btn" onclick="okFilterYear(2026, this)">2026</button>
+              <button class="month-btn ok-year-btn" onclick="okFilterYear(2027, this)">2027</button>
+              <button class="month-btn ok-year-btn" onclick="okFilterYear(2028, this)">2028</button>
+              <button class="month-btn ok-year-btn" onclick="okFilterYear(2029, this)">2029</button>
+            </div>
+          </div>
+          <div class="filter-group" style="margin-top:6px">
+            <span class="filter-label">Måned:</span>
+            <div class="filter-scroll">
+              <button class="month-btn ok-month-btn active" onclick="okFilterMonth('all', this)">Alle</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(1, this)">Jan</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(2, this)">Feb</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(3, this)">Mar</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(4, this)">Apr</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(5, this)">Mai</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(6, this)">Jun</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(7, this)">Jul</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(8, this)">Aug</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(9, this)">Sep</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(10, this)">Okt</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(11, this)">Nov</button>
+              <button class="month-btn ok-month-btn" onclick="okFilterMonth(12, this)">Des</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="okonomi-box">
+        <div class="okonomi-section-label" style="margin-top:0;padding-top:0;border-top:none">Status akkurat nå</div>
+        <div id="okHubSummary"></div>
+      </div>
+
+      <div class="ok-hub-grid">
+        <button class="home-card hc-green" onclick="showOkSection('inntekt')">
+          <span class="home-card-arrow">→</span>
+          <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
+          <div class="home-card-title">Inntekter</div>
+          <div class="home-card-sub">Lønn, barnetrygd og annen inntekt</div>
+        </button>
+        <button class="home-card hc-purple" onclick="showOkSection('budsjett')">
+          <span class="home-card-arrow">→</span>
+          <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10h8M8 14h5"/></svg></div>
+          <div class="home-card-title">Budsjett</div>
+          <div class="home-card-sub">Husstand, sparemål og anbefalt fordeling</div>
+        </button>
+        <button class="home-card hc-blue" onclick="showOkSection('gjeld')">
+          <span class="home-card-arrow">→</span>
+          <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/></svg></div>
+          <div class="home-card-title">Gjeld &amp; faste utgifter</div>
+          <div class="home-card-sub">Bolig, faste regninger og nedbetaling</div>
+        </button>
+        <button class="home-card hc-teal" onclick="showOkSection('fremdrift')">
+          <span class="home-card-arrow">→</span>
+          <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M4 17l5-5 4 4 7-8"/><path d="M15 8h5v5"/></svg></div>
+          <div class="home-card-title">Fremdrift</div>
+          <div class="home-card-sub">Faktisk forbruk mot planen, måned for måned</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ====== INNTEKTER ====== -->
+    <div class="ok-section" id="okSection-inntekt">
+      <button class="page-back-btn ok-sub-back" onclick="showOkSection('hub')">← Oversikt</button>
+      <div class="okonomi-box">
+        <div class="okonomi-section-label" style="margin-top:0;padding-top:0;border-top:none">Inntekt <span class="payslip-tag ok-period-label"></span></div>
+        <div class="okonomi-grid">
+          <div class="salary-input-group">
+            <label class="salary-input-label">Netto månedslønn</label>
+            <input type="number" class="salary-input" id="okNetto" value="0" step="100" disabled onchange="calcOkonomi()" oninput="calcOkonomi()">
+            <span id="okMonthsVisMerknad" style="font-size:10px;color:var(--text-muted)"></span>
+          </div>
+          <div class="salary-input-group">
+            <label class="salary-input-label" style="display:flex;align-items:center;gap:6px">
+              <input type="checkbox" id="okNettoAuto" checked onchange="toggleOkNettoAuto()" style="width:14px;height:14px">
+              Hent automatisk fra Lønn-siden
+            </label>
+          </div>
+          <div class="salary-input-group">
+            <label class="salary-input-label">Barnetrygd / faste stønader (kr/mnd, netto)</label>
+            <input type="number" class="salary-input" id="okBarnetrygd" value="4500" step="100" min="0" onchange="calcOkonomi()" oninput="calcOkonomi()">
+            <span style="font-size:10px;color:var(--text-muted)">Fast hver måned — juster ved satsendring fra NAV</span>
+          </div>
+        </div>
+        <div id="okExtraIncomeWrap" class="salary-input-group" style="margin-bottom:2px"></div>
+      </div>
+    </div>
+
+    <!-- ====== BUDSJETT (plan / hypotetisk) ====== -->
+    <div class="ok-section" id="okSection-budsjett">
+      <button class="page-back-btn ok-sub-back" onclick="showOkSection('hub')">← Oversikt</button>
+      <span class="ok-basis-badge plan">📋 Plan — hva om du følger anbefalingen fullt ut</span>
+
+      <div class="okonomi-box">
+        <div class="okonomi-section-label" style="margin-top:0;padding-top:0;border-top:none">Husstand</div>
+        <div class="okonomi-grid">
+          <div class="salary-input-group">
+            <label class="salary-input-label">Antall voksne i husstanden</label>
+            <input type="number" class="salary-input" id="okAdults" value="1" min="1" max="4" step="1" onchange="calcOkonomi()" oninput="calcOkonomi()">
+          </div>
+          <div class="salary-input-group">
+            <label class="salary-input-label" style="display:flex;align-items:center;gap:6px">
+              <input type="checkbox" id="okHasCar" onchange="calcOkonomi()" style="width:14px;height:14px">
+              Har bil i husstanden
+            </label>
+          </div>
+          <div class="salary-input-group" id="okCarTypeWrap" style="display:none">
+            <label class="salary-input-label">Biltype</label>
+            <select class="salary-input" id="okCarType" onchange="calcOkonomi()">
+              <option value="fossil">Bensin/diesel</option>
+              <option value="ev">Elbil</option>
+            </select>
+          </div>
+        </div>
+        <div id="childrenList"></div>
+        <button class="okonomi-add-btn" onclick="addChild()">+ Legg til barn</button>
+
+        <div class="okonomi-section-label">Sparing & prioritet</div>
+        <div class="okonomi-grid" style="margin-bottom:2px">
+          <div class="salary-input-group">
+            <label class="salary-input-label" style="display:flex;align-items:center;gap:6px">
+              <input type="checkbox" id="okHasGoal" onchange="calcOkonomi()" style="width:14px;height:14px">
+              Har et konkret sparemål
+            </label>
+          </div>
+          <div class="salary-input-group" id="okGoalAmountWrap" style="display:none">
+            <label class="salary-input-label">Sparemål (kr totalt)</label>
+            <input type="number" class="salary-input" id="okGoalAmount" value="50000" step="1000" onchange="calcOkonomi()" oninput="calcOkonomi()">
+          </div>
+          <div class="salary-input-group" id="okGoalMonthsWrap" style="display:none">
+            <label class="salary-input-label">Antall måneder til målet</label>
+            <input type="number" class="salary-input" id="okGoalMonths" value="12" min="1" step="1" onchange="calcOkonomi()" oninput="calcOkonomi()">
+          </div>
+          <div class="salary-input-group" id="okSaveGeneralWrap">
+            <label class="salary-input-label">Generell sparing (% av netto)</label>
+            <input type="number" class="salary-input" id="okSavePct" value="10" min="0" max="60" step="1" onchange="calcOkonomi()" oninput="calcOkonomi()">
+          </div>
+          <div class="salary-input-group">
+            <label class="salary-input-label">Prioritet på restbeløp</label>
+            <select class="salary-input" id="okPriority" onchange="calcOkonomi()">
+              <option value="balanced">Balansert (halvt spar / halvt fritt)</option>
+              <option value="save">Sparing først</option>
+              <option value="spend">Mer fleksibelt forbruk</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="okonomi-box">
+        <div class="payslip-divider" style="margin-top:0">Anbefalt fordeling <span class="payslip-tag ok-period-label"></span></div>
+        <div class="payslip-grid" id="okBudsjettCards"></div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar" id="budgetBar"></div>
+          <div class="budget-legend" id="budgetLegend"></div>
+        </div>
+        <div id="budgetStatus"></div>
+        <div id="budgetTips"></div>
+        <div class="payslip-note" style="margin-top:10px">
+          Forbrukskategoriene (mat, klær, personlig pleie, fritid/mediebruk, transport, husholdningsartikler) er beregnet fra <strong style="color:#7db5f5">SIFOs referansebudsjett for forbruksutgifter</strong> (OsloMet), basert på antall voksne/barn og alder du oppgir. Bilkostnader brukes i stedet for kollektivtransport dersom husstanden har bil. Bolig, andre faste utgifter og sparing er dine egne tall. Dette er en veiledende fordeling — ikke en fasit, og ikke det samme som hva som faktisk skjer (se «Fremdrift»).
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== GJELD & FASTE UTGIFTER ====== -->
+    <div class="ok-section" id="okSection-gjeld">
+      <button class="page-back-btn ok-sub-back" onclick="showOkSection('hub')">← Oversikt</button>
+      <div class="okonomi-box">
+        <div class="okonomi-section-label" style="margin-top:0;padding-top:0;border-top:none">Faste utgifter (ikke del av SIFO-tallene)</div>
+        <div class="okonomi-grid">
+          <div class="salary-input-group">
+            <label class="salary-input-label">Bolig / husleie (kr/mnd)</label>
+            <input type="number" class="salary-input" id="okBolig" value="9000" step="100" onchange="calcOkonomi()" oninput="calcOkonomi()">
+          </div>
+          <div class="salary-input-group">
+            <label class="salary-input-label">Andre faste utgifter (strøm, forsikring, telefon m.m.)</label>
+            <input type="number" class="salary-input" id="okFaste" value="2500" step="100" onchange="calcOkonomi()" oninput="calcOkonomi()">
+          </div>
+        </div>
+
+        <div class="okonomi-section-label">Gjeld (studielån, forbrukslån, kredittkort m.m.)</div>
+        <div id="debtsList"></div>
+        <button class="okonomi-add-btn" onclick="addDebt()">+ Legg til gjeld</button>
+      </div>
+    </div>
+
+    <!-- ====== FREMDRIFT (virkelighet / faktiske tall) ====== -->
+    <div class="ok-section" id="okSection-fremdrift">
+      <button class="page-back-btn ok-sub-back" onclick="showOkSection('hub')">← Oversikt</button>
+      <span class="ok-basis-badge real">✓ Virkelig — det som faktisk skjer</span>
+
+      <div class="okonomi-box">
+        <div class="payslip-divider" style="margin-top:0">Faktisk forbruk <span class="payslip-tag ok-period-label"></span></div>
+        <div class="payslip-grid" id="okFremdriftCards"></div>
+        <div class="salary-disclaimer" id="okActualsDisclaimer">
+          Fyll inn hva som <strong>faktisk</strong> ble brukt/spart i perioden du har valgt (blank felt = «gikk som planlagt»). Tallene lagres per enkelt kalendermåned og huskes til neste gang. Velger du en bredere periode (et helt år, eller «alle»), summeres de virkelige månedene automatisk sammen — for å legge inn eller endre tall, gå til Oversikt og velg én enkelt måned.
+        </div>
+        <table class="payslip-month-table" id="actualVsPlanTable"></table>
+        <div id="goalAchievedBadge" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div><!-- /page-okonomi -->
 
 </div><!-- /.app -->
 
@@ -820,14 +1293,42 @@ const allWeeks = [
 let currentFilter = 'all';
 let currentYear = 'all';
 let editMode = false;
+let okChildren = []; // { bracket: '2-5' }
+let okDebts = []; // { type:'kredittkort', monthly:0 }
+let okYear = 'all';   // Økonomi-sidens EGEN år-filter — uavhengig av Turnus/Lønn-sidens filter
+let okMonth = 'all';  // Økonomi-sidens EGEN måned-filter
+// Faktisk forbruk og annen inntekt (Horten-vakter m.m.) lagres ALLTID per REELL kalendermåned
+// (nøkkel "YYYY-MM", samme format som monthKey()/sliceSalaryByMonths()) — ALDRI per valgt
+// filter-periode. Slik kan en bredere visning (helt år, eller "alle") summere opp de virkelige
+// månedsverdiene i stedet for å ha en løsrevet, egen "år"-verdi som ikke henger sammen med
+// enkeltmånedene. Se sliceSalaryByMonths() for samme mønster på lønnssiden.
+let okActualsByPeriod = {};    // { "2026-07": { bolig:.., gjeld:.., mat:.., ... }, ... } — faktisk forbruk pr. reell måned
+let okExtraIncomeByPeriod = {}; // { "2026-08": 3000, ... } — annen inntekt (f.eks. ekstravakter Horten), netto, pr. reell måned
+// Hvilken underside av Økonomi-hub'en som vises nå (hub/inntekt/budsjett/gjeld/fremdrift) — IKKE
+// lagret mellom besøk, i likhet med appens egen Forside: man lander alltid på hub-oversikten når
+// man går inn på Økonomi-siden på nytt.
+let okSection = 'hub';
 
 // Editable copy of all weeks
 let weeks = JSON.parse(JSON.stringify(allWeeks));
 let savedWeeks = JSON.parse(JSON.stringify(allWeeks));
 
+// --- Enkel localStorage-lagring (husker sist valgte filter/innstillinger til neste besøk) ---
+function lsGet(key, fallback) {
+  try { const v = localStorage.getItem(key); return v===null ? fallback : JSON.parse(v); } catch(e) { return fallback; }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) { /* privat modus e.l. — ikke kritisk */ }
+}
+const MONTH_BTN_LABELS = ['Alle','Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
+
 function parseDate(s) { const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
 function addDays(d,n) { const r=new Date(d); r.setDate(r.getDate()+n); return r; }
 function toIso(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+// Zero-padded "YYYY-MM" month key so lexicographic .sort() gives correct chronological order
+// (an un-padded "2026-9" would otherwise sort AFTER "2026-10", scrambling month tables).
+function monthKey(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; }
+function monthKeyParts(key) { const [y,m] = key.split('-').map(Number); return { year:y, month:m }; }
 function fmt(d) { return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}`; }
 function isHoliday(d) { return !!NO_HOLIDAYS[toIso(d)]; }
 function getHolidayName(d) { return NO_HOLIDAYS[toIso(d)] || ''; }
@@ -1061,25 +1562,40 @@ function selectShift(weekIdx, dayIdx, val) {
   renderStats(getFiltered());
   renderTodayBar();
   if (document.getElementById('salaryBody').classList.contains('open')) calcPayslip();
+  if (document.getElementById('overviewBody').classList.contains('open')) renderYearOverview();
+  if (document.getElementById('restBody').classList.contains('open')) calcRestCheck();
 }
 
+function saveTurnusFilter() { lsSet('turnusFilter', { year: currentYear, month: currentFilter }); }
+function loadTurnusFilter() {
+  const f = lsGet('turnusFilter', null);
+  if (!f) return;
+  currentYear = f.year;
+  currentFilter = f.month;
+  document.querySelectorAll('.tf-year-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent==='Alle' ? currentYear==='all' : Number(b.textContent)===currentYear);
+  });
+  document.querySelectorAll('.tf-month-btn').forEach(b => {
+    const idx = MONTH_BTN_LABELS.indexOf(b.textContent);
+    const val = idx===0 ? 'all' : idx;
+    b.classList.toggle('active', val===currentFilter);
+  });
+}
+
+// Turnus- og Lønn-siden viser samme filter (to sett med identiske knapper, ett per side) — når man
+// klikker en knapp ett sted, syncer vi 'active' på ALLE knapper med samme tekst (begge sider), ikke
+// bare den som ble klikket, så de to sidene aldri kommer ut av sync med hverandre.
 function filterYear(y, btn) {
   currentYear = y;
-  document.querySelectorAll('.month-btn').forEach(b => {
-    if (['Alle','2026','2027','2028','2029'].includes(b.textContent)) b.classList.remove('active');
-  });
-  btn.classList.add('active');
+  document.querySelectorAll('.tf-year-btn').forEach(b => b.classList.toggle('active', b.textContent === btn.textContent));
+  saveTurnusFilter();
   renderAll();
 }
 
 function filterMonth(m, btn) {
   currentFilter = m;
-  // Only deactivate month buttons
-  document.querySelectorAll('.month-btn').forEach(b => {
-    const months = ['Alle','Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
-    if (months.includes(b.textContent)) b.classList.remove('active');
-  });
-  btn.classList.add('active');
+  document.querySelectorAll('.tf-month-btn').forEach(b => b.classList.toggle('active', b.textContent === btn.textContent));
+  saveTurnusFilter();
   renderAll();
 }
 
@@ -1100,18 +1616,25 @@ function getFiltered() {
 function renderStats(filtered) {
   let totalTS=0, workDays=0, holidayWork=0, weekendWork=0;
   filtered.forEach(w=>{
-    totalTS+=w.ts;
+    // Compute TS live from actual shifts (not the stored w.ts) so edits are reflected
+    // immediately, even before "Lagre endringer" is clicked.
+    let wts=0; w.shifts.forEach(sh=>{ wts+=(SHIFT_HOURS[sh]||0); });
+    totalTS+=Math.round(wts*2)/2;
     const s=parseDate(w.start);
     w.shifts.forEach((sh,i)=>{
       const d=addDays(s,i);
       if(isWork(sh)){ workDays++; if(NO_HOLIDAYS[toIso(d)]) holidayWork++; if(i>=5) weekendWork++; }
     });
   });
+  const icoClock='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>';
+  const icoCheck='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+  const icoCal='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+  const icoStar='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.4 5.3L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-.7z"/></svg>';
   document.getElementById('statsRow').innerHTML=`
-    <div class="stat-card" style="border-left:3px solid var(--accent-blue)"><div class="stat-label">Timer totalt (TS)</div><div class="stat-value">${totalTS.toFixed(1)}</div><div class="stat-sub">${filtered.length} uker vist</div></div>
-    <div class="stat-card good" style="border-left:3px solid var(--accent-green)"><div class="stat-label">Arbeidsdager</div><div class="stat-value">${workDays}</div><div class="stat-sub">ekskl. fridager</div></div>
-    <div class="stat-card" style="border-left:3px solid var(--accent-purple)"><div class="stat-label">Helgejobbing</div><div class="stat-value">${weekendWork}</div><div class="stat-sub">lør/søn med vakt</div></div>
-    <div class="stat-card ${holidayWork>0?'warn':'good'}" style="border-left:3px solid ${holidayWork>0?'var(--accent-amber)':'var(--accent-green)'}"><div class="stat-label">Jobb på helligdag</div><div class="stat-value">${holidayWork}</div><div class="stat-sub">${holidayWork>0?'dager med vakt':'ingen planlagt'}</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--accent-blue)"><div class="stat-label"><span class="stat-ico" style="color:var(--accent-blue)">${icoClock}</span>Timer totalt (TS)</div><div class="stat-value">${totalTS.toFixed(1)}</div><div class="stat-sub">${filtered.length} uker vist</div></div>
+    <div class="stat-card good" style="border-left:3px solid var(--accent-green)"><div class="stat-label"><span class="stat-ico" style="color:var(--accent-green)">${icoCheck}</span>Arbeidsdager</div><div class="stat-value">${workDays}</div><div class="stat-sub">ekskl. fridager</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--accent-purple)"><div class="stat-label"><span class="stat-ico" style="color:var(--accent-purple)">${icoCal}</span>Helgejobbing</div><div class="stat-value">${weekendWork}</div><div class="stat-sub">lør/søn med vakt</div></div>
+    <div class="stat-card ${holidayWork>0?'warn':'good'}" style="border-left:3px solid ${holidayWork>0?'var(--accent-amber)':'var(--accent-green)'}"><div class="stat-label"><span class="stat-ico" style="color:${holidayWork>0?'var(--accent-amber)':'var(--accent-green)'}">${icoStar}</span>Jobb på helligdag</div><div class="stat-value">${holidayWork}</div><div class="stat-sub">${holidayWork>0?'dager med vakt':'ingen planlagt'}</div></div>
   `;
 }
 
@@ -1135,7 +1658,7 @@ function renderHolidayWarnings(filtered) {
 function renderTable(filtered) {
   const tbody=document.getElementById('tableBody');
   const noData=document.getElementById('noData');
-  if(!filtered.length){tbody.innerHTML='';noData.style.display='block';return;}
+  if(!filtered.length){tbody.innerHTML='';noData.style.display='flex';return;}
   noData.style.display='none';
 
   const weekIdxMap={};
@@ -1289,7 +1812,7 @@ function renderTodayBar() {
     nextHtml=`<div class="today-next">
       <span class="today-next-label">${isNextToday?'Neste vakt (i dag)':'Neste vakt'}</span>
       <span class="today-next-val"><span class="shift-chip ${chipClass(next.shift)}">${next.shift}</span> ${days[next.dayIdx]} ${nextLabel}${t?' · '+t[0]+'–'+t[1]:''}</span>
-      <button class="today-ics-btn" onclick="downloadSingleICS(${wIdx}, ${next.dayIdx})">📅 Legg til i kalender</button>
+      <button class="today-ics-btn" onclick="downloadSingleICS(${wIdx}, ${next.dayIdx})"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:3px"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M12 14v4M10 16h4"/></svg>Legg til i kalender</button>
     </div>`;
   }
 
@@ -1323,9 +1846,11 @@ function numVal(id, fallback) {
   return isNaN(v) ? fallback : v;
 }
 
-function calcPayslip() {
-  const annualEl = document.getElementById('manualAnnual');
-  if (!annualEl) return;
+// Shared salary-computation core, used by both the Lønn-side (calcPayslip, driven by the
+// Turnus-toolbar year/month filter) and the Økonomi-side (calcOkonomi, driven by its OWN
+// independent year/month filter) — so the two pages never silently share/clobber each other's
+// filter state.
+function computeSalaryTotals(filteredWeeks) {
   const annual = numVal('manualAnnual', 528300);
   const taxPctVal = Math.min(70, Math.max(0, numVal('taxPct', 25)));
   const TAX = taxPctVal / 100;
@@ -1335,14 +1860,12 @@ function calcPayslip() {
   const holidayRate = numVal('holidayTillegg', 115);
   const longRate    = numVal('longTillegg', 30);
 
-  const filtered = getFiltered();
-  // Get unique year-month combos from filtered weeks
-  const TURNUS_MONTHS_FILTERED = [...new Set(
-    filtered.flatMap(w => {
+  const MONTHS = [...new Set(
+    filteredWeeks.flatMap(w => {
       const s = parseDate(w.start);
       return Array.from({length:7}, (_,i) => {
         const d = addDays(s,i);
-        return `${d.getFullYear()}-${d.getMonth()+1}`;
+        return monthKey(d);
       });
     })
   )].sort();
@@ -1350,28 +1873,28 @@ function calcPayslip() {
   const ANNUAL_HOURS = 1850;
   const hourlyRate = annual / ANNUAL_HOURS;
 
-  // Count base hours + tillegg per year-month, and totals per tillegg-type (for breakdown), from filtered weeks only
   const hoursPerMonth = {};
   const tilleggPerMonth = {};
-  TURNUS_MONTHS_FILTERED.forEach(m => { hoursPerMonth[m]=0; tilleggPerMonth[m]=0; });
+  const eveningHoursPerMonth = {}, weekendHoursPerMonth = {}, holidayHoursPerMonth = {}, longHoursPerMonth = {};
+  MONTHS.forEach(m => { hoursPerMonth[m]=0; tilleggPerMonth[m]=0; eveningHoursPerMonth[m]=0; weekendHoursPerMonth[m]=0; holidayHoursPerMonth[m]=0; longHoursPerMonth[m]=0; });
 
   let eveningHours=0, weekendHours=0, holidayHours=0, longHours=0;
 
-  filtered.forEach(w => {
+  filteredWeeks.forEach(w => {
     const s = parseDate(w.start);
     w.shifts.forEach((sh, i) => {
       if (!isWork(sh)) return;
       const d = addDays(s, i);
-      const key = `${d.getFullYear()}-${d.getMonth()+1}`;
+      const key = monthKey(d);
       if (!(key in hoursPerMonth)) return;
       const h = SHIFT_HOURS[sh] || 0;
       hoursPerMonth[key] += h;
 
       let extra = 0;
-      if (IS_EVENING[sh]) { extra += h*eveningRate; eveningHours += h; }
-      if (i>=5)           { extra += h*weekendRate; weekendHours += h; }
-      if (NO_HOLIDAYS[toIso(d)]) { extra += h*holidayRate; holidayHours += h; }
-      if (IS_LONG[sh])    { extra += h*longRate; longHours += h; }
+      if (IS_EVENING[sh]) { extra += h*eveningRate; eveningHours += h; eveningHoursPerMonth[key] += h; }
+      if (i>=5)           { extra += h*weekendRate; weekendHours += h; weekendHoursPerMonth[key] += h; }
+      if (NO_HOLIDAYS[toIso(d)]) { extra += h*holidayRate; holidayHours += h; holidayHoursPerMonth[key] += h; }
+      if (IS_LONG[sh])    { extra += h*longRate; longHours += h; longHoursPerMonth[key] += h; }
       tilleggPerMonth[key] += extra;
     });
   });
@@ -1380,14 +1903,64 @@ function calcPayslip() {
   const totalTillegg = Object.values(tilleggPerMonth).reduce((a,b) => a+b, 0);
 
   const bruttoPerMonth = {};
-  TURNUS_MONTHS_FILTERED.forEach(m => {
+  MONTHS.forEach(m => {
     bruttoPerMonth[m] = hoursPerMonth[m] * hourlyRate + tilleggPerMonth[m];
   });
 
   const totalBrutto = Object.values(bruttoPerMonth).reduce((a,b) => a+b, 0);
   const totalSkatt  = totalBrutto * TAX;
   const totalNetto  = totalBrutto - totalSkatt;
-  const snittNetto  = TURNUS_MONTHS_FILTERED.length > 0 ? totalNetto / TURNUS_MONTHS_FILTERED.length : 0;
+  const snittNetto  = MONTHS.length > 0 ? totalNetto / MONTHS.length : 0;
+
+  return { MONTHS, hoursPerMonth, tilleggPerMonth, bruttoPerMonth, totalHours, totalTillegg,
+    totalBrutto, totalSkatt, totalNetto, snittNetto, taxPctVal, hourlyRate, annual, ANNUAL_HOURS,
+    eveningHours, weekendHours, holidayHours, longHours, eveningRate, weekendRate, holidayRate, longRate,
+    eveningHoursPerMonth, weekendHoursPerMonth, holidayHoursPerMonth, longHoursPerMonth };
+}
+
+// Picks out ONLY the month-keys that genuinely match a year/month selection from an already-computed
+// salary result (see computeSalaryTotals). This is deliberately NOT the same as re-filtering weeks and
+// re-running computeSalaryTotals: a turnus week spanning e.g. 27. juli–2. aug touches TWO month-keys,
+// but only 1-2 days actually belong to August. If we averaged over "months touched" instead of picking
+// exact keys, a single boundary day would drag a whole month into the average and badly skew "snitt/mnd"
+// for a specific month (this was the July-2026-shows-5997kr bug — and the same flaw also showed up as a
+// phantom "August: 0.0t" row + a diluted "snitt" on the Lønn-siden itself). Always call
+// computeSalaryTotals(weeks) (the FULL, unfiltered set) first, so every month's bucket is complete
+// and correct, then slice out exactly the requested months from that.
+function sliceSalaryByMonths(R, yearSel, monthSel) {
+  const keys = R.MONTHS.filter(key => {
+    const { year, month } = monthKeyParts(key);
+    return (yearSel === 'all' || year === yearSel) && (monthSel === 'all' || month === monthSel);
+  });
+  let brutto=0, hours=0, tillegg=0, eveningHours=0, weekendHours=0, holidayHours=0, longHours=0;
+  keys.forEach(k => {
+    brutto += (R.bruttoPerMonth[k]||0);
+    hours += (R.hoursPerMonth[k]||0);
+    tillegg += (R.tilleggPerMonth[k]||0);
+    eveningHours += (R.eveningHoursPerMonth[k]||0);
+    weekendHours += (R.weekendHoursPerMonth[k]||0);
+    holidayHours += (R.holidayHoursPerMonth[k]||0);
+    longHours += (R.longHoursPerMonth[k]||0);
+  });
+  const skatt = brutto * (R.taxPctVal/100);
+  const netto = brutto - skatt;
+  const snittNetto = keys.length ? netto/keys.length : 0;
+  return { keys, brutto, skatt, netto, snittNetto, hours, tillegg, eveningHours, weekendHours, holidayHours, longHours };
+}
+
+function calcPayslip() {
+  const annualEl = document.getElementById('manualAnnual');
+  if (!annualEl) return;
+  // Compute from the FULL turnus (all weeks), then slice out exactly the selected year/month —
+  // never re-filter weeks first. A week spanning e.g. 27. juli-2. aug would otherwise pull a
+  // near-empty "August" into the picture and dilute the "snitt/mnd" figure (see sliceSalaryByMonths).
+  const Rfull = computeSalaryTotals(weeks);
+  const S = sliceSalaryByMonths(Rfull, currentYear, currentFilter);
+  const { taxPctVal, hourlyRate, annual, ANNUAL_HOURS, eveningRate, weekendRate, holidayRate, longRate } = Rfull;
+  const totalHours = S.hours, totalTillegg = S.tillegg, totalBrutto = S.brutto, totalSkatt = S.skatt,
+    totalNetto = S.netto, snittNetto = S.snittNetto,
+    eveningHours = S.eveningHours, weekendHours = S.weekendHours, holidayHours = S.holidayHours, longHours = S.longHours;
+  const TURNUS_MONTHS_FILTERED = S.keys;
 
   // Summary cards
   document.getElementById('payslipCards').innerHTML = `
@@ -1423,12 +1996,13 @@ function calcPayslip() {
     <div class="salary-breakdown-row"><span>Brutto totalt (${TURNUS_MONTHS_FILTERED.length} mnd vist)</span><span class="salary-breakdown-val">${fmtKr(Math.round(totalBrutto))}</span></div>
   `;
 
-  // Månedstabell — brutto basert på faktiske timer + tillegg
+  // Månedstabell — brutto basert på faktiske timer + tillegg, ett rad PER faktisk måned i utvalget
+  // (ikke per uke som tilfeldigvis overlapper utvalget — se sliceSalaryByMonths).
   const rows = TURNUS_MONTHS_FILTERED.map(key => {
-    const [yr, mn] = key.split('-').map(Number);
-    const h      = hoursPerMonth[key] || 0;
-    const brutto = bruttoPerMonth[key] || 0;
-    const skatt  = brutto * TAX;
+    const { year: yr, month: mn } = monthKeyParts(key);
+    const h      = Rfull.hoursPerMonth[key] || 0;
+    const brutto = Rfull.bruttoPerMonth[key] || 0;
+    const skatt  = brutto * (taxPctVal/100);
     const netto  = brutto - skatt;
     const payDate = `20.${String(mn).padStart(2,'0')}.${yr}`;
     const mLabel = MONTH_NAMES[mn-1] + (currentYear === 'all' ? ` ${yr}` : '');
@@ -1469,12 +2043,767 @@ function toggleVakt() {
   document.getElementById('vaktBody').classList.toggle('open');
   document.getElementById('vaktToggle').classList.toggle('open');
 }
-function toggleSalary() {
-  const body=document.getElementById('salaryBody');
-  const tog=document.getElementById('salaryToggle');
-  const isOpen=body.classList.toggle('open');
-  tog.classList.toggle('open',isOpen);
-  if(isOpen) { calcPayslip(); }
+
+// --- ÅRSOVERSIKT / GRAF ---
+const ALL_YEARS = [2026, 2027, 2028, 2029];
+
+function getAllMonthsHours() {
+  // Flatten the whole (unfiltered) turnus into hours-per-year-month, chronologically.
+  const hours = {}; // key "YYYY-M" -> hours
+  weeks.forEach(w=>{
+    const s=parseDate(w.start);
+    w.shifts.forEach((sh,i)=>{
+      const d=addDays(s,i);
+      const key=monthKey(d);
+      hours[key]=(hours[key]||0)+(SHIFT_HOURS[sh]||0);
+    });
+  });
+  return hours;
+}
+
+function toggleChartTable() {
+  const wrap=document.getElementById('chartTableWrap');
+  const scroll=document.getElementById('chartScroll');
+  const btn=document.getElementById('chartTableToggle');
+  const showTable = wrap.style.display==='none';
+  wrap.style.display = showTable ? 'block' : 'none';
+  scroll.style.display = showTable ? 'none' : 'block';
+  btn.textContent = showTable ? 'Vis som graf' : 'Vis som tabell';
+}
+
+function renderYearOverview() {
+  const hoursByMonth = getAllMonthsHours();
+
+  // Year summary cards
+  const icoYear='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>';
+  document.getElementById('yearCards').innerHTML = ALL_YEARS.map(y=>{
+    let total=0;
+    for(let m=1;m<=12;m++) total += (hoursByMonth[`${y}-${String(m).padStart(2,'0')}`]||0);
+    return `<div class="stat-card" style="border-left:3px solid var(--accent-blue)">
+      <div class="stat-label"><span class="stat-ico" style="color:var(--accent-blue)">${icoYear}</span>${y}</div>
+      <div class="stat-value">${total.toFixed(1)}</div>
+      <div class="stat-sub">timer totalt</div>
+    </div>`;
+  }).join('');
+
+  // Ordered list of Jul-2026..Dec-2029 months that actually have turnus data
+  const months = [];
+  ALL_YEARS.forEach(y=>{
+    for(let m=1;m<=12;m++){
+      const key=`${y}-${String(m).padStart(2,'0')}`;
+      if (key in hoursByMonth) months.push({y, m, hours: hoursByMonth[key]});
+    }
+  });
+
+  // --- SVG bar chart ---
+  const barW = 16, gap = 4, chartH = 160, padTop = 18, padBottom = 28, padLeft = 34, padRight = 10;
+  const maxVal = Math.max(1, ...months.map(x=>x.hours));
+  // round up to a clean gridline step
+  const step = maxVal <= 50 ? 10 : maxVal <= 100 ? 25 : 50;
+  const niceMax = Math.ceil(maxVal/step)*step;
+  const innerW = months.length*(barW+gap);
+  const svgW = innerW + padLeft + padRight;
+  const svgH = chartH + padTop + padBottom;
+  const yScale = v => padTop + (chartH - (v/niceMax)*chartH);
+
+  let gridSvg = '';
+  for(let v=0; v<=niceMax; v+=step){
+    const y = yScale(v);
+    gridSvg += `<line class="chart-gridline" x1="${padLeft}" y1="${y}" x2="${svgW-padRight}" y2="${y}"/>`;
+    gridSvg += `<text class="chart-axis-label" x="${padLeft-6}" y="${y+3}" text-anchor="end">${v}</text>`;
+  }
+
+  const maxIdx = months.reduce((best,x,i)=> x.hours>months[best].hours ? i : best, 0);
+  let barsSvg = '';
+  months.forEach((mo,i)=>{
+    const x = padLeft + i*(barW+gap);
+    const y0 = yScale(0);
+    const y1 = yScale(mo.hours);
+    const h = Math.max(0, y0 - y1);
+    const isJan = mo.m===1;
+    barsSvg += `<rect class="chart-bar" x="${x}" y="${y1}" width="${barW}" height="${h}" rx="4"
+      data-idx="${i}" tabindex="0" role="img" aria-label="${MONTH_NAMES[mo.m-1]} ${mo.y}: ${mo.hours.toFixed(1)} timer"/>`;
+    if (isJan) {
+      barsSvg += `<text class="chart-axis-label" x="${x+barW/2}" y="${svgH-padBottom+14}" text-anchor="middle">${mo.y}</text>`;
+    }
+    if (i===maxIdx) {
+      barsSvg += `<text class="chart-value-label" x="${x+barW/2}" y="${y1-6}" text-anchor="middle">${mo.hours.toFixed(0)}t</text>`;
+    }
+  });
+
+  const svg = `<svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}">${gridSvg}${barsSvg}</svg>`;
+  document.getElementById('chartScroll').innerHTML = svg;
+
+  // hover / focus tooltip
+  let tooltip = document.getElementById('chartTooltip');
+  if (!tooltip) {
+    tooltip = document.createElement('div');
+    tooltip.id = 'chartTooltip';
+    document.body.appendChild(tooltip);
+  }
+  document.querySelectorAll('.chart-bar').forEach(bar=>{
+    const idx = parseInt(bar.getAttribute('data-idx'));
+    const mo = months[idx];
+    const show = (clientX, clientY) => {
+      bar.classList.add('hovered');
+      tooltip.innerHTML = `${MONTH_NAMES[mo.m-1]} ${mo.y} <span class="tt-val">${mo.hours.toFixed(1)}t</span>`;
+      tooltip.style.left = (clientX+12)+'px';
+      tooltip.style.top = (clientY-32)+'px';
+      tooltip.classList.add('show');
+    };
+    bar.addEventListener('pointermove', e => show(e.clientX, e.clientY));
+    bar.addEventListener('pointerenter', e => show(e.clientX, e.clientY));
+    bar.addEventListener('pointerleave', () => { bar.classList.remove('hovered'); tooltip.classList.remove('show'); });
+    bar.addEventListener('focus', () => {
+      const r = bar.getBoundingClientRect();
+      show(r.left, r.top);
+    });
+    bar.addEventListener('blur', () => { bar.classList.remove('hovered'); tooltip.classList.remove('show'); });
+  });
+
+  // table fallback (accessibility)
+  document.getElementById('chartTableWrap').innerHTML = `
+    <table>
+      <thead><tr><th>Måned</th><th style="text-align:right">Timer</th></tr></thead>
+      <tbody>${months.map(mo=>`<tr><td>${MONTH_NAMES[mo.m-1]} ${mo.y}</td><td class="chart-table-val">${mo.hours.toFixed(1)}t</td></tr>`).join('')}</tbody>
+    </table>`;
+}
+
+// --- ARBEIDSTIDSSJEKK (hviletid mellom vakter) ---
+function calcRestCheck() {
+  const minRest = Math.max(0, Math.min(24, numVal('minRestHours', 11)));
+
+  const entries = [];
+  weeks.forEach(w=>{
+    const s=parseDate(w.start);
+    w.shifts.forEach((sh,i)=>{
+      if(!isWork(sh)) return;
+      const t=SHIFT_TIMES[sh];
+      if(!t) return; // F1 or unmapped code — no clock times, skip
+      const d=addDays(s,i);
+      const [h1,m1]=t[0].split(':').map(Number);
+      const [h2,m2]=t[1].split(':').map(Number);
+      const start=new Date(d); start.setHours(h1,m1,0,0);
+      const end=new Date(d); end.setHours(h2,m2,0,0);
+      entries.push({date:d, shift:sh, start, end});
+    });
+  });
+  entries.sort((a,b)=>a.start-b.start);
+
+  const violations=[];
+  let longestStreak = entries.length ? 1 : 0, curStreak=1;
+  for(let i=1;i<entries.length;i++){
+    const prev=entries[i-1], cur=entries[i];
+    const restHours=(cur.start-prev.end)/3600000;
+    if(restHours < minRest){
+      violations.push({prev,cur,restHours});
+    }
+    const dayDiff=Math.round((cur.date-prev.date)/86400000);
+    if(dayDiff===1){ curStreak++; longestStreak=Math.max(longestStreak,curStreak); }
+    else { curStreak=1; }
+  }
+
+  const summary=document.getElementById('restSummary');
+  const list=document.getElementById('restList');
+  if(!violations.length){
+    summary.innerHTML=`<div class="rest-ok">✓ Ingen brudd på ${minRest}t hviletid funnet i hele turnusperioden (2026–2029). Lengste sammenhengende vaktstrekk: ${longestStreak} dag${longestStreak!==1?'er':''}.</div>`;
+    list.innerHTML='';
+  } else {
+    summary.innerHTML=`<div class="rest-warn-summary">⚠ ${violations.length} tilfelle${violations.length>1?'r':''} med hviletid under ${minRest}t funnet i turnusperioden. Lengste sammenhengende vaktstrekk: ${longestStreak} dag${longestStreak!==1?'er':''}.</div>`;
+    list.innerHTML=violations.map(v=>{
+      const pt=SHIFT_TIMES[v.prev.shift], ct=SHIFT_TIMES[v.cur.shift];
+      return `<div class="rest-violation-row">
+        <span>${WEEKDAY_NAMES[v.prev.date.getDay()]} ${fmt(v.prev.date)} (${v.prev.shift} ${pt[0]}–${pt[1]}) → ${WEEKDAY_NAMES[v.cur.date.getDay()]} ${fmt(v.cur.date)}.${v.cur.date.getFullYear()} (${v.cur.shift} ${ct[0]}–${ct[1]})</span>
+        <span class="rest-violation-hours">${v.restHours.toFixed(1)}t hvile</span>
+      </div>`;
+    }).join('');
+  }
+}
+
+// --- ØKONOMI (personlig budsjettveiledning basert på SIFOs referansebudsjett) ---
+// Kilde: SIFOs referansebudsjett for forbruksutgifter (OsloMet), 2025-tabellen (siste offentliggjorte
+// detaljerte kategoritall), oppjustert ~2% for å reflektere 2026-nivå (OsloMets 2026-oppdatering viste
+// +1,6–2,9% på totalbudsjettene for husholdninger med barn). Tallene dekker KUN vanlige forbruksutgifter —
+// bolig, strøm, forsikring og sparing inngår ikke i SIFO-budsjettet og legges inn manuelt av bruker.
+const SIFO_INFLATION = 1.02;
+const CHILD_BRACKETS = [
+  { key:'0-1',   label:'0–1 år' },
+  { key:'2-5',   label:'2–5 år' },
+  { key:'6-9',   label:'6–9 år' },
+  { key:'10-13', label:'10–13 år' },
+  { key:'14-17', label:'14–17 år' },
+];
+// Per-person kategorier (kr/mnd), 2025-tall, blendet der SIFO oppgir kjønnsdelte satser
+const SIFO_CHILD = {
+  '0-1':   { mat:1470, klar:920, pleie:560, fritid:270, transport:0 },
+  '2-5':   { mat:2210, klar:880, pleie:295, fritid:790, transport:0 },
+  '6-9':   { mat:2840, klar:990, pleie:260, fritid:1230, transport:327 },
+  '10-13': { mat:3485, klar:850, pleie:435, fritid:1540, transport:327 },
+  '14-17': { mat:4190, klar:1000, pleie:550, fritid:1650, transport:327 },
+};
+const SIFO_ADULT = { mat:4410, klar:1085, pleie:895, fritid:1060, transport:985 };
+// Husholdningsspesifikke kategorier etter husstandsstørrelse (1..7 personer, brukes indeks min(n-1,6))
+const SIFO_HOUSEHOLD = {
+  dagligvarer:      [435,500,660,790,900,1020,1100],
+  husholdningsart:  [585,635,720,915,990,1070,1140],
+  mobler:           [565,625,760,980,1145,1375,1565],
+  mediebruk:        [2520,2560,2700,2790,2820,2850,2850],
+};
+const SIFO_BIL = { fossil:[3300,3300,3300,3300,4990,4990,4990], ev:[2195,2195,2195,2195,3015,3015,3015] };
+
+function addChild() {
+  okChildren.push({ bracket:'2-5' });
+  renderChildrenList();
+  calcOkonomi();
+}
+function removeOkChild(idx) {
+  okChildren.splice(idx,1);
+  renderChildrenList();
+  calcOkonomi();
+}
+function setChildBracket(idx, val) {
+  okChildren[idx].bracket = val;
+  calcOkonomi();
+}
+function renderChildrenList() {
+  const wrap = document.getElementById('childrenList');
+  if (!wrap) return;
+  if (!okChildren.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = '<label class="salary-input-label" style="margin:8px 0 4px;display:block">Barn i husstanden</label>' + okChildren.map((c,i)=>`
+    <div class="child-row">
+      <span style="font-size:11px;color:var(--text-muted);min-width:44px">Barn ${i+1}</span>
+      <select class="salary-input" onchange="setChildBracket(${i}, this.value)">
+        ${CHILD_BRACKETS.map(b=>`<option value="${b.key}" ${b.key===c.bracket?'selected':''}>${b.label}</option>`).join('')}
+      </select>
+      <button class="child-row-remove" onclick="removeOkChild(${i})" title="Fjern barn">✕</button>
+    </div>`).join('');
+}
+
+function toggleOkNettoAuto() {
+  const auto = document.getElementById('okNettoAuto').checked;
+  document.getElementById('okNetto').disabled = auto;
+  calcOkonomi();
+}
+
+// --- "Husstand, gjeld, faste utgifter & sparing" er samlet i én kollapsbar boks for å korte
+// ned siden — disse fylles typisk ut én gang og trengs sjelden å endres. Husket til neste besøk. ---
+// --- Økonomi: hub + underdsider (Inntekter / Budsjett / Gjeld & faste utgifter / Fremdrift) ---
+// Samme mønster som appens egen Forside/showPage(), bare ett nivå dypere og uten egen hash-rute.
+function showOkSection(id) {
+  okSection = id;
+  document.querySelectorAll('#page-okonomi .ok-section').forEach(el => {
+    el.classList.toggle('active', el.id === 'okSection-' + id);
+  });
+  document.getElementById('okonomiBody').scrollTo && document.getElementById('okonomiBody').scrollTo(0,0);
+  window.scrollTo(0,0);
+}
+
+// --- Økonomi: egen år/måned-filter (uavhengig av Turnus/Lønn-sidens filter) ---
+function getOkFilteredWeeks() {
+  let result = weeks;
+  if (okYear !== 'all') result = result.filter(w => w.year === okYear);
+  if (okMonth !== 'all') result = result.filter(w => getWeekMonths(w).has(okMonth));
+  return result;
+}
+function okFilterYear(y, btn) {
+  okYear = y;
+  document.querySelectorAll('.ok-year-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  calcOkonomi();
+}
+function okFilterMonth(m, btn) {
+  okMonth = m;
+  document.querySelectorAll('.ok-month-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  calcOkonomi();
+}
+
+// --- Gjeld (studielån, forbrukslån, kredittkort m.m.) ---
+const DEBT_TYPES = [
+  { key:'studielaan',  label:'Studielån (Lånekassen)' },
+  { key:'boliglaan',   label:'Boliglån (utover husleie over)' },
+  { key:'forbrukslaan',label:'Forbrukslån' },
+  { key:'kredittkort', label:'Kredittkort' },
+  { key:'annet',       label:'Annen gjeld' },
+];
+const HIGH_INTEREST_DEBT = ['forbrukslaan','kredittkort'];
+function addDebt() {
+  okDebts.push({ type:'kredittkort', monthly:0 });
+  renderDebtsList();
+  calcOkonomi();
+}
+function removeOkDebt(idx) {
+  okDebts.splice(idx,1);
+  renderDebtsList();
+  calcOkonomi();
+}
+function setDebtType(idx, val) { okDebts[idx].type = val; calcOkonomi(); }
+function setDebtMonthly(idx, val) { okDebts[idx].monthly = parseFloat(val)||0; calcOkonomi(); }
+function renderDebtsList() {
+  const wrap = document.getElementById('debtsList');
+  if (!wrap) return;
+  if (!okDebts.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = okDebts.map((d,i)=>`
+    <div class="child-row">
+      <select class="salary-input" style="max-width:190px" onchange="setDebtType(${i}, this.value)">
+        ${DEBT_TYPES.map(t=>`<option value="${t.key}" ${t.key===d.type?'selected':''}>${t.label}</option>`).join('')}
+      </select>
+      <input type="number" class="salary-input" placeholder="kr/mnd i avdrag" value="${d.monthly||''}" step="100" oninput="setDebtMonthly(${i}, this.value)">
+      <button class="child-row-remove" onclick="removeOkDebt(${i})" title="Fjern gjeld">✕</button>
+    </div>`).join('');
+}
+
+// --- Faktisk forbruk og annen inntekt — lagret PER REELL KALENDERMÅNED ("YYYY-MM"), se globals øverst ---
+function getOkActualsForMonth(mk) { return okActualsByPeriod[mk] || {}; }
+function setActual(mk, key, val) {
+  if (!okActualsByPeriod[mk]) okActualsByPeriod[mk] = {};
+  const v = val === '' ? null : parseFloat(val);
+  if (v === null || isNaN(v)) delete okActualsByPeriod[mk][key];
+  else okActualsByPeriod[mk][key] = v;
+  calcOkonomi();
+}
+function setExtraIncome(mk, val) {
+  const v = val === '' ? null : parseFloat(val);
+  if (v === null || isNaN(v) || v === 0) delete okExtraIncomeByPeriod[mk];
+  else okExtraIncomeByPeriod[mk] = v;
+  calcOkonomi();
+}
+
+// --- Lagre/gjenopprett hele Økonomi-siden (filter, husstand, gjeld, faste utgifter, sparing, faktisk forbruk) ---
+function saveOkState() {
+  lsSet('okState', {
+    year: okYear, month: okMonth, children: okChildren, debts: okDebts, actualsByPeriod: okActualsByPeriod,
+    extraIncomeByPeriod: okExtraIncomeByPeriod,
+    adults: numVal('okAdults',1), hasCar: document.getElementById('okHasCar').checked, carType: document.getElementById('okCarType').value,
+    bolig: numVal('okBolig',0), faste: numVal('okFaste',0), barnetrygd: numVal('okBarnetrygd',4500),
+    hasGoal: document.getElementById('okHasGoal').checked, goalAmount: numVal('okGoalAmount',0), goalMonths: numVal('okGoalMonths',1),
+    savePct: numVal('okSavePct',10), priority: document.getElementById('okPriority').value,
+    nettoAuto: document.getElementById('okNettoAuto').checked, nettoManual: numVal('okNetto',0),
+  });
+}
+// Gamle lagrede "faktisk forbruk"-nøkler (fra før annen-inntekt-funksjonen) var nøkkel-format
+// "<okYear>-<okMonth>" (f.eks. "2026-7" eller "2026-all") — IKKE reell kalendermåned. Disse kan vi
+// trygt migrere når det faktisk var én bestemt måned valgt (padder til "YYYY-MM"); nøkler som
+// dekket en bred periode ("...-all") kan ikke tilordnes én reell måned og forkastes stille.
+function migrateOkActuals(raw) {
+  if (!raw || typeof raw !== 'object') return {};
+  const out = {};
+  Object.keys(raw).forEach(k => {
+    if (/^\d{4}-\d{1,2}$/.test(k)) {
+      const [y,m] = k.split('-');
+      out[`${y}-${String(m).padStart(2,'0')}`] = raw[k];
+    } else if (/^\d{4}-\d{2}$/.test(k)) {
+      out[k] = raw[k]; // allerede riktig format
+    }
+    // "...-all" og lignende brede nøkler droppes — kan ikke tilordnes én reell måned
+  });
+  return out;
+}
+function loadOkState() {
+  const s = lsGet('okState', null);
+  if (!s) return;
+  okYear = s.year ?? 'all';
+  okMonth = s.month ?? 'all';
+  okChildren = Array.isArray(s.children) ? s.children : [];
+  okDebts = Array.isArray(s.debts) ? s.debts : [];
+  okActualsByPeriod = migrateOkActuals(s.actualsByPeriod);
+  okExtraIncomeByPeriod = (s.extraIncomeByPeriod && typeof s.extraIncomeByPeriod==='object') ? s.extraIncomeByPeriod : {};
+  document.getElementById('okAdults').value = s.adults ?? 1;
+  document.getElementById('okHasCar').checked = !!s.hasCar;
+  document.getElementById('okCarType').value = s.carType || 'fossil';
+  document.getElementById('okBolig').value = s.bolig ?? 9000;
+  document.getElementById('okFaste').value = s.faste ?? 2500;
+  document.getElementById('okBarnetrygd').value = s.barnetrygd ?? 4500;
+  document.getElementById('okHasGoal').checked = !!s.hasGoal;
+  document.getElementById('okGoalAmount').value = s.goalAmount ?? 50000;
+  document.getElementById('okGoalMonths').value = s.goalMonths ?? 12;
+  document.getElementById('okSavePct').value = s.savePct ?? 10;
+  document.getElementById('okPriority').value = s.priority || 'balanced';
+  document.getElementById('okNettoAuto').checked = s.nettoAuto !== false;
+  document.getElementById('okNetto').value = s.nettoManual ?? 0;
+  document.getElementById('okNetto').disabled = document.getElementById('okNettoAuto').checked;
+  document.querySelectorAll('.ok-year-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent==='Alle' ? okYear==='all' : Number(b.textContent)===okYear);
+  });
+  document.querySelectorAll('.ok-month-btn').forEach(b => {
+    const idx = MONTH_BTN_LABELS.indexOf(b.textContent);
+    const val = idx===0 ? 'all' : idx;
+    b.classList.toggle('active', val===okMonth);
+  });
+}
+
+function calcOkonomi() {
+  const wrap = document.getElementById('okonomiBody');
+  if (!wrap) return;
+
+  // Dynamisk genererte input-felt (annen inntekt, faktisk forbruk) blir ØDELAGT og gjenskapt hver
+  // gang denne funksjonen kjører (den regner ut hele siden på nytt for hvert tastetrykk) — det tar
+  // fokus fra feltet du står i og du mister markøren, så det ser ut som du bare får skrevet ett
+  // tegn av gangen. Fiks: husk hvilket data-ok-key-merket felt (om noen) som hadde fokus og hvor i
+  // teksten markøren stod, og sett fokus/markør tilbake på det nye elementet etter re-rendring.
+  const activeEl = document.activeElement;
+  const activeOkKey = (activeEl && activeEl.tagName === 'INPUT' && activeEl.dataset && activeEl.dataset.okKey) ? activeEl.dataset.okKey : null;
+  const activeSelStart = activeOkKey && typeof activeEl.selectionStart === 'number' ? activeEl.selectionStart : null;
+
+  const carChecked = document.getElementById('okHasCar').checked;
+  document.getElementById('okCarTypeWrap').style.display = carChecked ? '' : 'none';
+  const goalChecked = document.getElementById('okHasGoal').checked;
+  document.getElementById('okGoalAmountWrap').style.display = goalChecked ? '' : 'none';
+  document.getElementById('okGoalMonthsWrap').style.display = goalChecked ? '' : 'none';
+  document.getElementById('okSaveGeneralWrap').style.display = goalChecked ? 'none' : '';
+
+  // Alltid regn ut fra HELE turnusen (alle uker), og skjær ut nøyaktig de reelle kalendermånedene
+  // som matcher okYear/okMonth-valget — se sliceSalaryByMonths for hvorfor. okSlice.keys er fasiten
+  // på hvilke REELLE måneder ("YYYY-MM") som er i visningen nå, uansett om lønnen hentes automatisk
+  // eller legges inn manuelt — dette er nøkkelen til at "annen inntekt" og "faktisk forbruk" kan
+  // summeres/vises riktig når en bredere periode (år, eller "alle") er valgt.
+  const R = computeSalaryTotals(weeks);
+  const okSlice = sliceSalaryByMonths(R, okYear, okMonth);
+  const periodMonths = Math.max(1, okSlice.keys.length);
+  const singleMonth = okSlice.keys.length === 1 ? okSlice.keys[0] : null;
+
+  let periodLabel = 'hele perioden 2026–2029';
+  if (singleMonth) {
+    const { year, month } = monthKeyParts(singleMonth);
+    periodLabel = `${MONTH_NAMES[month-1]} ${year}`;
+  } else if (okYear !== 'all' && okMonth === 'all') {
+    periodLabel = `hele ${okYear}`;
+  } else if (okYear === 'all' && okMonth !== 'all') {
+    periodLabel = `${MONTH_NAMES[okMonth-1]} (alle år)`;
+  }
+  document.querySelectorAll('#page-okonomi .ok-period-label').forEach(el => el.textContent = periodLabel);
+
+  const autoNetto = document.getElementById('okNettoAuto').checked;
+  let nettoLonn;
+  if (autoNetto) {
+    nettoLonn = okSlice.snittNetto;
+    const okNettoEl = document.getElementById('okNetto');
+    if (okNettoEl) okNettoEl.value = Math.round(nettoLonn);
+    const monthsLabel = document.getElementById('okMonthsVisMerknad');
+    if (monthsLabel) {
+      if (!okSlice.keys.length) {
+        monthsLabel.textContent = 'ingen turnusdata i valgt periode';
+      } else if (singleMonth) {
+        monthsLabel.textContent = `${periodLabel} · ${fmtKr(Math.round(okSlice.netto))} netto lønn denne måneden`;
+      } else {
+        monthsLabel.textContent = `snitt av ${okSlice.keys.length} mnd i valgt periode`;
+      }
+    }
+  } else {
+    nettoLonn = numVal('okNetto', 0);
+  }
+
+  const barnetrygd = Math.max(0, numVal('okBarnetrygd', 0)); // fast, kr/mnd — teller med i "netto til fordeling"
+
+  // --- Annen inntekt denne perioden (f.eks. ekstravakter i Horten), netto — lagres PER REELL MÅNED.
+  // Redigerbar kun når AKKURAT én reell kalendermåned er i visningen; ellers vises summen av det som
+  // allerede er registrert for de reelle månedene i visningen, skrivebeskyttet. ---
+  const extraIncomeWrapEl = document.getElementById('okExtraIncomeWrap');
+  let extraIncomePeriodTotal = 0;
+  if (singleMonth) {
+    const val = okExtraIncomeByPeriod[singleMonth] || 0;
+    extraIncomePeriodTotal = val;
+    if (extraIncomeWrapEl) {
+      extraIncomeWrapEl.innerHTML = `
+        <label class="salary-input-label">Annen inntekt denne måneden, netto (f.eks. ekstravakter Horten)</label>
+        <input type="text" inputmode="decimal" class="salary-input" data-ok-key="extra-income" value="${val || ''}" placeholder="0" oninput="setExtraIncome('${singleMonth}', this.value)" onchange="setExtraIncome('${singleMonth}', this.value)">
+        <span style="font-size:10px;color:var(--text-muted)">Telles kun med for denne ene måneden</span>`;
+    }
+  } else {
+    extraIncomePeriodTotal = okSlice.keys.reduce((s,mk) => s + (okExtraIncomeByPeriod[mk]||0), 0);
+    if (extraIncomeWrapEl) {
+      extraIncomeWrapEl.innerHTML = okSlice.keys.length
+        ? `<label class="salary-input-label">Annen inntekt i perioden (summert fra enkeltmåneder)</label>
+           <div class="salary-input" style="background:transparent;border-style:dashed;display:flex;align-items:center;color:var(--text-muted)">${fmtKr(Math.round(extraIncomePeriodTotal))}</div>
+           <span style="font-size:10px;color:var(--text-muted)">Velg én enkelt måned over for å legge inn eller endre</span>`
+        : '';
+    }
+  }
+
+  // Netto til fordeling = lønn (fast/automatisk) + barnetrygd (fast) + annen inntekt denne perioden
+  // (snitt pr. mnd, siden "netto" ellers brukes som en månedlig størrelse overalt i beregningen under).
+  // Slik blir toppens anbefaling og bunnens "faktisk"-simulering ALLTID basert på samme tall — ingen
+  // fare for at et varselsbeløp øverst ikke stemmer med et positivt resultat nederst.
+  const extraIncomeMonthlyAvg = extraIncomePeriodTotal / periodMonths;
+  const netto = nettoLonn + barnetrygd + extraIncomeMonthlyAvg;
+
+  const adults = Math.max(1, Math.round(numVal('okAdults', 1)));
+  const householdSize = Math.min(7, adults + okChildren.length);
+  const hIdx = householdSize - 1;
+
+  // Sum forbrukskategorier
+  let mat=0, klar=0, pleie=0, fritidPers=0, transport=0;
+  for (let i=0;i<adults;i++) { mat+=SIFO_ADULT.mat; klar+=SIFO_ADULT.klar; pleie+=SIFO_ADULT.pleie; fritidPers+=SIFO_ADULT.fritid; transport+=SIFO_ADULT.transport; }
+  okChildren.forEach(c=>{
+    const d=SIFO_CHILD[c.bracket];
+    mat+=d.mat; klar+=d.klar; pleie+=d.pleie; fritidPers+=d.fritid; transport+=d.transport;
+  });
+
+  let bilkostnad = 0;
+  if (carChecked) {
+    const carType = document.getElementById('okCarType').value;
+    bilkostnad = SIFO_BIL[carType][hIdx];
+    transport = 0; // bil erstatter kollektivtransport-postene
+  }
+
+  const dagligvarer = SIFO_HOUSEHOLD.dagligvarer[hIdx];
+  const husholdningsart = SIFO_HOUSEHOLD.husholdningsart[hIdx];
+  const mobler = SIFO_HOUSEHOLD.mobler[hIdx];
+  const mediebruk = SIFO_HOUSEHOLD.mediebruk[hIdx];
+
+  const matTotal = Math.round(mat*SIFO_INFLATION);
+  const klarPleieTotal = Math.round((klar+pleie)*SIFO_INFLATION);
+  const fritidTotal = Math.round((fritidPers+mediebruk)*SIFO_INFLATION);
+  const transportTotal = Math.round((transport+bilkostnad)*SIFO_INFLATION);
+  const husholdningTotal = Math.round((dagligvarer+husholdningsart+mobler)*SIFO_INFLATION);
+  const sifoTotal = matTotal + klarPleieTotal + fritidTotal + transportTotal + husholdningTotal;
+
+  const bolig = Math.max(0, numVal('okBolig', 0));
+  const fasteUtg = Math.max(0, numVal('okFaste', 0));
+  const fasteTotal = bolig + fasteUtg;
+  const gjeldTotal = okDebts.reduce((a,d)=>a+Math.max(0,d.monthly||0), 0);
+
+  let sparing = 0;
+  if (goalChecked) {
+    const goalAmount = Math.max(0, numVal('okGoalAmount', 0));
+    const goalMonths = Math.max(1, numVal('okGoalMonths', 1));
+    sparing = goalAmount / goalMonths;
+  } else {
+    const pct = Math.min(60, Math.max(0, numVal('okSavePct', 10)));
+    sparing = netto * (pct/100);
+  }
+
+  const usedSoFar = sifoTotal + fasteTotal + gjeldTotal + sparing;
+  let buffer = netto - usedSoFar;
+  const priority = document.getElementById('okPriority').value;
+  let extraSparing = 0;
+  if (buffer > 0) {
+    if (priority === 'save') extraSparing = buffer * 0.7;
+    else if (priority === 'spend') extraSparing = buffer * 0.1;
+    else extraSparing = buffer * 0.4;
+  }
+  const fleksibelt = Math.max(0, buffer - extraSparing);
+  const totalSparing = sparing + extraSparing;
+
+  // "Netto til fordeling" for HELE den valgte perioden — bygget av nøyaktig de samme komponentene
+  // (lønn + barnetrygd + annen inntekt) som "netto" (månedlig) over, bare skalert med periodMonths.
+  // Dette er det som garanterer at toppens anbefaling og bunnens faktisk-simulering ALDRI kan vise
+  // to forskjellige, motstridende tall for samme periode.
+  const periodNettoTotal = netto * periodMonths;
+
+  // Stacked bar + legend — periodetotal (ikke bare pr. mnd), så tallene stemmer med kortene og
+  // "Faktisk forbruk"-tabellen under, som alle viser beløp for HELE den valgte perioden.
+  const segs = [
+    { label:'Bolig & faste', val:fasteTotal*periodMonths, color:'#3987e5' },
+    { label:'Gjeld', val:gjeldTotal*periodMonths, color:'#d1477a' },
+    { label:'Mat', val:matTotal*periodMonths, color:'#eda100' },
+    { label:'Klær & pleie', val:klarPleieTotal*periodMonths, color:'#9085e9' },
+    { label:'Fritid & medier', val:fritidTotal*periodMonths, color:'#5DCAA5' },
+    { label:'Transport', val:transportTotal*periodMonths, color:'#e34948' },
+    { label:'Husholdning', val:husholdningTotal*periodMonths, color:'#c3c2b7' },
+    { label:'Sparing', val:totalSparing*periodMonths, color:'#199e70' },
+    { label:'Fritt/buffer', val:fleksibelt*periodMonths, color:'#555550' },
+  ].filter(s=>s.val>0.5);
+  const barTotal = Math.max(1, segs.reduce((a,s)=>a+s.val,0));
+  document.getElementById('budgetBar').innerHTML = segs.map(s=>{
+    const pct = (s.val/barTotal*100).toFixed(1);
+    return `<div class="budget-seg" style="width:${pct}%;background:${s.color}" title="${s.label}: ${fmtKr(Math.round(s.val))} (${pct}%)"></div>`;
+  }).join('');
+  document.getElementById('budgetLegend').innerHTML = segs.map(s=>
+    `<div class="budget-legend-item"><span class="budget-legend-dot" style="background:${s.color}"></span>${s.label} · ${fmtKr(Math.round(s.val))}</div>`
+  ).join('');
+
+  // Status message — samme periode som resten av boksen (kr for HELE perioden, ikke pr. mnd), og
+  // "netto inntekt" (ikke "netto lønn") siden den nå kan inkludere barnetrygd og annen inntekt.
+  const statusEl = document.getElementById('budgetStatus');
+  let statusClass = 'ok', statusHtml = '';
+  if (netto <= 0) {
+    statusClass = 'tight';
+    statusHtml = `⚠ Ingen netto inntekt å fordele ennå — velg en periode med data, eller fyll inn manuelt.`;
+  } else if (buffer < -1) {
+    statusClass = 'over';
+    statusHtml = `⚠ <strong>Hvis</strong> du følger denne anbefalte fordelingen fullt ut, vil utgiftene (${fmtKr(Math.round(usedSoFar*periodMonths))}) overstige netto inntekt med ${fmtKr(Math.round(-buffer*periodMonths))} for ${periodLabel} — planen går altså ikke opp som den står. Dette er en plan-beregning, ikke det som faktisk har skjedd; se «Fremdrift» for de virkelige tallene.`;
+  } else if (fleksibelt < netto*0.05) {
+    statusClass = 'tight';
+    statusHtml = `Følger du anbefalt fordeling fullt ut, blir det stramt for ${periodLabel} — kun ${fmtKr(Math.round(fleksibelt*periodMonths))} igjen til fritt forbruk (aktiviteter, gaver, uforutsette utgifter) etter faste utgifter, gjeld, SIFO-forbruk og sparing.`;
+  } else {
+    statusHtml = `✓ Følger du denne anbefalte fordelingen fullt ut, går planen opp for ${periodLabel}, med ${fmtKr(Math.round(fleksibelt*periodMonths))} til fritt forbruk (aktiviteter, gaver, uforutsett) i tillegg til sparingen over.`;
+  }
+  statusEl.innerHTML = `<div class="budget-status ${statusClass}">${statusHtml}</div>`;
+
+  // Konkrete tips — kun når det er noe å faktisk gjøre noe med
+  const tipsEl = document.getElementById('budgetTips');
+  if (tipsEl) {
+    const tips = buildTips({ netto, buffer, fleksibelt, bolig, fasteUtg, gjeldTotal, carChecked, usedSoFar });
+    tipsEl.innerHTML = tips.length ? `<div class="okonomi-section-label" style="margin-top:14px">Konkrete tips ut fra tallene dine</div><ul class="budget-tips-list">${tips.map(t=>`<li>${t}</li>`).join('')}</ul>` : '';
+  }
+
+  // --- Faktisk forbruk & måloppnåelse — for AKKURAT den valgte perioden (kan være 1 måned, ett år,
+  // eller hele 2026-2029). "Andel" viser hvor stor del av MÅNEDLIG netto inntekt kategorien normalt
+  // utgjør, uavhengig av hvor mange måneder som er valgt. ---
+  const ACTUAL_CATS = [
+    { key:'bolig',      label:'Bolig & faste',   planned: fasteTotal },
+    { key:'gjeld',      label:'Gjeld',           planned: gjeldTotal },
+    { key:'mat',        label:'Mat',             planned: matTotal },
+    { key:'klarpleie',  label:'Klær & pleie',    planned: klarPleieTotal },
+    { key:'fritid',     label:'Fritid & medier', planned: fritidTotal },
+    { key:'transport',  label:'Transport',       planned: transportTotal },
+    { key:'husholdning',label:'Husholdning',     planned: husholdningTotal },
+    { key:'sparing',    label:'Sparing',         planned: totalSparing },
+  ];
+  let faktiskBruktSum = 0, faktiskSparingVal = 0;
+  const actualRows = ACTUAL_CATS.map(c => {
+    const plannedPeriod = c.planned * periodMonths;
+    const andelPct = netto > 0 ? (c.planned/netto*100) : 0;
+    let actualPeriod, cellHtml;
+    if (singleMonth) {
+      // Én enkelt reell måned i visningen — direkte redigerbart, akkurat som før.
+      const raw = getOkActualsForMonth(singleMonth)[c.key];
+      actualPeriod = (raw===null || raw===undefined) ? plannedPeriod : raw;
+      cellHtml = `<input type="text" inputmode="decimal" class="salary-input actual-input" data-ok-key="actual-${c.key}" style="width:110px;text-align:right;display:inline-block;padding:5px 8px" placeholder="${Math.round(plannedPeriod)}" value="${raw===null||raw===undefined?'':raw}" oninput="setActual('${singleMonth}', '${c.key}', this.value)">`;
+    } else if (okSlice.keys.length) {
+      // Bredere periode (år / alle) — summer faktisk (eller planlagt der ingenting er registrert) for
+      // HVER reell måned i visningen. Skrivebeskyttet her; rediger ved å velge én enkelt måned.
+      actualPeriod = okSlice.keys.reduce((sum, mk) => {
+        const raw = getOkActualsForMonth(mk)[c.key];
+        return sum + ((raw===null || raw===undefined) ? c.planned : raw);
+      }, 0);
+      cellHtml = `<span style="color:var(--text-muted)">${fmtKr(Math.round(actualPeriod))}</span>`;
+    } else {
+      // Ingen reelle turnusmåneder i valgt periode — ingenting å summere, vis planlagt.
+      actualPeriod = plannedPeriod;
+      cellHtml = `<span style="color:var(--text-muted)">${fmtKr(Math.round(actualPeriod))}</span>`;
+    }
+    if (c.key === 'sparing') faktiskSparingVal += actualPeriod; else faktiskBruktSum += actualPeriod;
+    const diff = actualPeriod - plannedPeriod;
+    const goodDiff = c.key==='sparing' ? diff>=0 : diff<=0;
+    const diffColor = Math.abs(diff)<1 ? 'var(--text-muted)' : (goodDiff ? '#5dcaa5' : '#e86767');
+    // Andel og differanse vises som en liten undertekst UNDER hovedtallet i samme celle, i stedet
+    // som egne kolonner — med en 110px-bred input i "Faktisk"-cellen er det ikke plass til 4-5
+    // kolonner på en smal mobilskjerm uten at siste kolonne (differansen) blir klemt bort helt
+    // (bredde 0px, usynlig) av tabellens automatiske kolonne-layout. 3 kolonner er trygt uansett bredde.
+    return `<tr>
+      <td class="utbetalt">${c.label}</td>
+      <td style="text-align:right;color:var(--text-muted)">${fmtKr(Math.round(plannedPeriod))}<br><span style="font-size:10px;opacity:0.7">${andelPct.toFixed(1)}%</span></td>
+      <td style="text-align:right">${cellHtml}<br><span style="font-size:10px;color:${diffColor}">${diff>=0?'+':''}${fmtKr(Math.round(diff))}</span></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('actualVsPlanTable').innerHTML = `
+    <thead><tr><th>Kategori</th><th style="text-align:right">Anbefalt (${periodLabel})<br><span style="font-size:9px;text-transform:none;letter-spacing:normal;opacity:0.7">· andel av inntekt</span></th><th style="text-align:right">Faktisk${singleMonth?'':' (summert)'}<br><span style="font-size:9px;text-transform:none;letter-spacing:normal;opacity:0.7">· differanse</span></th></tr></thead>
+    <tbody>${actualRows}</tbody>
+  `;
+
+  const faktiskOverskudd = periodNettoTotal - faktiskBruktSum - faktiskSparingVal;
+  const plannedOverskudd = fleksibelt * periodMonths;
+
+  // Måloppnåelse: kun relevant når det finnes et konkret sparemål å måle opp mot
+  const goalBadgeEl = document.getElementById('goalAchievedBadge');
+  if (goalChecked) {
+    const targetForPeriod = sparing * periodMonths; // 'sparing' = månedlig takt for å nå sparemålet
+    const onTrack = faktiskSparingVal >= targetForPeriod - 1;
+    goalBadgeEl.innerHTML = onTrack
+      ? `<div class="budget-status ok">✓ Sparemål nås i dette tempoet for ${periodLabel} — ${fmtKr(Math.round(faktiskSparingVal))} spart av ${fmtKr(Math.round(targetForPeriod))} planlagt.</div>`
+      : `<div class="budget-status tight">Sparemålet nås ikke i dette tempoet ennå for ${periodLabel} — ${fmtKr(Math.round(targetForPeriod - faktiskSparingVal))} kr bak planen.</div>`;
+  } else {
+    goalBadgeEl.innerHTML = '';
+  }
+
+  // Kortene bygges HELT NEDERST i funksjonen fordi de deler grunnlag med "Faktisk forbruk"-tabellen
+  // (periodNettoTotal, plannedOverskudd, faktiskOverskudd) — slik kan et varsel i Budsjett-planen og
+  // et positivt resultat i Fremdrift ALDRI motsi hverandre matematisk for samme valgte periode, selv
+  // om de nå vises på to forskjellige undersider (planen er hypotetisk, fremdrift er faktisk).
+  const budsjettCardsEl = document.getElementById('okBudsjettCards');
+  if (budsjettCardsEl) budsjettCardsEl.innerHTML = `
+    <div class="payslip-card blue"><div class="payslip-card-label">Netto til fordeling</div><div class="payslip-card-value">${fmtKr(Math.round(periodNettoTotal))}</div><div class="payslip-card-sub">${periodLabel}${periodMonths>1?` · snitt ${fmtKr(Math.round(netto))}/mnd`:''}</div></div>
+    <div class="payslip-card"><div class="payslip-card-label">Bolig + faste utgifter${gjeldTotal>0?' + gjeld':''}</div><div class="payslip-card-value" style="color:#8dc0ff">${fmtKr(Math.round((fasteTotal+gjeldTotal)*periodMonths))}</div><div class="payslip-card-sub">${gjeldTotal>0?`inkl. ${fmtKr(Math.round(gjeldTotal*periodMonths))} i gjeldsavdrag`:'dine egne tall'}</div></div>
+    <div class="payslip-card"><div class="payslip-card-label">SIFO-basert forbruk</div><div class="payslip-card-value" style="color:#eda100">${fmtKr(Math.round(sifoTotal*periodMonths))}</div><div class="payslip-card-sub">mat, klær, pleie, fritid, transport, husholdning</div></div>
+    <div class="payslip-card green"><div class="payslip-card-label">Sparing (anbefalt)</div><div class="payslip-card-value">${fmtKr(Math.round(totalSparing*periodMonths))}</div><div class="payslip-card-sub">${goalChecked?'basert på sparemål':'basert på %'}${extraSparing>0?' + prioritert rest':''}</div></div>
+    <div class="payslip-card"><div class="payslip-card-label">Planlagt sitte igjen med</div><div class="payslip-card-value" style="color:#7db5f5">${fmtKr(Math.round(plannedOverskudd))}</div><div class="payslip-card-sub">om alt går som anbefalt</div></div>
+  `;
+  const fremdriftCardsEl = document.getElementById('okFremdriftCards');
+  if (fremdriftCardsEl) fremdriftCardsEl.innerHTML = `
+    <div class="payslip-card ${faktiskOverskudd>=0?'green':'red'}"><div class="payslip-card-label">Faktisk sitter du igjen med</div><div class="payslip-card-value">${fmtKr(Math.round(faktiskOverskudd))}</div><div class="payslip-card-sub">basert på faktisk-tallene under${extraIncomePeriodTotal>0?` · inkl. ${fmtKr(Math.round(extraIncomePeriodTotal))} annen inntekt`:''}</div></div>
+  `;
+
+  // --- Hub-oppsummering: sparemål-fremdrift (om satt) + periodens faktiske resultat, i ÉN boks —
+  // det Nathalie ser først, uten å måtte trykke seg inn noe sted (se AskUserQuestion-avklaring). ---
+  const hubSummaryEl = document.getElementById('okHubSummary');
+  if (hubSummaryEl) {
+    let hubHtml = '';
+    if (goalChecked) {
+      const targetForPeriod = sparing * periodMonths;
+      const pct = targetForPeriod > 0 ? Math.min(100, Math.max(0, (faktiskSparingVal/targetForPeriod)*100)) : 0;
+      const onTrack = faktiskSparingVal >= targetForPeriod - 1;
+      hubHtml += `
+        <div style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:600;margin-bottom:2px">
+            <span>Sparemål</span>
+            <span style="color:${onTrack?'#5dcaa5':'var(--text-muted)'}">${fmtKr(Math.round(faktiskSparingVal))} / ${fmtKr(Math.round(targetForPeriod))}</span>
+          </div>
+          <div class="ok-progress-bar-wrap"><div class="ok-progress-bar-fill" style="width:${pct.toFixed(0)}%;background:${onTrack?'#5dcaa5':'#eda100'}"></div></div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${onTrack?'✓ På sparemålet for':'Bak sparemålet for'} ${periodLabel}</div>
+        </div>`;
+    }
+    hubHtml += `
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+        <span style="font-size:12px;color:var(--text-muted)">Faktisk resultat · ${periodLabel}</span>
+        <span style="font-size:19px;font-weight:700;color:${faktiskOverskudd>=0?'#5dcaa5':'#e86767'}">${faktiskOverskudd>=0?'+':''}${fmtKr(Math.round(faktiskOverskudd))}</span>
+      </div>
+      <div style="font-size:10.5px;color:var(--text-muted);margin-top:2px">Basert på de faktiske tallene du har lagt inn under «Fremdrift» (planlagte tall brukes der du ikke har fylt inn noe selv).</div>
+    `;
+    hubSummaryEl.innerHTML = hubHtml;
+  }
+
+  // Sett fokus/markør tilbake på det feltet brukeren faktisk står i og skriver i (se kommentar helt
+  // øverst i funksjonen) — MÅ gjøres etter at alle innerHTML-tildelingene over er ferdig, siden de
+  // gjenskaper (og dermed fjerner fokus fra) ethvert data-ok-key-merket felt.
+  if (activeOkKey) {
+    const restoredEl = wrap.querySelector(`[data-ok-key="${activeOkKey}"]`);
+    if (restoredEl) {
+      restoredEl.focus();
+      const pos = activeSelStart != null ? Math.min(activeSelStart, restoredEl.value.length) : restoredEl.value.length;
+      try { restoredEl.setSelectionRange(pos, pos); } catch(e) { /* ikke alle input-typer støtter dette */ }
+    }
+  }
+
+  saveOkState();
+}
+
+// Konkrete, prioriterte tips basert på hva som faktisk driver budsjettet — ikke generiske "spar mer"-råd.
+function buildTips(ctx) {
+  const { netto, buffer, fleksibelt, bolig, gjeldTotal, carChecked, usedSoFar } = ctx;
+  if (netto <= 0) return [];
+  const tips = [];
+  const tight = buffer < -1 || fleksibelt < netto*0.05;
+
+  if (gjeldTotal > 0) {
+    const highInterestTypes = okDebts.filter(d => HIGH_INTEREST_DEBT.includes(d.type) && d.monthly>0)
+      .map(d => DEBT_TYPES.find(t=>t.key===d.type).label);
+    if (highInterestTypes.length) {
+      tips.push(`Du betaler ned ${[...new Set(highInterestTypes)].join(' og ')} — disse har typisk 15–25% rente, langt høyere enn f.eks. studielån. Prioriter å bli kvitt denne gjelden først (f.eks. skredmetoden: mest til høyest rente, minstebeløp på resten). <strong>Gjeldsregisteret.no</strong> gir gratis, samlet oversikt over all usikret gjeld, og NAVs gratis økonomiske rådgivning (<strong>nav.no/okonomi-gjeld</strong>) kan hjelpe med en konkret nedbetalingsplan.`);
+    } else if (okDebts.some(d=>d.type==='studielaan' && d.monthly>0)) {
+      tips.push(`Studielån hos Lånekassen har normalt vesentlig lavere rente enn annen gjeld — det er sjelden det viktigste å betale ned ekstra fort, med mindre du har god margin og ønsker det.`);
+    }
+  }
+
+  if (tight) {
+    const boligRatio = netto>0 ? bolig/netto : 0;
+    if (boligRatio > 0.35) {
+      tips.push(`Bolig alene utgjør ${Math.round(boligRatio*100)}% av nettolønnen (en vanlig tommelfingerregel er ca. 30–35%). Sjekk om <strong>bostøtte fra Husbanken</strong> (husbanken.no, søkes via kommunen) er aktuelt, om husleien kan reforhandles ved fornyelse, eller om det er reelt rimeligere alternativ i området.`);
+    }
+    if (carChecked) {
+      tips.push(`Bilkostnadene er regnet inn fordi husstanden har bil. I hjemmesykepleien med kveld-, helge- og LL/LA-vakter utenom kollektivtransportens rutetider er bil ofte en nødvendighet for å komme seg på jobb — dette er trolig <strong>ikke</strong> stedet å kutte først, selv om det er en stor post.`);
+    } else {
+      tips.push(`Vurder om «andre faste utgifter» (strøm, forsikring, mobil/internett-abonnement) kan bli billigere ved å sammenligne leverandører, f.eks. via <strong>Finansportalen.no</strong> — dette er ofte den enkleste posten å faktisk redusere uten å endre livsstil.`);
+    }
+  } else if (buffer > 0 && fleksibelt > netto*0.15) {
+    if (gjeldTotal > 0) {
+      tips.push(`Du har god margin denne perioden. Vurder å øke nedbetalingen på gjeld med høy rente (kredittkort/forbrukslån) utover minstebeløpet — det sparer mer i renter enn de fleste spareprodukter gir i avkastning.`);
+    } else {
+      tips.push(`Du har god margin denne perioden — fint tidspunkt for å øke sparemålet, eller sette av en buffer til uforutsette utgifter (f.eks. bilreparasjon) om den ikke finnes fra før.`);
+    }
+  }
+  return tips;
 }
 
 // --- INIT ---
@@ -1486,11 +2815,44 @@ function renderAll() {
   renderTable(f);
   renderMobileCards(f);
   if(document.getElementById('salaryBody').classList.contains('open')) { calcPayslip(); }
+  if(document.getElementById('overviewBody').classList.contains('open')) { renderYearOverview(); }
+  if(document.getElementById('restBody').classList.contains('open')) { calcRestCheck(); }
+  if(document.getElementById('okonomiBody') && document.getElementById('okonomiBody').classList.contains('open')) { calcOkonomi(); }
   maybeAutoScrollToday();
 }
 
+// --- PAGE ROUTING (Forside) ---
+const PAGES = ['home','turnus','lonn','arsoversikt','arbeidstid','okonomi'];
+function showPage(id, updateHash) {
+  if (updateHash === undefined) updateHash = true;
+  if (!PAGES.includes(id)) id = 'home';
+  PAGES.forEach(p => {
+    const el = document.getElementById('page-'+p);
+    if (el) el.classList.toggle('active', p===id);
+  });
+  window.scrollTo(0,0);
+  if (updateHash) {
+    if (id === 'home') history.pushState(null,'',location.pathname+location.search);
+    else location.hash = id;
+  }
+  if (id === 'turnus') { renderTodayBar(); renderStats(getFiltered()); renderTable(getFiltered()); renderMobileCards(getFiltered()); }
+  if (id === 'lonn') calcPayslip();
+  if (id === 'arsoversikt') renderYearOverview();
+  if (id === 'arbeidstid') calcRestCheck();
+  if (id === 'okonomi') { showOkSection('hub'); calcOkonomi(); }
+}
+window.addEventListener('hashchange', () => {
+  const id = location.hash.replace('#','') || 'home';
+  showPage(id, false);
+});
+
 buildPicker();
+loadTurnusFilter();
+loadOkState();
+renderChildrenList();
+renderDebtsList();
 renderAll();
+showPage(location.hash.replace('#','') || 'home', false);
 
 // ── PWA INSTALL PROMPT ──
 let deferredPrompt = null;
