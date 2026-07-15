@@ -125,6 +125,19 @@
   .ok-basis-badge.plan { background: rgba(144,133,233,0.16); color: var(--accent-purple); border: 0.5px solid rgba(144,133,233,0.4); }
   .ok-basis-badge.real { background: rgba(93,202,165,0.16); color: var(--accent-teal); border: 0.5px solid rgba(93,202,165,0.4); }
 
+  /* CLOUD SYNC STATUS BADGE — small "Live" indicator so it's visible at a glance (not just silent
+     background behavior) whether this device is actually connected to the shared cloud database. */
+  .sync-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 5px 10px 5px 8px; border-radius: 999px; margin-left: auto; white-space: nowrap; flex-shrink: 0; }
+  .sync-badge .sync-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .sync-badge.state-ok { background: rgba(93,202,165,0.16); color: var(--accent-teal); border: 0.5px solid rgba(93,202,165,0.4); }
+  .sync-badge.state-ok .sync-dot { background: var(--accent-teal); box-shadow: 0 0 0 3px rgba(93,202,165,0.25); animation: syncPulse 2s ease-in-out infinite; }
+  .sync-badge.state-checking { background: rgba(255,255,255,0.06); color: var(--text-muted); border: 0.5px solid var(--border-strong); }
+  .sync-badge.state-checking .sync-dot { background: var(--text-muted); animation: syncPulse 1s ease-in-out infinite; }
+  .sync-badge.state-off { background: rgba(237,161,0,0.14); color: var(--accent-amber); border: 0.5px solid rgba(237,161,0,0.35); }
+  .sync-badge.state-off .sync-dot { background: var(--accent-amber); }
+  @keyframes syncPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @media (max-width: 480px) { .sync-badge { font-size: 10px; padding: 4px 8px 4px 7px; } }
+
   /* HEADER */
   .header { padding: 24px 24px 18px; border-bottom: 0.5px solid var(--border-strong); position: relative; }
   .header::before {
@@ -562,6 +575,7 @@
 <div class="page-topbar">
   <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
   <div class="page-topbar-title"><span class="page-icon-badge pi-blue"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span>Turnus</div>
+  <span class="sync-badge state-checking" id="cloudSyncBadge" title="Viser om turnus-endringer synkes til skyen"><span class="sync-dot"></span><span id="cloudSyncBadgeText">Kobler til…</span></span>
 </div>
 
 <!-- TOOLBAR -->
@@ -1631,15 +1645,37 @@ const FIREBASE_CONFIG = {
 let fsDb = null;
 let fsApplyingRemote = false; // vern mot å skrive rett tilbake det vi nettopp mottok fra skyen
 
+// Liten "Live"-indikator (se .sync-badge i CSS) øverst på Turnus-siden, slik at det faktisk er synlig
+// om denne enheten er koblet til sky-synken eller ikke — i stedet for at det skjer usynlig i
+// bakgrunnen og man må gjette/teste manuelt på to telefoner for å vite om det virker.
+function setSyncBadge(state, text) {
+  try {
+    const badge = document.getElementById('cloudSyncBadge');
+    const label = document.getElementById('cloudSyncBadgeText');
+    if (!badge || !label) return;
+    badge.classList.remove('state-ok', 'state-checking', 'state-off');
+    badge.classList.add('state-' + state);
+    label.textContent = text;
+  } catch(e) {}
+}
+
 function initCloudSync() {
   try {
-    if (typeof firebase === 'undefined') return; // SDK-en lastet ikke — kjør videre helt lokalt
+    if (typeof firebase === 'undefined') { setSyncBadge('off', 'Kun lokalt'); return; } // SDK-en lastet ikke — kjør videre helt lokalt
     if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
     fsDb = firebase.firestore();
     try { fsDb.enablePersistence({ synchronizeTabs: true }).catch(() => {}); } catch(e) {}
 
     const docRef = fsDb.collection('turnus').doc('shared');
     docRef.onSnapshot(snap => {
+      // metadata.fromCache: true betyr at vi (foreløpig) bare ser lokalt bufrede data og IKKE har
+      // bekreftet kontakt med serveren ennå (f.eks. rett etter sideåpning, eller uten nett) — først
+      // når en oppdatering kommer med fromCache=false vet vi at enheten faktisk er "Live" mot skyen.
+      if (snap.metadata && snap.metadata.fromCache) {
+        setSyncBadge('checking', 'Kobler til…');
+      } else {
+        setSyncBadge('ok', 'Live');
+      }
       if (!snap.exists) {
         // Dokumentet finnes ikke ennå i skyen (aller første gang synk skrus på) — så fremt DENNE
         // enheten allerede har egne lagrede vaktendringer fra før, "sår" vi skyen med dem, slik at
@@ -1659,8 +1695,8 @@ function initCloudSync() {
       savedWeeks = JSON.parse(JSON.stringify(weeks));
       renderAll();
       fsApplyingRemote = false;
-    }, () => { /* offline e.l. — fortsetter helt fint med lokal data */ });
-  } catch(e) { /* Firebase virket ikke — appen kjører videre helt normalt lokalt */ }
+    }, () => { setSyncBadge('off', 'Kun lokalt (ingen nett)'); /* offline e.l. — fortsetter helt fint med lokal data */ });
+  } catch(e) { setSyncBadge('off', 'Kun lokalt'); /* Firebase virket ikke — appen kjører videre helt normalt lokalt */ }
 }
 
 function pushTurnusOverridesToCloud() {
