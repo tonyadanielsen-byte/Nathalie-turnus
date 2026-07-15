@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<!-- saved from url=(0064)file:///C:/Users/fstad/Downloads/arsturnus_nathalie_2026_11.html -->
-<html lang="no"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="no">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#111110">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nathalie Turnus">
 <meta name="description" content="Årsturnus 2026–2029 – Sandåker, Nathalie – Hjemmesykepleien Tønsberg">
-<link rel="manifest" href="file:///C:/Users/fstad/Downloads/manifest.json">
-<link rel="apple-touch-icon" href="file:///C:/Users/fstad/Downloads/icon-192.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Nathalie Turnus 2026–2029</title>
-<link href="./index_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Aptos:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -32,11 +32,23 @@
     --accent-teal: #5DCAA5;
     --font: 'Aptos', 'Segoe UI', system-ui, sans-serif;
   }
-  html, body { background: var(--bg); color: var(--text-primary); font-family: var(--font); font-size: 14px; min-height: 100vh; }
+  html, body {
+    background:
+      radial-gradient(circle at 12% 0%, rgba(57,135,229,0.07), transparent 42%),
+      radial-gradient(circle at 88% 12%, rgba(144,133,233,0.06), transparent 38%),
+      radial-gradient(circle at 55% 100%, rgba(93,202,165,0.05), transparent 48%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--text-primary); font-family: var(--font); font-size: 14px; min-height: 100vh;
+  }
   .app { max-width: 1140px; margin: 0 auto; padding: 0 0 48px; }
 
   /* HEADER */
-  .header { padding: 24px 24px 18px; border-bottom: 0.5px solid var(--border-strong); }
+  .header { padding: 24px 24px 18px; border-bottom: 0.5px solid var(--border-strong); position: relative; }
+  .header::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-teal), var(--accent-amber));
+  }
   .header-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 5px; }
   .header h1 { font-size: 22px; font-weight: 500; color: var(--text-primary); }
   .unit-badge { font-size: 11px; background: rgba(93,202,165,0.12); color: var(--accent-teal); border-radius: 4px; padding: 3px 10px; border: 0.5px solid var(--accent-teal); white-space: nowrap; }
@@ -44,8 +56,11 @@
 
   /* TOOLBAR */
   .toolbar { display: flex; gap: 8px; padding: 12px 24px; flex-wrap: wrap; align-items: center; border-bottom: 0.5px solid var(--border); background: var(--surface); justify-content: space-between; }
-  .toolbar-left { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .filter-label { font-size: 12px; color: var(--text-muted); margin-right: 4px; }
+  .toolbar-actions { display: flex; gap: 8px; align-items: center; }
+  .toolbar-left { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .filter-group { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .filter-scroll { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-label { font-size: 12px; color: var(--text-muted); margin-right: 4px; white-space: nowrap; }
   .month-btn { font-family: var(--font); font-size: 12px; font-weight: 400; background: var(--surface2); color: var(--text-secondary); border: 0.5px solid var(--border-strong); border-radius: 5px; padding: 6px 12px; cursor: pointer; transition: all 0.12s; }
   .month-btn:hover { background: var(--surface3); color: var(--text-primary); }
   .month-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
@@ -56,10 +71,49 @@
   .save-btn.show { display: flex; }
   .reset-btn { font-family: var(--font); font-size: 12px; color: var(--text-muted); background: none; border: 0.5px solid var(--border-strong); border-radius: 5px; padding: 6px 10px; cursor: pointer; display: none; }
   .reset-btn.show { display: block; }
+  .ics-btn { font-family: var(--font); font-size: 12px; font-weight: 500; background: var(--surface2); color: var(--accent-teal); border: 0.5px solid var(--accent-teal); border-radius: 5px; padding: 6px 14px; cursor: pointer; transition: all 0.12s; }
+  .ics-btn:hover { background: rgba(93,202,165,0.14); }
+
+  /* TOAST */
+  #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--surface3); color: var(--text-primary); border: 0.5px solid var(--border-strong); border-radius: 8px; padding: 10px 18px; font-size: 13px; box-shadow: 0 8px 24px rgba(0,0,0,0.45); z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; max-width: 88vw; text-align: center; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* TODAY BAR */
+  .today-bar { margin: 16px 24px 0; display: flex; gap: 12px; flex-wrap: wrap; }
+  .today-block, .today-next {
+    flex: 1; min-width: 230px;
+    background: linear-gradient(135deg, rgba(57,135,229,0.14), rgba(144,133,233,0.14) 50%, rgba(93,202,165,0.14));
+    border: 0.5px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+    animation: todayFadeIn 0.35s ease-out;
+  }
+  .today-block::before, .today-next::before {
+    content: ''; position: absolute; inset: 0 0 auto 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-teal));
+  }
+  .today-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .today-value { font-size: 20px; font-weight: 500; color: var(--text-primary); display: flex; align-items: baseline; gap: 8px; }
+  .today-value.today-off { font-size: 15px; color: var(--text-secondary); font-weight: 400; }
+  .today-sub { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+  .today-next-label { font-size: 11px; color: var(--accent-teal); text-transform: uppercase; letter-spacing: 0.05em; display:block; margin-bottom: 6px; }
+  .today-next-val { font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .today-ics-btn { margin-top: 8px; font-family: var(--font); font-size: 11px; font-weight: 500; background: var(--surface3); color: var(--accent-teal); border: 0.5px solid var(--accent-teal); border-radius: 5px; padding: 5px 10px; cursor: pointer; transition: background 0.15s; }
+  .today-ics-btn:hover { background: rgba(93,202,165,0.18); }
+  @keyframes todayFadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  tr.today-row { background: rgba(93,202,165,0.08) !important; }
+  tr.today-row td.week-col, tr.today-row td.date-col { color: var(--accent-teal); font-weight: 500; }
+  td.today-cell .shift-chip, td.today-cell .chip-empty { box-shadow: 0 0 0 2px var(--accent-teal); }
+  .today-flag { color: var(--accent-teal); font-size: 8px; margin-left: 2px; vertical-align: super; display: inline-block; animation: todayPulse 1.8s ease-in-out infinite; }
+  @keyframes todayPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
   /* STATS */
   .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; padding: 16px 24px; }
-  .stat-card { background: var(--surface); border: 0.5px solid var(--border-strong); border-radius: 8px; padding: 14px 16px; }
+  .stat-card { background: var(--surface); border: 0.5px solid var(--border-strong); border-radius: 8px; padding: 14px 16px; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
   .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; }
   .stat-value { font-size: 22px; font-weight: 500; color: var(--text-primary); }
   .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
@@ -130,10 +184,12 @@
   .shift-badge-sm { font-size: 10px; background: rgba(93,202,165,0.15); color: var(--accent-teal); border-radius: 3px; padding: 1px 6px; }
 
   /* SECTION TITLE */
-  .section-title { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; padding: 16px 24px 8px; }
+  .section-title { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; padding: 16px 24px 8px; display: flex; align-items: center; gap: 8px; }
+  .section-title::before { content: ''; width: 3px; height: 12px; border-radius: 2px; background: linear-gradient(180deg, var(--accent-blue), var(--accent-teal)); }
 
   /* TABLE */
   .table-wrap { overflow-x: auto; padding: 0 24px 20px; }
+  .mobile-cards { display: none; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th { font-size: 11px; font-weight: 500; color: var(--text-muted); text-align: left; padding: 8px 8px; border-bottom: 0.5px solid var(--border-strong); white-space: nowrap; }
   tbody tr { border-bottom: 0.5px solid var(--border); transition: background 0.08s; }
@@ -164,16 +220,17 @@
   .sp-opt:hover { background: var(--surface3); color: var(--text-primary); }
   .sp-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 18px; border-radius: 3px; font-size: 10px; font-weight: 500; padding: 0 5px; }
   .sp-desc { font-size: 10px; color: var(--text-muted); margin-left: auto; }
-  .chip-D   { background: rgba(57,135,229,0.18); color: #7db5f5; }
-  .chip-D1  { background: rgba(57,135,229,0.18); color: #7db5f5; }
-  .chip-D2  { background: rgba(57,135,229,0.22); color: #90c2ff; }
-  .chip-D4  { background: rgba(57,135,229,0.12); color: #6aa8f0; }
-  .chip-A   { background: rgba(144,133,233,0.18); color: #b8b0f5; }
-  .chip-AK  { background: rgba(144,133,233,0.22); color: #ccc6ff; }
-  .chip-F1  { background: rgba(255,255,255,0.06); color: var(--text-muted); font-style: italic; }
-  .chip-LA  { background: rgba(25,158,112,0.18); color: #5dcaa5; }
-  .chip-LL  { background: rgba(25,158,112,0.18); color: #5dcaa5; }
-  .chip-LY  { background: rgba(25,158,112,0.22); color: #72d4b2; }
+  .chip-D   { background: rgba(57,135,229,0.24); color: #8dc0ff; }
+  .chip-D1  { background: rgba(57,135,229,0.24); color: #8dc0ff; }
+  .chip-D2  { background: rgba(57,135,229,0.30); color: #a3ccff; }
+  .chip-D4  { background: rgba(57,135,229,0.17); color: #78b0f2; }
+  .chip-A   { background: rgba(144,133,233,0.26); color: #c7c0fa; }
+  .chip-AK  { background: rgba(144,133,233,0.32); color: #dad4ff; }
+  .chip-F1  { background: rgba(255,255,255,0.07); color: var(--text-muted); font-style: italic; }
+  .chip-LA  { background: rgba(25,158,112,0.26); color: #6fdcb6; }
+  .chip-LL  { background: rgba(25,158,112,0.26); color: #6fdcb6; }
+  .chip-LY  { background: rgba(25,158,112,0.32); color: #85e4c4; }
+  .shift-chip:not(.chip-F1) { font-weight: 600; }
   .chip-empty { color: var(--text-muted); font-size: 12px; }
   .h-flag { font-size: 9px; background: rgba(237,161,0,0.20); color: var(--accent-amber); border-radius: 2px; padding: 1px 4px; margin-left: 3px; vertical-align: middle; }
   .no-data { text-align: center; color: var(--text-muted); padding: 36px; font-size: 13px; }
@@ -198,12 +255,12 @@
   /* LEGEND */
   .legend { display: flex; gap: 12px; flex-wrap: wrap; padding: 0 24px 12px; }
   .leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
-  .leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-  .leg-blue   { background: rgba(57,135,229,0.4); }
-  .leg-purple { background: rgba(144,133,233,0.4); }
-  .leg-green  { background: rgba(25,158,112,0.4); }
-  .leg-gray   { background: rgba(255,255,255,0.15); }
-  .leg-amber  { background: rgba(237,161,0,0.4); }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .leg-blue   { background: var(--accent-blue); box-shadow: 0 0 8px rgba(57,135,229,0.6); }
+  .leg-purple { background: var(--accent-purple); box-shadow: 0 0 8px rgba(144,133,233,0.6); }
+  .leg-green  { background: var(--accent-green); box-shadow: 0 0 8px rgba(25,158,112,0.6); }
+  .leg-gray   { background: rgba(255,255,255,0.25); }
+  .leg-amber  { background: var(--accent-amber); box-shadow: 0 0 8px rgba(237,161,0,0.6); }
 
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--surface); }
@@ -219,13 +276,17 @@
     .unit-badge { font-size: 10px; padding: 2px 8px; }
     .header-sub { font-size: 11px; }
 
-    /* Toolbar: stack year row + month row + edit btn */
-    .toolbar { flex-direction: column; align-items: stretch; gap: 10px; padding: 12px 16px; }
-    .toolbar-left { gap: 6px; }
-    .filter-label { display: none; }
+    /* Toolbar: stack year row + month row + edit btn, each row horizontally scrollable (one-pager, no wrap sprawl) */
+    .toolbar { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 10px; padding: 10px 0 10px 16px; }
+    .toolbar-left { flex-direction: column; align-items: stretch; gap: 8px; }
+    .filter-group { gap: 6px; }
+    .filter-label { display: block; font-size: 10px; min-width: 40px; }
+    .filter-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-right: 16px; scroll-snap-type: x proximity; }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+    .filter-scroll .month-btn { scroll-snap-align: start; flex-shrink: 0; }
+    .toolbar-actions { flex-direction: column; align-items: stretch; padding-right: 16px; }
     .month-btn { font-size: 11px; padding: 7px 10px; min-height: 36px; }
-    .edit-btn, .save-btn, .reset-btn { min-height: 40px; font-size: 13px; width: 100%; justify-content: center; }
-    .toolbar > div:last-child { display: flex; flex-direction: column; gap: 8px; }
+    .edit-btn, .save-btn, .reset-btn, .ics-btn { min-height: 40px; font-size: 13px; width: 100%; justify-content: center; }
 
     /* Stats */
     .stats-row { grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px; }
@@ -252,14 +313,25 @@
     /* Section title */
     .section-title { padding: 12px 16px 6px; }
 
-    /* Table: horizontal scroll, tighter cells */
-    .table-wrap { padding: 0 0 16px; }
-    table { font-size: 12px; }
-    thead th { padding: 6px 5px; font-size: 10px; }
-    tbody td { padding: 6px 5px; }
-    .shift-chip { min-width: 26px; height: 20px; font-size: 10px; padding: 0 4px; }
-    .week-col { font-size: 10px; }
-    .date-col { font-size: 10px; }
+    /* Table: hide the wide scrolling table on mobile, use one-pager card list instead */
+    .table-wrap { display: none; }
+    .mobile-cards { display: flex; flex-direction: column; gap: 10px; padding: 0 16px 16px; }
+    .week-card { background: var(--surface); border: 0.5px solid var(--border-strong); border-radius: 10px; padding: 10px 12px 12px; animation: todayFadeIn 0.25s ease-out; }
+    .week-card.holiday-week-card { background: rgba(237,161,0,0.05); }
+    .week-card.today-week-card { border-color: var(--accent-teal); box-shadow: 0 0 0 1px rgba(93,202,165,0.35); }
+    .week-card-header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 0.5px solid var(--border); }
+    .week-card-title { font-size: 12px; font-weight: 500; color: var(--text-primary); white-space: nowrap; }
+    .week-card-period { font-size: 10px; color: var(--text-muted); text-align: center; flex: 1; }
+    .week-card-ts { font-size: 12px; font-weight: 500; color: var(--text-primary); white-space: nowrap; }
+    .week-card-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .day-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 6px 1px; border-radius: 7px; position: relative; min-height: 54px; }
+    .day-tile-label { font-size: 8.5px; color: var(--text-muted); white-space: nowrap; }
+    .day-tile.today-tile { background: rgba(93,202,165,0.14); box-shadow: 0 0 0 1.5px var(--accent-teal); }
+    .day-tile.holiday-tile { background: rgba(237,161,0,0.10); }
+    .day-tile-flags { display: flex; gap: 2px; height: 8px; }
+    .edit-mode .day-tile { cursor: pointer; }
+    .edit-mode .day-tile:active { background: rgba(237,161,0,0.10); }
+    .day-tile .shift-chip, .day-tile .chip-empty { min-width: 30px; height: 24px; font-size: 11px; }
 
     /* Shift picker: full-width bottom sheet on mobile */
     #shiftPicker {
@@ -314,104 +386,105 @@
     <h1>Årsturnus 2026–2029 – Sandåker, Nathalie</h1>
     <span class="unit-badge">Hjemmesykepleien · Sone Klokkeråsen</span>
   </div>
-  <div class="header-sub">Tønsberg Kommune · 31702 · 100% stilling · Fagforbundet/KS · Oppdatert 14.07.2026</div>
+  <div class="header-sub">Tønsberg Kommune · 31702 · 100% stilling · Fagforbundet/KS · Oppdatert 15.07.2026</div>
 </div>
 
 <!-- TOOLBAR -->
 <div class="toolbar">
   <div class="toolbar-left">
-    <span class="filter-label">År:</span>
-    <button class="month-btn active" onclick="filterYear(&#39;all&#39;, this)">Alle</button>
-    <button class="month-btn" onclick="filterYear(2026, this)">2026</button>
-    <button class="month-btn" onclick="filterYear(2027, this)">2027</button>
-    <button class="month-btn" onclick="filterYear(2028, this)">2028</button>
-    <button class="month-btn" onclick="filterYear(2029, this)">2029</button>
-    <span class="filter-label" style="margin-left:8px">Måned:</span>
-    <button class="month-btn active" id="mAll" onclick="filterMonth(&#39;all&#39;, this)">Alle</button>
-    <button class="month-btn" onclick="filterMonth(1, this)">Jan</button>
-    <button class="month-btn" onclick="filterMonth(2, this)">Feb</button>
-    <button class="month-btn" onclick="filterMonth(3, this)">Mar</button>
-    <button class="month-btn" onclick="filterMonth(4, this)">Apr</button>
-    <button class="month-btn" onclick="filterMonth(5, this)">Mai</button>
-    <button class="month-btn" onclick="filterMonth(6, this)">Jun</button>
-    <button class="month-btn" onclick="filterMonth(7, this)">Jul</button>
-    <button class="month-btn" onclick="filterMonth(8, this)">Aug</button>
-    <button class="month-btn" onclick="filterMonth(9, this)">Sep</button>
-    <button class="month-btn" onclick="filterMonth(10, this)">Okt</button>
-    <button class="month-btn" onclick="filterMonth(11, this)">Nov</button>
-    <button class="month-btn" onclick="filterMonth(12, this)">Des</button>
+    <div class="filter-group">
+      <span class="filter-label">År:</span>
+      <div class="filter-scroll">
+        <button class="month-btn active" onclick="filterYear('all', this)">Alle</button>
+        <button class="month-btn" onclick="filterYear(2026, this)">2026</button>
+        <button class="month-btn" onclick="filterYear(2027, this)">2027</button>
+        <button class="month-btn" onclick="filterYear(2028, this)">2028</button>
+        <button class="month-btn" onclick="filterYear(2029, this)">2029</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Måned:</span>
+      <div class="filter-scroll">
+        <button class="month-btn active" id="mAll" onclick="filterMonth('all', this)">Alle</button>
+        <button class="month-btn" onclick="filterMonth(1, this)">Jan</button>
+        <button class="month-btn" onclick="filterMonth(2, this)">Feb</button>
+        <button class="month-btn" onclick="filterMonth(3, this)">Mar</button>
+        <button class="month-btn" onclick="filterMonth(4, this)">Apr</button>
+        <button class="month-btn" onclick="filterMonth(5, this)">Mai</button>
+        <button class="month-btn" onclick="filterMonth(6, this)">Jun</button>
+        <button class="month-btn" onclick="filterMonth(7, this)">Jul</button>
+        <button class="month-btn" onclick="filterMonth(8, this)">Aug</button>
+        <button class="month-btn" onclick="filterMonth(9, this)">Sep</button>
+        <button class="month-btn" onclick="filterMonth(10, this)">Okt</button>
+        <button class="month-btn" onclick="filterMonth(11, this)">Nov</button>
+        <button class="month-btn" onclick="filterMonth(12, this)">Des</button>
+      </div>
+    </div>
   </div>
-  <div style="display:flex; gap:8px; align-items:center;">
+  <div class="toolbar-actions">
+    <button class="ics-btn" id="icsBtn" onclick="downloadAllICS()">📅 Eksporter kalender</button>
     <button class="reset-btn" id="resetBtn" onclick="resetChanges()">Tilbakestill</button>
     <button class="save-btn" id="saveBtn" onclick="saveChanges()">✓ Lagre endringer</button>
     <button class="edit-btn" id="editBtn" onclick="toggleEditMode()">✎ Rediger vakter</button>
   </div>
 </div>
 
+<!-- TODAY BAR -->
+<div class="today-bar" id="todayBar"></div>
+
 <!-- STATS -->
-<div class="stats-row" id="statsRow">
-    <div class="stat-card"><div class="stat-label">Timer totalt (TS)</div><div class="stat-value">6466.5</div><div class="stat-sub">180 uker vist</div></div>
-    <div class="stat-card good"><div class="stat-label">Arbeidsdager</div><div class="stat-value">702</div><div class="stat-sub">ekskl. fridager</div></div>
-    <div class="stat-card"><div class="stat-label">Helgejobbing</div><div class="stat-value">84</div><div class="stat-sub">lør/søn med vakt</div></div>
-    <div class="stat-card warn"><div class="stat-label">Jobb på helligdag</div><div class="stat-value">4</div><div class="stat-sub">dager med vakt</div></div>
-  </div>
+<div class="stats-row" id="statsRow"></div>
 
 <!-- SALARY PANEL -->
 <div class="salary-panel">
   <div class="salary-panel-header" onclick="toggleSalary()">
     <div class="salary-panel-title">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5S10.7 17 12 17s3-1.1 3-2.5"></path></svg>
-      Estimert lønnsberegning (KS-tariff 2025/2026)
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5S10.7 17 12 17s3-1.1 3-2.5"/></svg>
+      Lønnskjøring & utbetaling
     </div>
     <span class="salary-toggle" id="salaryToggle">▼</span>
   </div>
   <div class="salary-body" id="salaryBody">
     <div class="salary-disclaimer">
-      ⚠ Dette er et estimat basert på KS-tariff 2025/2026 og typiske tillegg for hjemmesykepleien. Faktisk lønn avhenger av ansiennitet, stillingskode, lokale avtaler og skattetrekk. Alle tall er brutto.
+      ⚠ Dette er et estimat basert på tallene du oppgir under (grunnlønn, skattetrekk og tillegg-satser) kombinert med de faktiske vaktene i turnusen. Juster tallene til det som stemmer med Nathalie sin avtale for et presist resultat. Grunnlønn regnes <strong>før</strong> tillegg — tilleggene legges på i beregningen.
     </div>
+
     <div class="salary-grid">
       <div class="salary-input-group">
-        <label class="salary-input-label">Stillingskategori</label>
-        <select class="salary-select" id="jobRole" onchange="calcSalary()">
-          <option value="hfa">Helsefagarbeider (kode 6628)</option>
-          <option value="hfa3">Helsefagarbeider m/3 år ans.</option>
-          <option value="sykepleier" selected="">Sykepleier (kode 7174)</option>
-          <option value="spesial">Spesialsykepleier (kode 7175)</option>
-          <option value="vernepleier">Vernepleier (kode 7173)</option>
-        </select>
+        <label class="salary-input-label">Grunnlønn (årslønn, brutto, før tillegg)</label>
+        <input type="number" class="salary-input" id="manualAnnual" value="528300" onchange="calcPayslip()" oninput="calcPayslip()" step="100">
       </div>
       <div class="salary-input-group">
-        <label class="salary-input-label">Ansiennitet</label>
-        <select class="salary-select" id="seniority" onchange="calcSalary()">
-          <option value="0">0–2 år</option>
-          <option value="4">4 år</option>
-          <option value="8" selected="">8 år</option>
-          <option value="10">10 år</option>
-          <option value="16">16 år</option>
-        </select>
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label">Stillingsprosent</label>
-        <select class="salary-select" id="stillingspct" onchange="calcSalary()">
-          <option value="50">50%</option>
-          <option value="75">75%</option>
-          <option value="80">80%</option>
-          <option value="100" selected="">100%</option>
-        </select>
+        <label class="salary-input-label">Skattetrekk %</label>
+        <input type="number" class="salary-input" id="taxPct" value="25" min="0" max="70" step="0.5" onchange="calcPayslip()" oninput="calcPayslip()">
       </div>
     </div>
-    <div class="salary-results" id="salaryResults"></div>
-    <div class="salary-breakdown" id="salaryBreakdown"></div>
+
+    <div class="payslip-divider" style="margin-top:14px">Tillegg (kr/time) <span class="payslip-tag">justerbare</span></div>
+    <div class="salary-grid">
+      <div class="salary-input-group">
+        <label class="salary-input-label">Aftentillegg</label>
+        <input type="number" class="salary-input" id="eveningTillegg" value="58" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label">Helgetillegg (lør/søn)</label>
+        <input type="number" class="salary-input" id="weekendTillegg" value="65" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label">Helligdagstillegg</label>
+        <input type="number" class="salary-input" id="holidayTillegg" value="115" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label">Langvakttillegg</label>
+        <input type="number" class="salary-input" id="longTillegg" value="30" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+      </div>
+    </div>
 
     <!-- TIMEBASERT LØNN + LØNNSKJØRING -->
     <div class="payslip-section">
-      <div class="payslip-divider">Timebasert lønn &amp; lønnskjøring <span class="payslip-tag">Utbetaling 20. hver måned</span></div>
-      <div class="payslip-input-row">
-        <label>Årslønn (brutto, juster ved behov):</label>
-        <input type="number" id="manualAnnual" value="528300" onchange="calcPayslip()" oninput="calcPayslip()" step="100">
-        <span style="font-size:11px;color:var(--text-muted)">kr/år · Nathalie estimat: 528 300 kr</span>
-      </div>
+      <div class="payslip-divider">Timebasert lønn & lønnskjøring <span class="payslip-tag">Utbetaling 20. hver måned</span></div>
       <div class="payslip-grid" id="payslipCards"></div>
+      <div class="salary-breakdown" id="salaryBreakdown"></div>
       <table class="payslip-month-table" id="payslipTable"></table>
       <div class="payslip-note" id="payslipNote"></div>
     </div>
@@ -419,14 +492,13 @@
 </div>
 
 <!-- HOLIDAY WARNINGS -->
-<div id="holidayWarnSection"><div class="holiday-warn"><div class="holiday-warn-title">⚠ Arbeid planlagt på norske helligdager (4 dager)</div>
-    <div class="holiday-warn-list"><div class="holiday-item"><span class="holiday-name">2. juledag</span><span>26.12.2026 · Lør · Uke 52</span><span class="shift-badge-sm">LL</span></div><div class="holiday-item"><span class="holiday-name">Nyttårsdag</span><span>01.01.2027 · Fre · Uke 53</span><span class="shift-badge-sm">D</span></div><div class="holiday-item"><span class="holiday-name">Arbeidernes dag</span><span>01.05.2028 · Man · Uke 18</span><span class="shift-badge-sm">A</span></div><div class="holiday-item"><span class="holiday-name">2. påskedag</span><span>02.04.2029 · Man · Uke 14</span><span class="shift-badge-sm">A</span></div></div></div></div>
+<div id="holidayWarnSection"></div>
 
 <!-- VAKTKODER PANEL -->
 <div class="vakt-panel">
   <div class="vakt-panel-header" onclick="toggleVakt()">
     <div class="vakt-panel-title">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       Vaktkodebeskrivelse
     </div>
     <span class="vakt-toggle" id="vaktToggle">▼</span>
@@ -478,915 +550,18 @@
         <th style="text-align:right; width:46px">TS</th>
       </tr>
     </thead>
-    <tbody id="tableBody"><tr>
-      <td class="week-col">Uke 30</td>
-      <td class="date-col">20.07–26.07</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 31</td>
-      <td class="date-col">27.07–02.08</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 32</td>
-      <td class="date-col">03.08–09.08</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LA">LA</span></td><td class="day-cell"><span class="shift-chip chip-LA">LA</span></td>
-      <td class="ts-col">36.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 33</td>
-      <td class="date-col">10.08–16.08</td>
-      <td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">28.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 34</td>
-      <td class="date-col">17.08–23.08</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">29</td>
-    </tr><tr>
-      <td class="week-col">Uke 35</td>
-      <td class="date-col">24.08–30.08</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 36</td>
-      <td class="date-col">31.08–06.09</td>
-      <td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-AK">AK</span></td><td class="day-cell"><span class="shift-chip chip-LY">LY</span></td><td class="day-cell"><span class="shift-chip chip-LY">LY</span></td>
-      <td class="ts-col">42</td>
-    </tr><tr>
-      <td class="week-col">Uke 37</td>
-      <td class="date-col">07.09–13.09</td>
-      <td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">21.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 38</td>
-      <td class="date-col">14.09–20.09</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">36.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 39</td>
-      <td class="date-col">21.09–27.09</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 40</td>
-      <td class="date-col">28.09–04.10</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-D2">D2</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LA">LA</span></td><td class="day-cell"><span class="shift-chip chip-LA">LA</span></td>
-      <td class="ts-col">50.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 41</td>
-      <td class="date-col">05.10–11.10</td>
-      <td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 42</td>
-      <td class="date-col">12.10–18.10</td>
-      <td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">29</td>
-    </tr><tr>
-      <td class="week-col">Uke 43</td>
-      <td class="date-col">19.10–25.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 44</td>
-      <td class="date-col">26.10–01.11</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 45</td>
-      <td class="date-col">02.11–08.11</td>
-      <td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">21.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 46</td>
-      <td class="date-col">09.11–15.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">36.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 47</td>
-      <td class="date-col">16.11–22.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 48</td>
-      <td class="date-col">23.11–29.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D2">D2</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-LA">LA</span></td><td class="day-cell"><span class="shift-chip chip-LA">LA</span></td>
-      <td class="ts-col">50</td>
-    </tr><tr>
-      <td class="week-col">Uke 49</td>
-      <td class="date-col">30.11–06.12</td>
-      <td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">21.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 50</td>
-      <td class="date-col">07.12–13.12</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">36.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 51</td>
-      <td class="date-col">14.12–20.12</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D4">D4</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35.5</td>
-    </tr><tr class="holiday-row">
-      <td class="week-col">Uke 52</td>
-      <td class="date-col">21.12–27.12</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span><span class="h-flag" title="1. juledag">H</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span><span class="h-flag" title="2. juledag">H</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">50</td>
-    </tr><tr class="holiday-row">
-      <td class="week-col">Uke 53</td>
-      <td class="date-col">28.12–03.01</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span><span class="h-flag" title="Nyttårsdag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 1</td>
-      <td class="date-col">04.01–10.01</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 2</td>
-      <td class="date-col">11.01–17.01</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 3</td>
-      <td class="date-col">18.01–24.01</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 4</td>
-      <td class="date-col">25.01–31.01</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 5</td>
-      <td class="date-col">01.02–07.02</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 6</td>
-      <td class="date-col">08.02–14.02</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 7</td>
-      <td class="date-col">15.02–21.02</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 8</td>
-      <td class="date-col">22.02–28.02</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 9</td>
-      <td class="date-col">01.03–07.03</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 10</td>
-      <td class="date-col">08.03–14.03</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 11</td>
-      <td class="date-col">15.03–21.03</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 12</td>
-      <td class="date-col">22.03–28.03</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span><span class="h-flag" title="Skjærtorsdag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span><span class="h-flag" title="Langfredag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="1. påskedag">H</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 13</td>
-      <td class="date-col">29.03–04.04</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="2. påskedag">H</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 14</td>
-      <td class="date-col">05.04–11.04</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 15</td>
-      <td class="date-col">12.04–18.04</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 16</td>
-      <td class="date-col">19.04–25.04</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 17</td>
-      <td class="date-col">26.04–02.05</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span><span class="h-flag" title="Arbeidernes dag">H</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 18</td>
-      <td class="date-col">03.05–09.05</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span><span class="h-flag" title="Kristi Himmelfartsdag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 19</td>
-      <td class="date-col">10.05–16.05</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="1. pinsedag">H</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 20</td>
-      <td class="date-col">17.05–23.05</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="2. pinsedag">H</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">29</td>
-    </tr><tr>
-      <td class="week-col">Uke 21</td>
-      <td class="date-col">24.05–30.05</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 22</td>
-      <td class="date-col">31.05–06.06</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 23</td>
-      <td class="date-col">07.06–13.06</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 24</td>
-      <td class="date-col">14.06–20.06</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 25</td>
-      <td class="date-col">21.06–27.06</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 26</td>
-      <td class="date-col">28.06–04.07</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 27</td>
-      <td class="date-col">05.07–11.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 28</td>
-      <td class="date-col">12.07–18.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 29</td>
-      <td class="date-col">19.07–25.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 30</td>
-      <td class="date-col">26.07–01.08</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 31</td>
-      <td class="date-col">02.08–08.08</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 32</td>
-      <td class="date-col">09.08–15.08</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 33</td>
-      <td class="date-col">16.08–22.08</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 34</td>
-      <td class="date-col">23.08–29.08</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 35</td>
-      <td class="date-col">30.08–05.09</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 36</td>
-      <td class="date-col">06.09–12.09</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 37</td>
-      <td class="date-col">13.09–19.09</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 38</td>
-      <td class="date-col">20.09–26.09</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 39</td>
-      <td class="date-col">27.09–03.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 40</td>
-      <td class="date-col">04.10–10.10</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 41</td>
-      <td class="date-col">11.10–17.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 42</td>
-      <td class="date-col">18.10–24.10</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 43</td>
-      <td class="date-col">25.10–31.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 44</td>
-      <td class="date-col">01.11–07.11</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 45</td>
-      <td class="date-col">08.11–14.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 46</td>
-      <td class="date-col">15.11–21.11</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 47</td>
-      <td class="date-col">22.11–28.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 48</td>
-      <td class="date-col">29.11–05.12</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 49</td>
-      <td class="date-col">06.12–12.12</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 50</td>
-      <td class="date-col">13.12–19.12</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 51</td>
-      <td class="date-col">20.12–26.12</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span><span class="h-flag" title="1. juledag">H</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="2. juledag">H</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 52</td>
-      <td class="date-col">27.12–02.01</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span><span class="h-flag" title="Nyttårsdag">H</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 1</td>
-      <td class="date-col">03.01–09.01</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 2</td>
-      <td class="date-col">10.01–16.01</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 3</td>
-      <td class="date-col">17.01–23.01</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 4</td>
-      <td class="date-col">24.01–30.01</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 5</td>
-      <td class="date-col">31.01–06.02</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 6</td>
-      <td class="date-col">07.02–13.02</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 7</td>
-      <td class="date-col">14.02–20.02</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 8</td>
-      <td class="date-col">21.02–27.02</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 9</td>
-      <td class="date-col">28.02–05.03</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 10</td>
-      <td class="date-col">06.03–12.03</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 11</td>
-      <td class="date-col">13.03–19.03</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 12</td>
-      <td class="date-col">20.03–26.03</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 13</td>
-      <td class="date-col">27.03–02.04</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 14</td>
-      <td class="date-col">03.04–09.04</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 15</td>
-      <td class="date-col">10.04–16.04</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Skjærtorsdag">H</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Langfredag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="1. påskedag">H</span></td>
-      <td class="ts-col">21</td>
-    </tr><tr>
-      <td class="week-col">Uke 16</td>
-      <td class="date-col">17.04–23.04</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="2. påskedag">H</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">29</td>
-    </tr><tr>
-      <td class="week-col">Uke 17</td>
-      <td class="date-col">24.04–30.04</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr class="holiday-row">
-      <td class="week-col">Uke 18</td>
-      <td class="date-col">01.05–07.05</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span><span class="h-flag" title="Arbeidernes dag">H</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 19</td>
-      <td class="date-col">08.05–14.05</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 20</td>
-      <td class="date-col">15.05–21.05</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Grunnlovsdag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">29</td>
-    </tr><tr>
-      <td class="week-col">Uke 21</td>
-      <td class="date-col">22.05–28.05</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Kristi Himmelfartsdag">H</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 22</td>
-      <td class="date-col">29.05–04.06</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="1. pinsedag">H</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 23</td>
-      <td class="date-col">05.06–11.06</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="2. pinsedag">H</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 24</td>
-      <td class="date-col">12.06–18.06</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 25</td>
-      <td class="date-col">19.06–25.06</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 26</td>
-      <td class="date-col">26.06–02.07</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 27</td>
-      <td class="date-col">03.07–09.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 28</td>
-      <td class="date-col">10.07–16.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 29</td>
-      <td class="date-col">17.07–23.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 30</td>
-      <td class="date-col">24.07–30.07</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 31</td>
-      <td class="date-col">31.07–06.08</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 32</td>
-      <td class="date-col">07.08–13.08</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 33</td>
-      <td class="date-col">14.08–20.08</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 34</td>
-      <td class="date-col">21.08–27.08</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 35</td>
-      <td class="date-col">28.08–03.09</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 36</td>
-      <td class="date-col">04.09–10.09</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 37</td>
-      <td class="date-col">11.09–17.09</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 38</td>
-      <td class="date-col">18.09–24.09</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 39</td>
-      <td class="date-col">25.09–01.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 40</td>
-      <td class="date-col">02.10–08.10</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 41</td>
-      <td class="date-col">09.10–15.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 42</td>
-      <td class="date-col">16.10–22.10</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 43</td>
-      <td class="date-col">23.10–29.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 44</td>
-      <td class="date-col">30.10–05.11</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 45</td>
-      <td class="date-col">06.11–12.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 46</td>
-      <td class="date-col">13.11–19.11</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 47</td>
-      <td class="date-col">20.11–26.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 48</td>
-      <td class="date-col">27.11–03.12</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 49</td>
-      <td class="date-col">04.12–10.12</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 50</td>
-      <td class="date-col">11.12–17.12</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 51</td>
-      <td class="date-col">18.12–24.12</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 52</td>
-      <td class="date-col">25.12–31.12</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="1. juledag">H</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="2. juledag">H</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">14.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 1</td>
-      <td class="date-col">01.01–07.01</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Nyttårsdag">H</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 2</td>
-      <td class="date-col">08.01–14.01</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 3</td>
-      <td class="date-col">15.01–21.01</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 4</td>
-      <td class="date-col">22.01–28.01</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 5</td>
-      <td class="date-col">29.01–04.02</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 6</td>
-      <td class="date-col">05.02–11.02</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 7</td>
-      <td class="date-col">12.02–18.02</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 8</td>
-      <td class="date-col">19.02–25.02</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 9</td>
-      <td class="date-col">26.02–04.03</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 10</td>
-      <td class="date-col">05.03–11.03</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 11</td>
-      <td class="date-col">12.03–18.03</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 12</td>
-      <td class="date-col">19.03–25.03</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 13</td>
-      <td class="date-col">26.03–01.04</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Skjærtorsdag">H</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Langfredag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="1. påskedag">H</span></td>
-      <td class="ts-col">21</td>
-    </tr><tr class="holiday-row">
-      <td class="week-col">Uke 14</td>
-      <td class="date-col">02.04–08.04</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span><span class="h-flag" title="2. påskedag">H</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 15</td>
-      <td class="date-col">09.04–15.04</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 16</td>
-      <td class="date-col">16.04–22.04</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 17</td>
-      <td class="date-col">23.04–29.04</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 18</td>
-      <td class="date-col">30.04–06.05</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Arbeidernes dag">H</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">29</td>
-    </tr><tr>
-      <td class="week-col">Uke 19</td>
-      <td class="date-col">07.05–13.05</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="Kristi Himmelfartsdag">H</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 20</td>
-      <td class="date-col">14.05–20.05</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span><span class="h-flag" title="Grunnlovsdag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="1. pinsedag">H</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 21</td>
-      <td class="date-col">21.05–27.05</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="2. pinsedag">H</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">28</td>
-    </tr><tr>
-      <td class="week-col">Uke 22</td>
-      <td class="date-col">28.05–03.06</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 23</td>
-      <td class="date-col">04.06–10.06</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 24</td>
-      <td class="date-col">11.06–17.06</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 25</td>
-      <td class="date-col">18.06–24.06</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 26</td>
-      <td class="date-col">25.06–01.07</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 27</td>
-      <td class="date-col">02.07–08.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 28</td>
-      <td class="date-col">09.07–15.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 29</td>
-      <td class="date-col">16.07–22.07</td>
-      <td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">0</td>
-    </tr><tr>
-      <td class="week-col">Uke 30</td>
-      <td class="date-col">23.07–29.07</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 31</td>
-      <td class="date-col">30.07–05.08</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 32</td>
-      <td class="date-col">06.08–12.08</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 33</td>
-      <td class="date-col">13.08–19.08</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 34</td>
-      <td class="date-col">20.08–26.08</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 35</td>
-      <td class="date-col">27.08–02.09</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 36</td>
-      <td class="date-col">03.09–09.09</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 37</td>
-      <td class="date-col">10.09–16.09</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 38</td>
-      <td class="date-col">17.09–23.09</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 39</td>
-      <td class="date-col">24.09–30.09</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 40</td>
-      <td class="date-col">01.10–07.10</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 41</td>
-      <td class="date-col">08.10–14.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 42</td>
-      <td class="date-col">15.10–21.10</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 43</td>
-      <td class="date-col">22.10–28.10</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 44</td>
-      <td class="date-col">29.10–04.11</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 45</td>
-      <td class="date-col">05.11–11.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 46</td>
-      <td class="date-col">12.11–18.11</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 47</td>
-      <td class="date-col">19.11–25.11</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 48</td>
-      <td class="date-col">26.11–02.12</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">43.5</td>
-    </tr><tr>
-      <td class="week-col">Uke 49</td>
-      <td class="date-col">03.12–09.12</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 50</td>
-      <td class="date-col">10.12–16.12</td>
-      <td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-A">A</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-LL">LL</span></td>
-      <td class="ts-col">44</td>
-    </tr><tr>
-      <td class="week-col">Uke 51</td>
-      <td class="date-col">17.12–23.12</td>
-      <td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="shift-chip chip-D">D</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">35</td>
-    </tr><tr>
-      <td class="week-col">Uke 52</td>
-      <td class="date-col">24.12–30.12</td>
-      <td class="day-cell"><span class="shift-chip chip-LL">LL</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="1. juledag">H</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span><span class="h-flag" title="2. juledag">H</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="chip-empty chip-empty-edit" style="">–</span></td><td class="day-cell"><span class="shift-chip chip-F1">F1</span></td>
-      <td class="ts-col">14.5</td>
-    </tr></tbody>
+    <tbody id="tableBody"></tbody>
   </table>
   <div class="no-data" id="noData" style="display:none">Ingen uker funnet for valgt måned</div>
 </div>
+<div class="mobile-cards" id="mobileCards"></div>
 
 </div><!-- /.app -->
 
 <!-- GLOBAL SHIFT PICKER -->
-<div id="shiftPicker"><div class="sp-label">Velg vakt</div><button class="sp-opt"><span class="shift-chip sp-chip chip-D">D</span><span style="flex:1">D</span><span class="sp-desc">Dagvakt · 7t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-D1">D1</span><span style="flex:1">D1</span><span class="sp-desc">Dagvakt m/pause · 7,25t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-D2">D2</span><span style="flex:1">D2</span><span class="sp-desc">Dagvakt lang · 6,5t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-D4">D4</span><span style="flex:1">D4</span><span class="sp-desc">Dagvakt kort · 7,5t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-A">A</span><span style="flex:1">A</span><span class="sp-desc">Aftenvakt · 7,5t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-AK">AK</span><span style="flex:1">AK</span><span class="sp-desc">Kortvakt (før langvakt) · 6t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-LA">LA</span><span style="flex:1">LA</span><span class="sp-desc">Mellomvakt · 14,5t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-LL">LL</span><span style="flex:1">LL</span><span class="sp-desc">Langvakt · 14,5t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-LY">LY</span><span style="flex:1">LY</span><span class="sp-desc">Langvakt etter AK · 14,5t</span></button><button class="sp-opt"><span class="shift-chip sp-chip chip-F1">F1</span><span style="flex:1">F1</span><span class="sp-desc">Ukefridag · 0t</span></button><button class="sp-opt"><span class="shift-chip sp-chip ">–</span><span style="flex:1">Ingen vakt</span><span class="sp-desc">Tom (ingen registrering)</span></button></div>
+<div id="shiftPicker">
+  <div class="sp-label">Velg vakt</div>
+</div>
 
 <!-- INSTALL BANNER -->
 <div id="installBanner">
@@ -1429,26 +604,18 @@ const NO_HOLIDAYS = {
 
 // Shift hours (for salary calc)
 const SHIFT_HOURS = { D:7, D1:7.25, D2:6.5, D4:7.5, A:7.5, AK:6, F1:0, LA:14.5, LL:14.5, LY:14.5, '':0 };
+// Shift clock times [start, end] (for calendar export & today-bar)
+const SHIFT_TIMES = {
+  D:['07:30','15:00'], D1:['07:30','15:15'], D2:['07:30','14:30'], D4:['07:30','15:00'],
+  A:['15:00','22:30'], AK:['15:00','21:00'],
+  LA:['07:45','22:15'], LL:['07:30','22:00'], LY:['08:00','22:30'],
+};
 // Is evening/night (for tillegg)
 const IS_EVENING = { A:true, AK:true, LA:true, LL:true, LY:true };
 // Is long shift
 const IS_LONG = { LA:true, LL:true, LY:true };
-
-// KS-tariff 2025/2026 annual base salary (brutto årslønn, kr)
-// Source: KS Lønnsstatistikk / Spekter 2025 minstelønn
-const SALARY_TABLE = {
-  hfa:       { 0:455000, 4:478000, 8:498000, 10:510000, 16:530000 },
-  hfa3:      { 0:468000, 4:491000, 8:512000, 10:524000, 16:545000 },
-  sykepleier:{ 0:518000, 4:548000, 8:578000, 10:598000, 16:630000 },
-  spesial:   { 0:548000, 4:578000, 8:610000, 10:632000, 16:668000 },
-  vernepleier:{ 0:518000, 4:548000, 8:578000, 10:598000, 16:630000 },
-};
-
-// Tillegg per time (KS-avtale)
-const EVENING_TILLEGG = 58;   // kr/t aftenvakt
-const WEEKEND_TILLEGG = 65;   // kr/t lørdag/søndag
-const HOLIDAY_TILLEGG = 115;  // kr/t helligdag (100% tillegg ca.)
-const LONG_TILLEGG = 30;      // kr/t ekstra langvakt
+// NB: tillegg-satser (kr/t) er nå justerbare i UI (se #eveningTillegg/#weekendTillegg/#holidayTillegg/#longTillegg),
+// med samme standardverdier som tidligere (58/65/115/30 kr/t).
 
 
 const days = ['Man','Tir','Ons','Tor','Fre','Lør','Søn'];
@@ -1689,6 +856,129 @@ const SHIFT_OPTS = [
   { code:'',   label:'–',  desc:'Tom (ingen registrering)' },
 ];
 
+// --- TOAST ---
+function showToast(msg) {
+  let el = document.getElementById('toast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>el.classList.remove('show'), 2800);
+}
+
+// --- CALENDAR EXPORT (.ics) ---
+function icsEscape(s) {
+  return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
+}
+function foldLine(line) {
+  if (line.length <= 75) return line;
+  let result=''; let first=true;
+  while (line.length > 0) {
+    const chunk=line.slice(0, first?75:74);
+    result += (first?'':'\r\n ') + chunk;
+    line = line.slice(chunk.length);
+    first=false;
+  }
+  return result;
+}
+const ICS_TZBLOCK =
+`BEGIN:VTIMEZONE\r
+TZID:Europe/Oslo\r
+BEGIN:DAYLIGHT\r
+TZOFFSETFROM:+0100\r
+TZOFFSETTO:+0200\r
+TZNAME:CEST\r
+DTSTART:19700329T020000\r
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU\r
+END:DAYLIGHT\r
+BEGIN:STANDARD\r
+TZOFFSETFROM:+0200\r
+TZOFFSETTO:+0100\r
+TZNAME:CET\r
+DTSTART:19701025T030000\r
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\r
+END:STANDARD\r
+END:VTIMEZONE`;
+
+function buildICSEvent(date, shift, uke) {
+  const t=SHIFT_TIMES[shift];
+  if (!t) return '';
+  const isoCompact=toIso(date).replace(/-/g,'');
+  const dtStart=`${isoCompact}T${t[0].replace(':','')}00`;
+  const dtEnd=`${isoCompact}T${t[1].replace(':','')}00`;
+  const opt=SHIFT_OPTS.find(o=>o.code===shift);
+  const desc=opt?opt.desc:shift;
+  const uid=`${isoCompact}-${shift}-nathalie-turnus@tonsberg-kommune`;
+  const now=new Date();
+  const stamp=`${now.getUTCFullYear()}${String(now.getUTCMonth()+1).padStart(2,'0')}${String(now.getUTCDate()).padStart(2,'0')}T${String(now.getUTCHours()).padStart(2,'0')}${String(now.getUTCMinutes()).padStart(2,'0')}${String(now.getUTCSeconds()).padStart(2,'0')}Z`;
+  return [
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART;TZID=Europe/Oslo:${dtStart}`,
+    `DTEND;TZID=Europe/Oslo:${dtEnd}`,
+    foldLine(`SUMMARY:Vakt ${shift} – ${icsEscape(desc)}`),
+    foldLine(`DESCRIPTION:${icsEscape('Uke '+uke+' · '+desc)}`),
+    'LOCATION:Hjemmesykepleien\\, Sone Klokkeråsen\\, Tønsberg Kommune',
+    'END:VEVENT'
+  ].join('\r\n');
+}
+
+function buildICSCalendar(events) {
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Nathalie Turnus 2026-2029//NONSGML v1.0//NO',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    ICS_TZBLOCK,
+    ...events,
+    'END:VCALENDAR'
+  ].join('\r\n');
+}
+
+function triggerICSDownload(filename, content) {
+  const blob=new Blob([content], {type:'text/calendar;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 2000);
+}
+
+function downloadSingleICS(weekIdx, dayIdx) {
+  const w=weeks[weekIdx];
+  if (!w) return;
+  const s=parseDate(w.start);
+  const d=addDays(s, dayIdx);
+  const shift=w.shifts[dayIdx];
+  const ev=buildICSEvent(d, shift, w.uke);
+  if (!ev) { showToast('Ingen vakt å legge til for denne dagen.'); return; }
+  triggerICSDownload(`vakt-${toIso(d)}.ics`, buildICSCalendar([ev]));
+  showToast('Kalenderfil lastet ned — åpne den for å legge vakten til i telefonens kalender ✓');
+}
+
+function downloadAllICS() {
+  const filtered=getFiltered();
+  const events=[];
+  filtered.forEach(w=>{
+    const s=parseDate(w.start);
+    w.shifts.forEach((sh,i)=>{
+      if (!isWork(sh) || !SHIFT_TIMES[sh]) return;
+      const d=addDays(s,i);
+      const ev=buildICSEvent(d, sh, w.uke);
+      if (ev) events.push(ev);
+    });
+  });
+  if (!events.length) { showToast('Ingen vakter å eksportere for gjeldende filter.'); return; }
+  triggerICSDownload('nathalie-turnus.ics', buildICSCalendar(events));
+  showToast(`${events.length} vakt${events.length>1?'er':''} eksportert — åpne filen for å legge dem til i telefonens kalender ✓`);
+}
+
 function buildPicker() {
   const picker = document.getElementById('shiftPicker');
   picker.innerHTML = '<div class="sp-label">Velg vakt</div>';
@@ -1738,8 +1028,10 @@ function toggleEditMode() {
   document.getElementById('saveBtn').classList.toggle('show', editMode);
   document.getElementById('resetBtn').classList.toggle('show', editMode);
   document.getElementById('mainTable').classList.toggle('edit-mode', editMode);
+  document.getElementById('mobileCards').classList.toggle('edit-mode', editMode);
   closePicker();
   renderTable(getFiltered());
+  renderMobileCards(getFiltered());
 }
 
 function saveChanges() {
@@ -1765,8 +1057,10 @@ function selectShift(weekIdx, dayIdx, val) {
   weeks[weekIdx].shifts[dayIdx] = val;
   closePicker();
   renderTable(getFiltered());
+  renderMobileCards(getFiltered());
   renderStats(getFiltered());
-  if (document.getElementById('salaryBody').classList.contains('open')) calcSalary();
+  renderTodayBar();
+  if (document.getElementById('salaryBody').classList.contains('open')) calcPayslip();
 }
 
 function filterYear(y, btn) {
@@ -1814,10 +1108,10 @@ function renderStats(filtered) {
     });
   });
   document.getElementById('statsRow').innerHTML=`
-    <div class="stat-card"><div class="stat-label">Timer totalt (TS)</div><div class="stat-value">${totalTS.toFixed(1)}</div><div class="stat-sub">${filtered.length} uker vist</div></div>
-    <div class="stat-card good"><div class="stat-label">Arbeidsdager</div><div class="stat-value">${workDays}</div><div class="stat-sub">ekskl. fridager</div></div>
-    <div class="stat-card"><div class="stat-label">Helgejobbing</div><div class="stat-value">${weekendWork}</div><div class="stat-sub">lør/søn med vakt</div></div>
-    <div class="stat-card ${holidayWork>0?'warn':'good'}"><div class="stat-label">Jobb på helligdag</div><div class="stat-value">${holidayWork}</div><div class="stat-sub">${holidayWork>0?'dager med vakt':'ingen planlagt'}</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--accent-blue)"><div class="stat-label">Timer totalt (TS)</div><div class="stat-value">${totalTS.toFixed(1)}</div><div class="stat-sub">${filtered.length} uker vist</div></div>
+    <div class="stat-card good" style="border-left:3px solid var(--accent-green)"><div class="stat-label">Arbeidsdager</div><div class="stat-value">${workDays}</div><div class="stat-sub">ekskl. fridager</div></div>
+    <div class="stat-card" style="border-left:3px solid var(--accent-purple)"><div class="stat-label">Helgejobbing</div><div class="stat-value">${weekendWork}</div><div class="stat-sub">lør/søn med vakt</div></div>
+    <div class="stat-card ${holidayWork>0?'warn':'good'}" style="border-left:3px solid ${holidayWork>0?'var(--accent-amber)':'var(--accent-green)'}"><div class="stat-label">Jobb på helligdag</div><div class="stat-value">${holidayWork}</div><div class="stat-sub">${holidayWork>0?'dager med vakt':'ingen planlagt'}</div></div>
   `;
 }
 
@@ -1846,10 +1140,12 @@ function renderTable(filtered) {
 
   const weekIdxMap={};
   weeks.forEach((w,i)=>weekIdxMap[w.start]=i);
+  const todayIso = toIso(getTodayDate());
 
   tbody.innerHTML=filtered.map(w=>{
     const s=parseDate(w.start);
     let isHRow=false;
+    let isTodayRow=false;
     const wi=weekIdxMap[w.start];
 
     let ts=0; w.shifts.forEach(sh=>{ ts+=(SHIFT_HOURS[sh]||0); });
@@ -1858,19 +1154,27 @@ function renderTable(filtered) {
     const cells=w.shifts.map((sh,i)=>{
       const d=addDays(s,i); const iso=toIso(d);
       const isH=!!NO_HOLIDAYS[iso];
+      const isToday=iso===todayIso;
+      if(isToday) isTodayRow=true;
       if(isH&&isWork(sh)) isHRow=true;
       const flag=isH?`<span class="h-flag" title="${NO_HOLIDAYS[iso]}">H</span>`:'';
+      const todayFlag=isToday?`<span class="today-flag" title="I dag">●</span>`:'';
       const isEdited=allWeeks[wi]&&allWeeks[wi].shifts[i]!==sh?'<span class="edit-indicator">✎</span>':'';
       const clickAttr=editMode?`onclick="openPicker(this,${wi},${i})" title="Klikk for å endre"`:'' ;
+      const tdClass=`day-cell${isToday?' today-cell':''}`;
 
       if(!sh) {
-        return `<td class="day-cell"><span class="chip-empty chip-empty-edit" style="${editMode?'cursor:pointer;padding:2px 6px;border-radius:4px;outline:1px dashed rgba(237,161,0,0.35);':''}" ${clickAttr}>–</span>${flag}${isEdited}</td>`;
+        return `<td class="${tdClass}"><span class="chip-empty chip-empty-edit" style="${editMode?'cursor:pointer;padding:2px 6px;border-radius:4px;outline:1px dashed rgba(237,161,0,0.35);':''}" ${clickAttr}>–</span>${flag}${todayFlag}${isEdited}</td>`;
       }
       const cc=chipClass(sh);
-      return `<td class="day-cell"><span class="shift-chip ${cc}" ${clickAttr}>${sh}</span>${flag}${isEdited}</td>`;
+      return `<td class="${tdClass}"><span class="shift-chip ${cc}" ${clickAttr}>${sh}</span>${flag}${todayFlag}${isEdited}</td>`;
     });
 
-    return `<tr${isHRow?' class="holiday-row"':''}>
+    const rowClasses=[isHRow?'holiday-row':'',isTodayRow?'today-row':''].filter(Boolean).join(' ');
+    const rowAttr=rowClasses?` class="${rowClasses}"`:'';
+    const idAttr=isTodayRow?' id="todayTableRow"':'';
+
+    return `<tr${rowAttr}${idAttr}>
       <td class="week-col">Uke ${w.uke}</td>
       <td class="date-col">${w.periode}</td>
       ${cells.join('')}
@@ -1879,176 +1183,255 @@ function renderTable(filtered) {
   }).join('');
 }
 
-// --- SALARY CALC ---
-function calcSalary() {
-  const role = document.getElementById('jobRole').value;
-  const sen = parseInt(document.getElementById('seniority').value);
-  const pct = parseInt(document.getElementById('stillingspct').value)/100;
+// --- MOBILE ONE-PAGER CARD VIEW ---
+function renderMobileCards(filtered) {
+  const wrap=document.getElementById('mobileCards');
+  if(!wrap) return;
+  if(!filtered.length){ wrap.innerHTML=''; return; }
 
-  // Find closest seniority
-  const table = SALARY_TABLE[role];
-  const keys = Object.keys(table).map(Number).sort((a,b)=>a-b);
-  let baseKey = keys[0];
-  for(const k of keys){ if(sen>=k) baseKey=k; }
-  const annualBase = table[baseKey] * pct;
-  const monthlyBase = annualBase / 12;
-  const hourlyBase = annualBase / 1850; // ca. årsverk timer
+  const weekIdxMap={};
+  weeks.forEach((w,i)=>weekIdxMap[w.start]=i);
+  const todayIso=toIso(getTodayDate());
 
-  // Hent filtrerte uker — bruk valgt år hvis satt, ellers bare 2027 som referanseår (full år)
-  // For tilleggsberegning bruker vi KUN ett kalenderår for å få riktig årsestimат
-  const yearsInData = currentYear !== 'all' ? [currentYear] : [2027]; // 2027 = første fulle år
-  const weeksForCalc = weeks.filter(w => yearsInData.includes(w.year));
+  wrap.innerHTML=filtered.map(w=>{
+    const s=parseDate(w.start);
+    const wi=weekIdxMap[w.start];
+    let isHRow=false, isTodayRow=false;
+    let ts=0; w.shifts.forEach(sh=>{ ts+=(SHIFT_HOURS[sh]||0); });
+    ts=Math.round(ts*2)/2;
 
-  let eveningHours=0, weekendHours=0, holidayHours=0, longHours=0;
-  weeksForCalc.forEach(w=>{
+    const tiles=w.shifts.map((sh,i)=>{
+      const d=addDays(s,i); const iso=toIso(d);
+      const isH=!!NO_HOLIDAYS[iso];
+      const isToday=iso===todayIso;
+      if(isToday) isTodayRow=true;
+      if(isH&&isWork(sh)) isHRow=true;
+      const tileClasses=['day-tile', isToday?'today-tile':'', isH?'holiday-tile':''].filter(Boolean).join(' ');
+      const clickAttr=editMode?`onclick="openPicker(this,${wi},${i})"`:'';
+      const isEdited=allWeeks[wi]&&allWeeks[wi].shifts[i]!==sh;
+      const chipHtml=sh?`<span class="shift-chip ${chipClass(sh)}" ${clickAttr}>${sh}</span>`:`<span class="chip-empty chip-empty-edit" ${clickAttr}>–</span>`;
+      const flags=(isH?`<span class="h-flag" title="${NO_HOLIDAYS[iso]}">H</span>`:'')+(isToday?`<span class="today-flag">●</span>`:'')+(isEdited?`<span class="edit-indicator">✎</span>`:'');
+      return `<div class="${tileClasses}" ${clickAttr}>
+        <div class="day-tile-label">${days[i]} ${fmt(d)}</div>
+        ${chipHtml}
+        <div class="day-tile-flags">${flags}</div>
+      </div>`;
+    }).join('');
+
+    const cardClasses=['week-card', isHRow?'holiday-week-card':'', isTodayRow?'today-week-card':''].filter(Boolean).join(' ');
+    const idAttr=isTodayRow?' id="todayCardRow"':'';
+    return `<div class="${cardClasses}"${idAttr}>
+      <div class="week-card-header">
+        <span class="week-card-title">Uke ${w.uke}</span>
+        <span class="week-card-period">${w.periode}</span>
+        <span class="week-card-ts">${ts}t</span>
+      </div>
+      <div class="week-card-days">${tiles}</div>
+    </div>`;
+  }).join('');
+}
+
+// --- TODAY / NEXT SHIFT ---
+function getTodayDate() { const d=new Date(); d.setHours(0,0,0,0); return d; }
+
+function findShiftForDate(iso) {
+  for (const w of weeks) {
+    const s=parseDate(w.start);
+    for (let i=0;i<7;i++) {
+      const d=addDays(s,i);
+      if (toIso(d)===iso) return { week:w, dayIdx:i, date:d, shift:w.shifts[i] };
+    }
+  }
+  return null;
+}
+
+function findNextShift(fromDate) {
+  let best=null;
+  weeks.forEach(w=>{
     const s=parseDate(w.start);
     w.shifts.forEach((sh,i)=>{
-      const d=addDays(s,i); const iso=toIso(d);
-      const h=SHIFT_HOURS[sh]||0;
       if(!isWork(sh)) return;
-      if(IS_EVENING[sh]) eveningHours+=h;
-      if(i>=5) weekendHours+=h;
-      if(NO_HOLIDAYS[iso]) holidayHours+=h;
-      if(IS_LONG[sh]) longHours+=h;
+      const d=addDays(s,i);
+      if (d>=fromDate && (!best || d<best.date)) best={week:w, dayIdx:i, date:d, shift:sh};
     });
   });
+  return best;
+}
 
-  const refYear = yearsInData[0];
-  const eveningTillegg = eveningHours * EVENING_TILLEGG * pct;
-  const weekendTillegg = weekendHours * WEEKEND_TILLEGG * pct;
-  const holidayTillegg = holidayHours * HOLIDAY_TILLEGG * pct;
-  const longTillegg = longHours * LONG_TILLEGG * pct;
+const WEEKDAY_NAMES=['Søndag','Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag'];
 
-  const totalTillegg = eveningTillegg + weekendTillegg + holidayTillegg + longTillegg;
-  const totalAnnual = annualBase + totalTillegg;
-  const totalMonthly = totalAnnual / 12;
+function renderTodayBar() {
+  const bar=document.getElementById('todayBar');
+  if(!bar) return;
+  const today=getTodayDate();
+  const todayIso=toIso(today);
+  const info=findShiftForDate(todayIso);
+  const todayLabel=`${WEEKDAY_NAMES[today.getDay()]} ${fmt(today)}.${today.getFullYear()}`;
 
-  // Filtered month estimate
-  const filtered = getFiltered();
-  let filtMonths = currentFilter === 'all' ? 6 : 1;
-  const filtEstimate = totalMonthly * filtMonths;
+  let todayHtml;
+  if (info && isWork(info.shift)) {
+    const t=SHIFT_TIMES[info.shift];
+    todayHtml=`<div class="today-value"><span class="shift-chip ${chipClass(info.shift)}">${info.shift}</span> <span class="today-sub">${t?t[0]+'–'+t[1]:''}</span></div>`;
+  } else if (info && info.shift==='F1') {
+    todayHtml=`<div class="today-value today-off">🌿 Fri i dag <span class="today-sub">(F1)</span></div>`;
+  } else {
+    todayHtml=`<div class="today-value today-off">Ingen vakt registrert for i dag</div>`;
+  }
 
-  document.getElementById('salaryResults').innerHTML=`
-    <div class="salary-result-card">
-      <div class="salary-result-label">Årslønn (estimat)</div>
-      <div class="salary-result-value">${fmtKr(Math.round(totalAnnual/1000)*1000)}</div>
-      <div class="salary-result-sub">inkl. tillegg · brutto</div>
+  const searchFrom = (info && isWork(info.shift)) ? addDays(today,1) : today;
+  const next=findNextShift(searchFrom);
+  let nextHtml='';
+  if (next) {
+    const t=SHIFT_TIMES[next.shift];
+    const isNextToday=toIso(next.date)===todayIso;
+    const nextLabel=`${fmt(next.date)}.${next.date.getFullYear()}`;
+    const wIdx=weeks.indexOf(next.week);
+    nextHtml=`<div class="today-next">
+      <span class="today-next-label">${isNextToday?'Neste vakt (i dag)':'Neste vakt'}</span>
+      <span class="today-next-val"><span class="shift-chip ${chipClass(next.shift)}">${next.shift}</span> ${days[next.dayIdx]} ${nextLabel}${t?' · '+t[0]+'–'+t[1]:''}</span>
+      <button class="today-ics-btn" onclick="downloadSingleICS(${wIdx}, ${next.dayIdx})">📅 Legg til i kalender</button>
+    </div>`;
+  }
+
+  bar.innerHTML=`
+    <div class="today-block">
+      <div class="today-label">I dag · ${todayLabel}</div>
+      ${todayHtml}
     </div>
-    <div class="salary-result-card">
-      <div class="salary-result-label">Pr. måned (snitt)</div>
-      <div class="salary-result-value">${fmtKr(Math.round(totalMonthly/100)*100)}</div>
-      <div class="salary-result-sub">brutto snitt</div>
-    </div>
-    <div class="salary-result-card">
-      <div class="salary-result-label">Grunnlønn (år)</div>
-      <div class="salary-result-value">${fmtKr(Math.round(annualBase/1000)*1000)}</div>
-      <div class="salary-result-sub">${pct*100}% stilling</div>
-    </div>
-    <div class="salary-result-card">
-      <div class="salary-result-label">Tillegg totalt (år)</div>
-      <div class="salary-result-value">${fmtKr(Math.round(totalTillegg/100)*100)}</div>
-      <div class="salary-result-sub">aftenltillegg + helg + helligdag</div>
-    </div>
-  `;
-
-  document.getElementById('salaryBreakdown').innerHTML=`
-    <div class="salary-breakdown-row"><span style="color:var(--text-muted);font-size:11px">Tilleggsberegning basert på turnus for ${refYear} (ett kalenderår)</span><span></span></div>
-    <div class="salary-breakdown-row"><span>Grunnlønn (${pct*100}% stilling)</span><span class="salary-breakdown-val">${fmtKr(Math.round(annualBase))}</span></div>
-    <div class="salary-breakdown-row"><span>Aftentillegg · ${Math.round(eveningHours)}t × ${EVENING_TILLEGG} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(eveningTillegg))}</span></div>
-    <div class="salary-breakdown-row"><span>Helgetillegg · ${Math.round(weekendHours)}t × ${WEEKEND_TILLEGG} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(weekendTillegg))}</span></div>
-    <div class="salary-breakdown-row"><span>Helligdagstillegg · ${Math.round(holidayHours)}t × ${HOLIDAY_TILLEGG} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(holidayTillegg))}</span></div>
-    <div class="salary-breakdown-row"><span>Langvakttillegg · ${Math.round(longHours)}t × ${LONG_TILLEGG} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(longTillegg))}</span></div>
-    <div class="salary-breakdown-row"><span>Estimert årslønn totalt (brutto)</span><span class="salary-breakdown-val">${fmtKr(Math.round(totalAnnual))}</span></div>
+    ${nextHtml}
   `;
 }
 
-// --- PAYSLIP / LØNNSKJØRING ---
+let didAutoScrollToday=false;
+function maybeAutoScrollToday() {
+  if (didAutoScrollToday) return;
+  const isMobile=window.innerWidth<=700;
+  const target=document.getElementById(isMobile?'todayCardRow':'todayTableRow');
+  if (target) {
+    didAutoScrollToday=true;
+    setTimeout(()=>target.scrollIntoView({behavior:'smooth', block:'center'}), 450);
+  }
+}
+
+// --- PAYSLIP / LØNNSKJØRING (grunnlønn + justerbare tillegg, time for time fra faktisk turnus) ---
 // Månedsnavn
 const MONTH_NAMES = ['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember'];
+
+function numVal(id, fallback) {
+  const el = document.getElementById(id);
+  const v = el ? parseFloat(el.value) : NaN;
+  return isNaN(v) ? fallback : v;
+}
 
 function calcPayslip() {
   const annualEl = document.getElementById('manualAnnual');
   if (!annualEl) return;
-  const annual = parseFloat(annualEl.value) || 528300;
-  const TAX = 0.25;
+  const annual = numVal('manualAnnual', 528300);
+  const taxPctVal = Math.min(70, Math.max(0, numVal('taxPct', 25)));
+  const TAX = taxPctVal / 100;
+
+  const eveningRate = numVal('eveningTillegg', 58);
+  const weekendRate = numVal('weekendTillegg', 65);
+  const holidayRate = numVal('holidayTillegg', 115);
+  const longRate    = numVal('longTillegg', 30);
+
+  const filtered = getFiltered();
+  // Get unique year-month combos from filtered weeks
+  const TURNUS_MONTHS_FILTERED = [...new Set(
+    filtered.flatMap(w => {
+      const s = parseDate(w.start);
+      return Array.from({length:7}, (_,i) => {
+        const d = addDays(s,i);
+        return `${d.getFullYear()}-${d.getMonth()+1}`;
+      });
+    })
+  )].sort();
+
   const ANNUAL_HOURS = 1850;
   const hourlyRate = annual / ANNUAL_HOURS;
 
-  // Bestem hvilke år vi viser
-  const showYears = currentYear !== 'all' ? [currentYear] : [2026,2027,2028,2029];
+  // Count base hours + tillegg per year-month, and totals per tillegg-type (for breakdown), from filtered weeks only
+  const hoursPerMonth = {};
+  const tilleggPerMonth = {};
+  TURNUS_MONTHS_FILTERED.forEach(m => { hoursPerMonth[m]=0; tilleggPerMonth[m]=0; });
 
-  // Bygg opp en komplett dag->vakt-mapping fra ALLE uker i valgte år
-  // Slik at vi teller korrekt per kalenderdag, ikke per uke
-  const dayShiftMap = {}; // 'YYYY-MM-DD' -> timer
-  weeks.filter(w => showYears.includes(w.year)).forEach(w => {
+  let eveningHours=0, weekendHours=0, holidayHours=0, longHours=0;
+
+  filtered.forEach(w => {
     const s = parseDate(w.start);
     w.shifts.forEach((sh, i) => {
+      if (!isWork(sh)) return;
       const d = addDays(s, i);
-      const iso = toIso(d);
-      // Kun tell dager som faktisk er i valgt år
-      if (!showYears.includes(d.getFullYear())) return;
+      const key = `${d.getFullYear()}-${d.getMonth()+1}`;
+      if (!(key in hoursPerMonth)) return;
       const h = SHIFT_HOURS[sh] || 0;
-      dayShiftMap[iso] = (dayShiftMap[iso] || 0) + h;
+      hoursPerMonth[key] += h;
+
+      let extra = 0;
+      if (IS_EVENING[sh]) { extra += h*eveningRate; eveningHours += h; }
+      if (i>=5)           { extra += h*weekendRate; weekendHours += h; }
+      if (NO_HOLIDAYS[toIso(d)]) { extra += h*holidayRate; holidayHours += h; }
+      if (IS_LONG[sh])    { extra += h*longRate; longHours += h; }
+      tilleggPerMonth[key] += extra;
     });
   });
 
-  // Summer timer per år-måned
-  const hoursPerMonth = {};
-  Object.entries(dayShiftMap).forEach(([iso, h]) => {
-    const d = parseDate(iso);
-    const key = `${d.getFullYear()}-${d.getMonth()+1}`;
-    hoursPerMonth[key] = (hoursPerMonth[key] || 0) + h;
+  const totalHours = Object.values(hoursPerMonth).reduce((a,b) => a+b, 0);
+  const totalTillegg = Object.values(tilleggPerMonth).reduce((a,b) => a+b, 0);
+
+  const bruttoPerMonth = {};
+  TURNUS_MONTHS_FILTERED.forEach(m => {
+    bruttoPerMonth[m] = hoursPerMonth[m] * hourlyRate + tilleggPerMonth[m];
   });
 
-  // Sorter måneder
-  const monthKeys = Object.keys(hoursPerMonth).sort();
-
-  // Filtrer på måned om valgt
-  const filteredKeys = currentFilter === 'all'
-    ? monthKeys
-    : monthKeys.filter(k => parseInt(k.split('-')[1]) === currentFilter);
-
-  const totalHours = filteredKeys.reduce((a,k) => a + (hoursPerMonth[k]||0), 0);
-  const totalBrutto = totalHours * hourlyRate;
+  const totalBrutto = Object.values(bruttoPerMonth).reduce((a,b) => a+b, 0);
   const totalSkatt  = totalBrutto * TAX;
   const totalNetto  = totalBrutto - totalSkatt;
-  const snittNetto  = filteredKeys.length > 0 ? totalNetto / filteredKeys.length : 0;
+  const snittNetto  = TURNUS_MONTHS_FILTERED.length > 0 ? totalNetto / TURNUS_MONTHS_FILTERED.length : 0;
 
-  // Snitt månedlig for hele turnusen (full år)
-  const fullMonthlyBrutto = (annual / 12);
-  const fullMonthlyNetto  = fullMonthlyBrutto * (1 - TAX);
-
+  // Summary cards
   document.getElementById('payslipCards').innerHTML = `
     <div class="payslip-card blue">
-      <div class="payslip-card-label">Årslønn (100% stilling)</div>
+      <div class="payslip-card-label">Grunnlønn (årslønn, 100%)</div>
       <div class="payslip-card-value">${fmtKr(Math.round(annual))}</div>
       <div class="payslip-card-sub">${Math.round(hourlyRate)} kr/t · ${ANNUAL_HOURS}t/år</div>
     </div>
     <div class="payslip-card blue">
-      <div class="payslip-card-label">Brutto vist periode</div>
+      <div class="payslip-card-label">Brutto turnusperiode</div>
       <div class="payslip-card-value">${fmtKr(Math.round(totalBrutto))}</div>
-      <div class="payslip-card-sub">${Math.round(totalHours)}t × ${Math.round(hourlyRate)} kr/t</div>
+      <div class="payslip-card-sub">${Math.round(totalHours)}t · inkl. ${fmtKr(Math.round(totalTillegg))} tillegg</div>
     </div>
     <div class="payslip-card red">
-      <div class="payslip-card-label">Skattetrekk (25%)</div>
+      <div class="payslip-card-label">Skattetrekk (${taxPctVal}%)</div>
       <div class="payslip-card-value">− ${fmtKr(Math.round(totalSkatt))}</div>
-      <div class="payslip-card-sub">estimert trekk · vist periode</div>
+      <div class="payslip-card-sub">estimert trekk · turnusperiode</div>
     </div>
     <div class="payslip-card green">
-      <div class="payslip-card-label">Snitt netto / mnd</div>
-      <div class="payslip-card-value">${fmtKr(Math.round(snittNetto))}</div>
-      <div class="payslip-card-sub">${filteredKeys.length} mnd vist · utbetalt 20.</div>
+      <div class="payslip-card-label">Netto turnusperiode</div>
+      <div class="payslip-card-value">${fmtKr(Math.round(totalNetto))}</div>
+      <div class="payslip-card-sub">snitt ${fmtKr(Math.round(snittNetto))} / mnd · ${TURNUS_MONTHS_FILTERED.length} mnd vist</div>
     </div>
   `;
 
-  const rows = filteredKeys.map(key => {
+  // Tillegg-nedbryting for perioden som vises
+  document.getElementById('salaryBreakdown').innerHTML = `
+    <div class="salary-breakdown-row"><span>Grunnlønn · ${Math.round(totalHours)}t × ${Math.round(hourlyRate)} kr</span><span class="salary-breakdown-val">${fmtKr(Math.round(totalHours*hourlyRate))}</span></div>
+    <div class="salary-breakdown-row"><span>Aftentillegg · ${Math.round(eveningHours)}t × ${eveningRate} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(eveningHours*eveningRate))}</span></div>
+    <div class="salary-breakdown-row"><span>Helgetillegg · ${Math.round(weekendHours)}t × ${weekendRate} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(weekendHours*weekendRate))}</span></div>
+    <div class="salary-breakdown-row"><span>Helligdagstillegg · ${Math.round(holidayHours)}t × ${holidayRate} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(holidayHours*holidayRate))}</span></div>
+    <div class="salary-breakdown-row"><span>Langvakttillegg · ${Math.round(longHours)}t × ${longRate} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(longHours*longRate))}</span></div>
+    <div class="salary-breakdown-row"><span>Brutto totalt (${TURNUS_MONTHS_FILTERED.length} mnd vist)</span><span class="salary-breakdown-val">${fmtKr(Math.round(totalBrutto))}</span></div>
+  `;
+
+  // Månedstabell — brutto basert på faktiske timer + tillegg
+  const rows = TURNUS_MONTHS_FILTERED.map(key => {
     const [yr, mn] = key.split('-').map(Number);
     const h      = hoursPerMonth[key] || 0;
-    const brutto = h * hourlyRate;
+    const brutto = bruttoPerMonth[key] || 0;
     const skatt  = brutto * TAX;
     const netto  = brutto - skatt;
     const payDate = `20.${String(mn).padStart(2,'0')}.${yr}`;
-    const mLabel  = MONTH_NAMES[mn-1] + (currentYear === 'all' ? ` ${yr}` : '');
+    const mLabel = MONTH_NAMES[mn-1] + (currentYear === 'all' ? ` ${yr}` : '');
     return `<tr>
       <td class="utbetalt">${mLabel}</td>
       <td style="color:var(--text-muted); text-align:right">${h.toFixed(1)}t</td>
@@ -2074,10 +1457,11 @@ function calcPayslip() {
   `;
 
   document.getElementById('payslipNote').innerHTML =
-    `Lønn beregnes som <strong style="color:#7db5f5">faktiske timer × ${Math.round(hourlyRate)} kr/t</strong>
-     (${fmtKr(annual)} ÷ ${ANNUAL_HOURS}t). Måneder med færre timer (ferie, oppstart) gir lavere utbetaling.
-     Normal full måned med ~154t gir ca. <strong style="color:#5dcaa5">${fmtKr(Math.round(154*hourlyRate*(1-TAX)))} kr netto</strong>.
-     Skattetrekk 25% er estimat — faktisk trekk fastsettes av skattekort. Lønnskjøring den 20.`;
+    `Brutto pr. måned regnes som <strong style="color:#7db5f5">faktiske timer × ${Math.round(hourlyRate)} kr/t</strong> (grunnlønn ${fmtKr(annual)} ÷ ${ANNUAL_HOURS}t)
+     <strong style="color:#7db5f5">pluss tillegg</strong> for aften-, helge-, helligdags- og langvakttimer den måneden, basert på satsene over.
+     Måneder med færre timer (f.eks. ferieuker) gir lavere utbetaling.
+     Skattetrekk ${taxPctVal}% er satt manuelt – juster til ditt eget skattekort for et mer presist estimat.
+     Lønnskjøring den 20. i hver måned.`;
 }
 
 // --- PANEL TOGGLES ---
@@ -2090,16 +1474,19 @@ function toggleSalary() {
   const tog=document.getElementById('salaryToggle');
   const isOpen=body.classList.toggle('open');
   tog.classList.toggle('open',isOpen);
-  if(isOpen) { calcSalary(); calcPayslip(); }
+  if(isOpen) { calcPayslip(); }
 }
 
 // --- INIT ---
 function renderAll() {
   const f=getFiltered();
+  renderTodayBar();
   renderStats(f);
   renderHolidayWarnings(f);
   renderTable(f);
-  if(document.getElementById('salaryBody').classList.contains('open')) { calcSalary(); calcPayslip(); }
+  renderMobileCards(f);
+  if(document.getElementById('salaryBody').classList.contains('open')) { calcPayslip(); }
+  maybeAutoScrollToday();
 }
 
 buildPicker();
@@ -2135,6 +1522,5 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
