@@ -974,6 +974,15 @@
 
       <div class="okonomi-box">
         <div class="payslip-divider" style="margin-top:0">Anbefalt fordeling <span class="payslip-tag ok-period-label"></span></div>
+        <div class="salary-input-group" style="max-width:360px;margin-bottom:14px">
+          <label class="salary-input-label">Forbruksnivå (mat, klær, pleie, fritid, transport, husholdning)</label>
+          <select class="salary-input" id="okSifoLevel" onchange="calcOkonomi()">
+            <option value="sparsom">Sparsommelig — ca. 75 % av SIFO</option>
+            <option value="middels" selected>Middels — ca. 90 % av SIFO</option>
+            <option value="full">Fullt SIFO-nivå — 100 %</option>
+          </select>
+          <span style="font-size:10px;color:var(--text-muted)">SIFO beskriver selv referansebudsjettet som et <strong>romslig, akseptabelt</strong> forbruksnivå — ikke et minimum. «Middels» er satt som standard fordi mange husstander bruker mindre enn full SIFO-sats uten at noe mangler; juster opp eller ned til det som stemmer for dere.</span>
+        </div>
         <div class="payslip-grid" id="okBudsjettCards"></div>
         <div class="budget-bar-wrap">
           <div class="budget-bar" id="budgetBar"></div>
@@ -982,7 +991,7 @@
         <div id="budgetStatus"></div>
         <div id="budgetTips"></div>
         <div class="payslip-note" style="margin-top:10px">
-          Forbrukskategoriene (mat, klær, personlig pleie, fritid/mediebruk, transport, husholdningsartikler) er beregnet fra <strong style="color:#7db5f5">SIFOs referansebudsjett for forbruksutgifter</strong> (OsloMet), basert på antall voksne/barn og alder du oppgir. Bilkostnader brukes i stedet for kollektivtransport dersom husstanden har bil. Bolig, andre faste utgifter og sparing er dine egne tall. Dette er en veiledende fordeling — ikke en fasit, og ikke det samme som hva som faktisk skjer (se «Fremdrift»).
+          Forbrukskategoriene (mat, klær, personlig pleie, fritid/mediebruk, transport, husholdningsartikler) er beregnet fra <strong style="color:#7db5f5">SIFOs referansebudsjett for forbruksutgifter</strong> (OsloMet), basert på antall voksne/barn og alder du oppgir, skalert med forbruksnivået over. Bilkostnader brukes i stedet for kollektivtransport dersom husstanden har bil. Bolig, andre faste utgifter og sparing er dine egne tall. <strong>NB:</strong> SIFOs «fritid/mediebruk»-tall inkluderer allerede internett, TV/strømmetjenester <strong>og innboforsikring</strong> — ikke legg disse inn på nytt under «Andre faste utgifter». Dette er en veiledende fordeling — ikke en fasit, og ikke det samme som hva som faktisk skjer (se «Fremdrift»).
         </div>
       </div>
     </div>
@@ -998,8 +1007,9 @@
             <input type="number" class="salary-input" id="okBolig" value="9000" step="100" onchange="calcOkonomi()" oninput="calcOkonomi()">
           </div>
           <div class="salary-input-group">
-            <label class="salary-input-label">Andre faste utgifter (strøm, forsikring, telefon m.m.)</label>
+            <label class="salary-input-label">Andre faste utgifter (strøm, telefon, bilforsikring m.m.)</label>
             <input type="number" class="salary-input" id="okFaste" value="2500" step="100" onchange="calcOkonomi()" oninput="calcOkonomi()">
+            <span style="font-size:10px;color:var(--text-muted)">Ikke legg inn innboforsikring, internett/TV/strømmetjenester her — de ligger allerede i SIFO-forbrukstallene under «Budsjett»</span>
           </div>
         </div>
 
@@ -2224,8 +2234,19 @@ function calcRestCheck() {
 // Kilde: SIFOs referansebudsjett for forbruksutgifter (OsloMet), 2025-tabellen (siste offentliggjorte
 // detaljerte kategoritall), oppjustert ~2% for å reflektere 2026-nivå (OsloMets 2026-oppdatering viste
 // +1,6–2,9% på totalbudsjettene for husholdninger med barn). Tallene dekker KUN vanlige forbruksutgifter —
-// bolig, strøm, forsikring og sparing inngår ikke i SIFO-budsjettet og legges inn manuelt av bruker.
+// bolig, strøm og sparing inngår ikke i SIFO-budsjettet og legges inn manuelt av bruker. MERK: SIFOs egen
+// "mediebruk"-kategori (regnet inn i fritidTotal under) inkluderer FAKTISK internett, TV/strømmetjenester
+// og INNBOFORSIKRING (kilde: oslomet.no/om/sifo/referansebudsjettet) — disse skal derfor IKKE også legges
+// inn under «Andre faste utgifter», ellers telles de dobbelt. Se justert feltetekst/hjelpetekst der.
 const SIFO_INFLATION = 1.02;
+// SIFO beskriver selv referansebudsjettet som "et akseptabelt forbruksnivå" for å delta i sosiale,
+// kulturelle og fysiske aktiviteter — et ROMSLIG, ikke et minimum, nivå. Mange husstander (Nathalie
+// inkludert) bruker reelt sett mindre enn full SIFO-sats uten at noe mangler. Gi derfor brukeren et
+// eksplisitt, synlig valg for hvor ambisiøst det anbefalte forbruket skal være, i stedet for å tvinge
+// gjennom hele SIFO-satsen som eneste alternativ (som lett oppleves som en urealistisk, avskrekkende
+// "fasit" når den legges oppå faste utgifter og gjeld).
+const SIFO_LEVELS = { sparsom: 0.75, middels: 0.90, full: 1.0 };
+const SIFO_LEVEL_LABELS = { sparsom: 'sparsommelig', middels: 'middels', full: 'fullt SIFO-nivå' };
 const CHILD_BRACKETS = [
   { key:'0-1',   label:'0–1 år' },
   { key:'2-5',   label:'2–5 år' },
@@ -2379,6 +2400,7 @@ function saveOkState() {
     hasGoal: document.getElementById('okHasGoal').checked, goalAmount: numVal('okGoalAmount',0), goalMonths: numVal('okGoalMonths',1),
     savePct: numVal('okSavePct',10), priority: document.getElementById('okPriority').value,
     nettoAuto: document.getElementById('okNettoAuto').checked, nettoManual: numVal('okNetto',0),
+    sifoLevel: document.getElementById('okSifoLevel') ? document.getElementById('okSifoLevel').value : 'middels',
   });
 }
 // Gamle lagrede "faktisk forbruk"-nøkler (fra før annen-inntekt-funksjonen) var nøkkel-format
@@ -2419,6 +2441,7 @@ function loadOkState() {
   document.getElementById('okGoalMonths').value = s.goalMonths ?? 12;
   document.getElementById('okSavePct').value = s.savePct ?? 10;
   document.getElementById('okPriority').value = s.priority || 'balanced';
+  if (document.getElementById('okSifoLevel')) document.getElementById('okSifoLevel').value = (s.sifoLevel && SIFO_LEVELS[s.sifoLevel]) ? s.sifoLevel : 'middels';
   document.getElementById('okNettoAuto').checked = s.nettoAuto !== false;
   document.getElementById('okNetto').value = s.nettoManual ?? 0;
   document.getElementById('okNetto').disabled = document.getElementById('okNettoAuto').checked;
@@ -2551,11 +2574,18 @@ function calcOkonomi() {
   const mobler = SIFO_HOUSEHOLD.mobler[hIdx];
   const mediebruk = SIFO_HOUSEHOLD.mediebruk[hIdx];
 
-  const matTotal = Math.round(mat*SIFO_INFLATION);
-  const klarPleieTotal = Math.round((klar+pleie)*SIFO_INFLATION);
-  const fritidTotal = Math.round((fritidPers+mediebruk)*SIFO_INFLATION);
-  const transportTotal = Math.round((transport+bilkostnad)*SIFO_INFLATION);
-  const husholdningTotal = Math.round((dagligvarer+husholdningsart+mobler)*SIFO_INFLATION);
+  // Forbruksnivå — hvor stor andel av SIFOs (romslige) referansesats som faktisk brukes som
+  // anbefaling. Se forklaring ved SIFO_LEVELS over. Lagres/husk til neste besøk som resten av
+  // Økonomi-innstillingene.
+  const sifoLevelEl = document.getElementById('okSifoLevel');
+  const sifoLevelKey = (sifoLevelEl && SIFO_LEVELS[sifoLevelEl.value]) ? sifoLevelEl.value : 'middels';
+  const sifoLevelFactor = SIFO_LEVELS[sifoLevelKey];
+
+  const matTotal = Math.round(mat*SIFO_INFLATION*sifoLevelFactor);
+  const klarPleieTotal = Math.round((klar+pleie)*SIFO_INFLATION*sifoLevelFactor);
+  const fritidTotal = Math.round((fritidPers+mediebruk)*SIFO_INFLATION*sifoLevelFactor);
+  const transportTotal = Math.round((transport+bilkostnad)*SIFO_INFLATION*sifoLevelFactor);
+  const husholdningTotal = Math.round((dagligvarer+husholdningsart+mobler)*SIFO_INFLATION*sifoLevelFactor);
   const sifoTotal = matTotal + klarPleieTotal + fritidTotal + transportTotal + husholdningTotal;
 
   const bolig = Math.max(0, numVal('okBolig', 0));
@@ -2716,7 +2746,7 @@ function calcOkonomi() {
   if (budsjettCardsEl) budsjettCardsEl.innerHTML = `
     <div class="payslip-card blue"><div class="payslip-card-label">Netto til fordeling</div><div class="payslip-card-value">${fmtKr(Math.round(periodNettoTotal))}</div><div class="payslip-card-sub">${periodLabel}${periodMonths>1?` · snitt ${fmtKr(Math.round(netto))}/mnd`:''}</div></div>
     <div class="payslip-card"><div class="payslip-card-label">Bolig + faste utgifter${gjeldTotal>0?' + gjeld':''}</div><div class="payslip-card-value" style="color:#8dc0ff">${fmtKr(Math.round((fasteTotal+gjeldTotal)*periodMonths))}</div><div class="payslip-card-sub">${gjeldTotal>0?`inkl. ${fmtKr(Math.round(gjeldTotal*periodMonths))} i gjeldsavdrag`:'dine egne tall'}</div></div>
-    <div class="payslip-card"><div class="payslip-card-label">SIFO-basert forbruk</div><div class="payslip-card-value" style="color:#eda100">${fmtKr(Math.round(sifoTotal*periodMonths))}</div><div class="payslip-card-sub">mat, klær, pleie, fritid, transport, husholdning</div></div>
+    <div class="payslip-card"><div class="payslip-card-label">SIFO-basert forbruk</div><div class="payslip-card-value" style="color:#eda100">${fmtKr(Math.round(sifoTotal*periodMonths))}</div><div class="payslip-card-sub">mat, klær, pleie, fritid, transport, husholdning · ${SIFO_LEVEL_LABELS[sifoLevelKey]} nivå</div></div>
     <div class="payslip-card green"><div class="payslip-card-label">Sparing (anbefalt)</div><div class="payslip-card-value">${fmtKr(Math.round(totalSparing*periodMonths))}</div><div class="payslip-card-sub">${goalChecked?'basert på sparemål':'basert på %'}${extraSparing>0?' + prioritert rest':''}</div></div>
     <div class="payslip-card"><div class="payslip-card-label">Planlagt sitte igjen med</div><div class="payslip-card-value" style="color:#7db5f5">${fmtKr(Math.round(plannedOverskudd))}</div><div class="payslip-card-sub">om alt går som anbefalt</div></div>
   `;
