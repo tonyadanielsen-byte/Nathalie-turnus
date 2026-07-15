@@ -1328,6 +1328,9 @@ let okSection = 'hub';
 // Editable copy of all weeks
 let weeks = JSON.parse(JSON.stringify(allWeeks));
 let savedWeeks = JSON.parse(JSON.stringify(allWeeks));
+// Manuelt redigerte vakter, lagret som et sparsomt "avvik"-kart nøkkelet på ukens unike start-dato
+// (IKKE en full kopi av hele turnusen) — se loadTurnusOverrides()/saveChanges() lenger ned for hvorfor.
+let turnusOverrides = {};
 
 // --- Enkel localStorage-lagring (husker sist valgte filter/innstillinger til neste besøk) ---
 function lsGet(key, fallback) {
@@ -1559,6 +1562,24 @@ function saveChanges() {
     w.ts = Math.round(total * 2) / 2;
   });
   savedWeeks = JSON.parse(JSON.stringify(weeks));
+
+  // BUG FIX: this used to ONLY update the in-memory `savedWeeks` variable — nothing was ever written
+  // to localStorage, so every saved shift-edit was silently lost the moment the tab/app was closed
+  // (exactly the "vaktene går tilbake" symptom reported). Persist edits now, as a SPARSE diff against
+  // the original allWeeks baseline (keyed by each week's unique start-date), not a full snapshot of
+  // every week — that way, if a future app update corrects/extends the base schedule, those changes
+  // still reach a user who has only hand-edited a few of their own weeks; only the weeks they actually
+  // changed stay pinned to their own edit.
+  const baseByStart = {};
+  allWeeks.forEach(w => { baseByStart[w.start] = w; });
+  weeks.forEach(w => {
+    const base = baseByStart[w.start];
+    const changed = !base || JSON.stringify(base.shifts) !== JSON.stringify(w.shifts);
+    if (changed) turnusOverrides[w.start] = { shifts: [...w.shifts], ts: w.ts };
+    else delete turnusOverrides[w.start]; // edited back to match the baseline — no override needed anymore
+  });
+  lsSet('turnusOverrides', turnusOverrides);
+
   toggleEditMode();
   renderAll();
 }
@@ -1567,6 +1588,20 @@ function resetChanges() {
   weeks = JSON.parse(JSON.stringify(savedWeeks));
   closePicker();
   renderAll();
+}
+
+// Bygger den REELLE, redigerbare ukelisten: allWeeks-basisen med eventuelle lagrede avvik lagt oppå
+// (matchet på start-dato). Kalles ved oppstart, se init-blokken nederst i filen.
+function applyTurnusOverrides(baseWeeks) {
+  return baseWeeks.map(w => {
+    const ov = turnusOverrides[w.start];
+    return ov ? { ...w, shifts: [...ov.shifts], ts: ov.ts } : JSON.parse(JSON.stringify(w));
+  });
+}
+function loadTurnusOverrides() {
+  turnusOverrides = lsGet('turnusOverrides', {}) || {};
+  weeks = applyTurnusOverrides(allWeeks);
+  savedWeeks = JSON.parse(JSON.stringify(weeks));
 }
 
 function selectShift(weekIdx, dayIdx, val) {
@@ -2904,6 +2939,7 @@ window.addEventListener('hashchange', () => {
 });
 
 buildPicker();
+loadTurnusOverrides();
 loadTurnusFilter();
 loadOkState();
 renderChildrenList();
@@ -2937,8 +2973,28 @@ window.addEventListener('appinstalled', () => {
 });
 
 // ── SERVICE WORKER ──
+// BUG FIX: previously just registered the service worker and never checked back — combined with the
+// old cache-first fetch strategy (see sw.js), a user could stay on a stale, already-cached version of
+// the app indefinitely, even with new versions live on GitHub Pages (exactly what happened to
+// Nathalie's installed PWA). Now: (1) explicitly ask the browser to check sw.js for updates every time
+// the app is opened or comes back into focus/foreground, not just occasionally, and (2) once a new
+// service worker actually takes over (after an update), automatically reload the page ONE time so the
+// newest index.html/JS loads right away — no manual cache-clearing or reinstalling needed.
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
+  navigator.serviceWorker.register('sw.js').then(reg => {
+    reg.update();
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') reg.update();
+    });
+    window.addEventListener('focus', () => reg.update());
+  }).catch(() => {});
+
+  let swRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (swRefreshing) return;
+    swRefreshing = true;
+    window.location.reload();
+  });
 }
 </script>
 </body>

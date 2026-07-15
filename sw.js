@@ -1,15 +1,30 @@
-const CACHE = 'nathalie-turnus-v10';
-const ASSETS = [
+const CACHE = 'nathalie-turnus-v11';
+// Core app-shell files: must succeed, or the app has no offline capability at all.
+const CORE_ASSETS = [
   './index.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
+];
+// Best-effort extras: nice to have cached for offline use, but this is a third-party URL that can be
+// temporarily unreachable (flaky connection, a network/DNS block on fonts.googleapis.com, etc.).
+const OPTIONAL_ASSETS = [
   'https://fonts.googleapis.com/css2?family=Aptos:wght@400;500;600&display=swap'
 ];
 
 self.addEventListener('install', e => {
+  // BUG-HARDENING: caches.addAll() is all-or-nothing — if a single URL in the list fails to fetch,
+  // the ENTIRE install step fails and the service worker never activates (no offline capability at
+  // all, not even for the app's own local files), until a future install attempt happens to have every
+  // single asset succeed at once. Splitting into "must-succeed" core files (addAll, still atomic — if
+  // these fail something is genuinely wrong) and "best-effort" extras like the Google Fonts stylesheet
+  // (each wrapped in its own .catch so one flaky third-party request can't take the whole app down)
+  // makes the app resilient to exactly that kind of transient failure.
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE).then(async c => {
+      await c.addAll(CORE_ASSETS);
+      await Promise.all(OPTIONAL_ASSETS.map(url => c.add(url).catch(() => {})));
+    }).then(() => self.skipWaiting())
   );
 });
 
@@ -21,8 +36,24 @@ self.addEventListener('activate', e => {
   );
 });
 
+// BUG FIX: this used to be cache-FIRST (caches.match(...).then(cached => cached || fetch(...))) —
+// meaning once a version was cached, EVERY later visit served that exact cached copy forever, even
+// though a newer version was already live on GitHub Pages. This is exactly why a person could push an
+// update, confirm it's live, and still have someone else's already-installed app (like Nathalie's,
+// added to her home screen) keep showing the old version indefinitely — cache-first never even asks
+// the network if a cached copy exists. Flipped to network-FIRST: always try to fetch the latest
+// version when online (and refresh the cache with whatever comes back), and only fall back to the
+// cached copy when offline or the network request fails. The cache still makes the app usable with no
+// connection — it just stops being able to silently freeze everyone on stale content while online.
 self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request).catch(() => caches.match('./index.html')))
+    fetch(e.request).then(fresh => {
+      const copy = fresh.clone();
+      caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
+      return fresh;
+    }).catch(() =>
+      caches.match(e.request).then(cached => cached || caches.match('./index.html'))
+    )
   );
 });
