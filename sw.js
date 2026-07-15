@@ -1,4 +1,4 @@
-const CACHE = 'nathalie-turnus-v11';
+const CACHE = 'nathalie-turnus-v12';
 // Core app-shell files: must succeed, or the app has no offline capability at all.
 const CORE_ASSETS = [
   './index.html',
@@ -47,13 +47,21 @@ self.addEventListener('activate', e => {
 // connection — it just stops being able to silently freeze everyone on stale content while online.
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  // BUG FIX: cross-origin requests (e.g. the Firebase SDK <script src="https://www.gstatic.com/...">
+  // tags, Google Fonts) must NOT fall back to caches.match('./index.html') on failure — that fallback
+  // is meant only for OUR OWN app-shell navigation/asset requests. If a cross-origin script request
+  // fails (offline, blocked, flaky CDN) and we hand back the cached index.html HTML document in its
+  // place, the browser tries to parse that HTML as JavaScript and throws "Unexpected token '<'". Let
+  // the browser handle cross-origin requests with its own normal (uncached, un-intercepted) behavior;
+  // we only apply our cache-first-fallback/offline strategy to same-origin requests.
+  if (new URL(e.request.url).origin !== self.location.origin) return;
   e.respondWith(
     fetch(e.request).then(fresh => {
       const copy = fresh.clone();
       caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
       return fresh;
     }).catch(() =>
-      caches.match(e.request).then(cached => cached || caches.match('./index.html'))
+      caches.match(e.request).then(cached => cached || (e.request.mode === 'navigate' ? caches.match('./index.html') : undefined))
     )
   );
 });

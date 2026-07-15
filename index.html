@@ -1063,6 +1063,12 @@
   <button id="installBanner-close" onclick="dismissBanner()">✕</button>
 </div>
 
+<!-- Firebase (kompatibilitets-SDK — vanlige <script>-tagger, ingen byggeverktøy/moduler nødvendig).
+     Brukes KUN til å synke turnus-vaktdataen mellom telefoner (se initCloudSync() i script-blokken
+     under). Om disse ikke laster (f.eks. ingen nett akkurat da siden åpnes), kjører appen videre helt
+     normalt med kun lokal lagring, akkurat som før — se de mange typeof-sjekkene i koden. -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script>
 const NO_HOLIDAYS = {
   // 2026
@@ -1579,6 +1585,7 @@ function saveChanges() {
     else delete turnusOverrides[w.start]; // edited back to match the baseline — no override needed anymore
   });
   lsSet('turnusOverrides', turnusOverrides);
+  pushTurnusOverridesToCloud(); // synk til Nathalies/Tonys andre enhet, se initCloudSync() lenger ned
 
   toggleEditMode();
   renderAll();
@@ -1602,6 +1609,68 @@ function loadTurnusOverrides() {
   turnusOverrides = lsGet('turnusOverrides', {}) || {};
   weeks = applyTurnusOverrides(allWeeks);
   savedWeeks = JSON.parse(JSON.stringify(weeks));
+}
+
+// ── SKY-SYNK AV TURNUS (Firebase/Firestore) ──────────────────────────────────────────────────────
+// Appen er ellers en ren statisk fil uten egen backend — localStorage alene betyr at endringer bare
+// lever på den ENE telefonen som gjorde dem (Tony sin telefon og Nathalies telefon har alltid vært to
+// helt separate "kopier" som aldri har snakket sammen). Dette laget legger til automatisk, toveis synk
+// av KUN turnus-vaktdataen (turnusOverrides) — IKKE økonomi-tallene, som forblir lokale/private på
+// hver enhet — via ett delt Firestore-dokument. Faller trygt tilbake til ren lokal lagring (som før)
+// om Firebase-SDK-en av en eller annen grunn ikke laster (f.eks. ingen nett akkurat da siden åpnes,
+// eller feil i konfigurasjonen) — appen skal ALDRI krasje eller låse seg pga dette; alt her er
+// try/catch-vernet og additivt oppå den eksisterende localStorage-lagringen.
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyB-mDqiL6XCCZO46IIowIgs4xFvv_gKPno",
+  authDomain: "nathalie-turnus.firebaseapp.com",
+  projectId: "nathalie-turnus",
+  storageBucket: "nathalie-turnus.firebasestorage.app",
+  messagingSenderId: "889693300975",
+  appId: "1:889693300975:web:99df32dbb37d1ab784531a"
+};
+let fsDb = null;
+let fsApplyingRemote = false; // vern mot å skrive rett tilbake det vi nettopp mottok fra skyen
+
+function initCloudSync() {
+  try {
+    if (typeof firebase === 'undefined') return; // SDK-en lastet ikke — kjør videre helt lokalt
+    if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    fsDb = firebase.firestore();
+    try { fsDb.enablePersistence({ synchronizeTabs: true }).catch(() => {}); } catch(e) {}
+
+    const docRef = fsDb.collection('turnus').doc('shared');
+    docRef.onSnapshot(snap => {
+      if (!snap.exists) {
+        // Dokumentet finnes ikke ennå i skyen (aller første gang synk skrus på) — så fremt DENNE
+        // enheten allerede har egne lagrede vaktendringer fra før, "sår" vi skyen med dem, slik at
+        // den andre enheten får dem neste gang den åpner appen.
+        if (Object.keys(turnusOverrides).length) pushTurnusOverridesToCloud();
+        return;
+      }
+      const data = snap.data();
+      if (!data || typeof data.overrides !== 'object' || data.overrides === null) return;
+      const incoming = JSON.stringify(data.overrides);
+      const current = JSON.stringify(turnusOverrides);
+      if (incoming === current) return; // ingen reell endring — unngå unødvendig re-render/loop
+      fsApplyingRemote = true;
+      turnusOverrides = data.overrides;
+      lsSet('turnusOverrides', turnusOverrides);
+      weeks = applyTurnusOverrides(allWeeks);
+      savedWeeks = JSON.parse(JSON.stringify(weeks));
+      renderAll();
+      fsApplyingRemote = false;
+    }, () => { /* offline e.l. — fortsetter helt fint med lokal data */ });
+  } catch(e) { /* Firebase virket ikke — appen kjører videre helt normalt lokalt */ }
+}
+
+function pushTurnusOverridesToCloud() {
+  if (!fsDb || fsApplyingRemote) return;
+  try {
+    fsDb.collection('turnus').doc('shared').set({
+      overrides: turnusOverrides,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(() => { /* ingen nett akkurat nå — localStorage har allerede endringen, synkes automatisk senere */ });
+  } catch(e) {}
 }
 
 function selectShift(weekIdx, dayIdx, val) {
@@ -2946,6 +3015,8 @@ renderChildrenList();
 renderDebtsList();
 renderAll();
 showPage(location.hash.replace('#','') || 'home', false);
+initCloudSync(); // etter første lokale render, så appen alltid viser NOE med en gang (lokal data),
+                  // og heller oppdaterer seg selv om skyen har noe nyere — se initCloudSync() over.
 
 // ── PWA INSTALL PROMPT ──
 let deferredPrompt = null;
