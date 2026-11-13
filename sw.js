@@ -1,4 +1,4 @@
-const CACHE = 'nathalie-turnus-v14';
+const CACHE = 'nathalie-turnus-v15';
 // Core app-shell files: must succeed, or the app has no offline capability at all.
 const CORE_ASSETS = [
   './index.html',

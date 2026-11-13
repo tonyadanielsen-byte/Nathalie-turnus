@@ -728,9 +728,6 @@
 
   /* ═════════ LØNN: to kolonner på bred skjerm ═════════ */
   @media (min-width: 1100px) {
-    #salaryBody.open { display: grid; grid-template-columns: 400px minmax(0, 1fr); gap: 28px; align-items: start; }
-    #salaryBody > .lonn-settings { position: sticky; top: 76px; }
-    #salaryBody > .salary-disclaimer:first-child { grid-column: 1 / -1; }
   }
   .lonn-results .payslip-section { margin: 0; }
   @media (max-width: 700px) {
@@ -849,6 +846,80 @@
   .wn-item b { display: block; font-size: 15.5px; }
   .wn-item span { color: var(--text-muted); font-size: 14px; }
   @media (prefers-reduced-motion: no-preference) { .wn-sheet { animation: wnIn .28s cubic-bezier(.2,.9,.3,1.2); } @keyframes wnIn { from { transform: translate(-50%, -46%) scale(.96); opacity: 0; } } }
+
+  /* ═════════ STRUKTUR v3: felles sideoppsett, lønn, mer ═════════ */
+  .page-body, .settings, .ov, .import-wrap, .mer-grid { padding-left: 24px; padding-right: 24px; }
+  .page-body { display: grid; gap: 18px; padding-top: 8px; padding-bottom: 28px; }
+  .page-sub { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .small { font-size: 12.5px; }
+  .muted { color: var(--text-muted); }
+  .tile.good .v { color: var(--accent-green); }
+  .tiles { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
+  .tile .v { font-size: 24px; }
+
+  /* Oversikt: fast rutenett */
+  @media (min-width: 1000px) {
+    .ov-next { grid-column: span 7 !important; } .ov-pay { grid-column: span 5 !important; }
+    .ov-month { grid-column: span 12 !important; }
+    .ov-up { grid-column: span 5 !important; grid-row: auto !important; align-self: start !important; }
+    .ov-chart { align-self: start; }
+    .ov-chart { grid-column: span 7 !important; }
+  }
+  .ov-next, .ov-pay { align-content: start; }
+
+  /* Lønn */
+  .lonn-cols { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+  @media (min-width: 1100px) { .lonn-cols { grid-template-columns: minmax(0, 1fr) 380px; } .lonn-aside { position: sticky; top: 84px; } }
+  .lonn-aside { display: grid; gap: 18px; min-width: 0; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+  .fld { display: grid; gap: 5px; min-width: 0; }
+  .fld > span { font-size: 12.5px; color: var(--text-muted); font-weight: 500; }
+  .fld .salary-input { min-height: 40px; padding: 8px 11px; font-size: 15px; width: 100%; }
+  details.fold > summary { list-style: none; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; cursor: pointer; }
+  details.fold > summary::-webkit-details-marker { display: none; }
+  details.fold > summary h3::after { content: " ›"; color: var(--text-muted); font-weight: 500; }
+  details.fold[open] > summary h3::after { content: " ⌄"; }
+  .pay-list { display: grid; }
+  .pay-row { display: grid; grid-template-columns: 1.2fr 1.1fr 1fr 1fr 1fr 22px; gap: 10px; align-items: center; padding: 12px 6px; border: 0; border-bottom: 0.5px solid var(--border); background: none; color: var(--text-primary); font: inherit; font-size: 14.5px; text-align: left; width: 100%; cursor: pointer; border-radius: 8px; font-variant-numeric: tabular-nums; }
+  .pay-row:hover { background: var(--fill-faint); }
+  .pay-row.open { background: var(--fill-soft); border-bottom-color: transparent; }
+  .pay-row .r { text-align: right; }
+  .pay-row .chev { color: var(--text-muted); text-align: center; }
+  .pay-head { cursor: default; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); padding-top: 4px; padding-bottom: 8px; }
+  .pay-head:hover { background: none; }
+  .pay-detail { padding: 12px 12px 16px; border-bottom: 0.5px solid var(--border); background: var(--fill-faint); border-radius: 0 0 10px 10px; margin-bottom: 4px; }
+  .pay-detail .kv { max-width: 520px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #fff; background: var(--accent-blue); border-radius: 999px; padding: 1px 7px; vertical-align: 1px; }
+
+  /* Mer: innstillingsliste */
+  .settings { max-width: 760px; padding-top: 4px; padding-bottom: 32px; }
+  .settings h4 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin: 22px 4px 8px; }
+  .settings h4:first-child { margin-top: 8px; }
+  .settings .ios-list { background: var(--surface); box-shadow: var(--shadow); border-radius: 14px; }
+  .settings .ios-list > * { padding: 13px 16px; }
+  .settings .list-link { border-bottom: 0.5px solid var(--border); padding: 14px 16px; align-items: center; }
+  .settings .ios-list > *:last-child { border-bottom: 0; }
+  .settings .list-link { width: 100%; display: flex; justify-content: space-between; gap: 12px; }
+  .list-link .chev { color: var(--text-muted); font-size: 20px; line-height: 1; }
+  .list-link.static { cursor: default; }
+  .settings .foot { font-size: 13px; color: var(--text-muted); margin: 8px 6px 0; }
+
+  @media (max-width: 760px) {
+    .page-body, .settings, .ov, .import-wrap, .mer-grid { padding-left: 14px; padding-right: 14px; }
+    .tiles { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .tile { padding: 12px 14px; } .tile .v { font-size: 21px; }
+    .pay-row { grid-template-columns: 1fr auto 18px; gap: 8px; padding: 13px 8px; }
+    .pay-row .c-per, .pay-row .c-br, .pay-row .c-sk { display: none; }
+    .pay-head { display: none; }
+    .form-grid { grid-template-columns: 1fr 1fr; }
+    .side-card { padding: 16px; border-radius: 16px; }
+    .next-code { width: 70px; height: 62px; font-size: 26px; border-radius: 15px; }
+    .weekstrip { gap: 4px; } .weekstrip button { padding: 8px 0; } .weekstrip button b { font-size: 15px; }
+    .settings .ios-switch { gap: 10px; }
+    .settings .seg button { padding: 6px 10px; }
+  }
+  @media (max-width: 760px) { #lonnTiles .tile:first-child { grid-column: 1 / -1; } }
+  @media (max-width: 380px) { .tile .v { font-size: 19px; } .ios-switch .seg button { padding: 6px 8px; font-size: 12.5px; } }
 </style>
 <script>
   /* Tema settes før siden tegnes, så det ikke blinker. 'system' følger telefonens innstilling. */
@@ -874,7 +945,7 @@
       <span class="brand-text"><b>Nathalies turnus</b><small>Hjemmesykepleien · Sone Klokkeråsen</small></span>
     </button>
     <nav class="tabs" aria-label="Sider">
-      <button data-nav="home">Oversikt</button><button data-nav="turnus">Turnus</button><button data-nav="lonn">Lønn</button><button data-nav="okonomi">Økonomi</button><button data-nav="arsoversikt">Årsoversikt</button><button data-nav="arbeidstid">Arbeidstid</button><button data-nav="mer">Mer</button>
+      <button data-nav="home">Oversikt</button><button data-nav="turnus">Turnus</button><button data-nav="lonn">Lønn</button><button data-nav="okonomi">Økonomi</button><button data-nav="mer">Mer</button>
     </nav>
     <span class="sync-badge state-checking" id="cloudSyncBadge" title="Viser om vaktendringer synkes mellom telefonene"><span class="sync-dot"></span><span id="cloudSyncBadgeText">Kobler til…</span></span>
   </div>
@@ -891,6 +962,7 @@
       <section class="side-card ov-pay" id="ovPay"></section>
       <section class="ov-month" id="ovMonth"></section>
       <section class="side-card ov-up" id="ovUp"></section>
+      <section class="side-card ov-chart" id="ovChart"></section>
     </div>
   </div>
 </div>
@@ -1031,135 +1103,49 @@
 
 <!-- LØNN PAGE -->
 <div class="page" id="page-lonn">
-<div class="page-topbar">
-  <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
-  <div class="page-topbar-title"><span class="page-icon-badge pi-green"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5S10.7 17 12 17s3-1.1 3-2.5"/></svg></span>Lønnskjøring & utbetaling</div>
-</div>
-<div class="salary-panel" style="margin-top:8px">
-  <div class="salary-body open" id="salaryBody">
-    <div class="salary-disclaimer">
-      Estimat ut fra tallene under og de faktiske vaktene i turnusen. Den faste lønnen er årslønn ÷ 12 og utbetales den 20. for hele måneden. Tilleggene regnes ut fra klokkeslettene til vaktene og kommer på lønnen måneden etter.
-    </div>
-    <div class="lonn-settings">
-    <div class="salary-input-group" style="margin-bottom:14px">
-      <label class="salary-input-label">Periode vist under (samme filter som Turnus-siden)</label>
-      <div class="filter-group" style="margin-top:4px">
-        <span class="filter-label">År:</span>
-        <div class="filter-scroll">
-          <button class="month-btn tf-year-btn active" onclick="filterYear('all', this)">Alle</button>
-          <button class="month-btn tf-year-btn" onclick="filterYear(2026, this)">2026</button>
-          <button class="month-btn tf-year-btn" onclick="filterYear(2027, this)">2027</button>
-          <button class="month-btn tf-year-btn" onclick="filterYear(2028, this)">2028</button>
-          <button class="month-btn tf-year-btn" onclick="filterYear(2029, this)">2029</button>
+<div class="page-topbar"><div class="page-topbar-title">Lønn</div></div>
+<div class="page-body open" id="salaryBody">
+  <div class="page-sub"><div class="seg" role="group" aria-label="År" id="lonnYearSeg"></div><span class="muted">Utbetaling den 20. hver måned</span></div>
+  <div class="tiles" id="lonnTiles"></div>
+  <div class="lonn-cols">
+    <section class="side-card">
+      <h3 id="lonnListTitle">Utbetalinger</h3>
+      <div class="pay-list" id="lonnList"></div>
+      <p class="muted small" id="payslipNote" style="margin:0"></p>
+    </section>
+    <aside class="lonn-aside">
+      <section class="side-card">
+        <h3>Dine lønnstall</h3>
+        <div class="form-grid">
+          <label class="fld"><span>Årslønn ved 100 %</span><input type="number" class="salary-input" id="manualAnnual" value="528300" step="100" inputmode="numeric"></label>
+          <label class="fld"><span>Stillingsprosent</span><input type="number" class="salary-input" id="stillingPct" value="100" min="1" max="100" step="0.5" inputmode="decimal"></label>
+          <label class="fld"><span>Skattetrekk %</span><input type="number" class="salary-input" id="taxPct" value="25" min="0" max="70" step="0.5" inputmode="decimal"></label>
+          <label class="fld"><span>Timer i årsverk</span><select class="salary-input" id="annualHours"><option value="1850" selected>1850 (turnus)</option><option value="1950">1950 (dagtid)</option></select></label>
         </div>
-      </div>
-      <div class="filter-group" style="margin-top:6px">
-        <span class="filter-label">Måned:</span>
-        <div class="filter-scroll">
-          <button class="month-btn tf-month-btn active" onclick="filterMonth('all', this)">Alle</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(1, this)">Jan</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(2, this)">Feb</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(3, this)">Mar</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(4, this)">Apr</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(5, this)">Mai</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(6, this)">Jun</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(7, this)">Jul</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(8, this)">Aug</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(9, this)">Sep</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(10, this)">Okt</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(11, this)">Nov</button>
-          <button class="month-btn tf-month-btn" onclick="filterMonth(12, this)">Des</button>
+        <div class="ios-list">
+          <label class="ios-switch"><span>Tillegg for forrige måned følger lønnen</span><input type="checkbox" id="tilleggLag" checked></label>
+          <label class="ios-switch"><span>Halv skatt i desember</span><input type="checkbox" id="halfTaxDec" checked></label>
         </div>
-      </div>
-    </div>
-
-    <div class="salary-grid">
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="manualAnnual">Årslønn ved 100 % (brutto, uten tillegg)</label>
-        <input type="number" class="salary-input" id="manualAnnual" value="528300" step="100">
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="stillingPct">Stillingsprosent</label>
-        <input type="number" class="salary-input" id="stillingPct" value="100" min="1" max="100" step="0.5">
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="taxPct">Skattetrekk % (fra skattekortet)</label>
-        <input type="number" class="salary-input" id="taxPct" value="25" min="0" max="70" step="0.5">
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="annualHours">Timer i årsverk (gir timelønn)</label>
-        <select class="salary-input" id="annualHours">
-          <option value="1850" selected>1850 t (35,5 t/uke, turnus)</option>
-          <option value="1950">1950 t (37,5 t/uke, dagtid)</option>
-        </select>
-      </div>
-    </div>
-    <div class="ios-list" style="margin-bottom:14px">
-      <label class="ios-switch"><span>Tillegg for forrige måned (1. til siste dag) utbetales sammen med lønnen</span><input type="checkbox" id="tilleggLag" checked></label>
-      <label class="ios-switch"><span>Halv skatt i desember</span><input type="checkbox" id="halfTaxDec" checked></label>
-    </div>
-
-    <div class="payslip-divider" style="margin-top:14px">Tillegg etter KS hovedtariffavtale <span class="payslip-tag">satser fra 1.10.2026</span></div>
-    <div class="salary-grid">
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="kveldPct">Kveld kl. 17–21: % av timelønn / minst kr</label>
-        <div class="input-pair"><input type="number" class="salary-input" id="kveldPct" value="20" step="0.5" aria-label="Kveld prosent"><input type="number" class="salary-input" id="kveldMin" value="60" step="1" aria-label="Kveld minst kr"></div>
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="nattPct">Natt kl. 21–06: % av timelønn / minst kr</label>
-        <div class="input-pair"><input type="number" class="salary-input" id="nattPct" value="25" step="0.5" aria-label="Natt prosent"><input type="number" class="salary-input" id="nattMin" value="70" step="1" aria-label="Natt minst kr"></div>
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="helgPct">Lørdag og søndag: % av timelønn / minst kr</label>
-        <div class="input-pair"><input type="number" class="salary-input" id="helgPct" value="23" step="0.5" aria-label="Helg prosent"><input type="number" class="salary-input" id="helgMin" value="73" step="1" aria-label="Helg minst kr"></div>
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="hoytidPct">Helligdag/høytid: % av timelønn</label>
-        <input type="number" class="salary-input" id="hoytidPct" value="133.33" step="0.01">
-      </div>
-      <div class="salary-input-group">
-        <label class="salary-input-label" for="longTillegg">Lokalt langvakttillegg (kr/t, 0 = ingen)</label>
-        <input type="number" class="salary-input" id="longTillegg" value="0" step="1">
-      </div>
-    </div>
-    <div class="salary-disclaimer" style="margin-top:4px">Satsene er minstesatser i KS hovedtariffavtale kap. 1 § 5–6: prosent av timelønn, men aldri under kronebeløpet. For vakter før 1.10.2026 brukes de gamle satsene automatisk (helg 22 % / 70 kr, kveld minst 56 kr). Kveldstillegg gjelder bare timene etter kl. 17, nattillegg etter kl. 21. Høytidstillegg gjelder hele helligdagen og fra kl. 12 på påske-, pinse-, jule- og nyttårsaften. Dine tall lagres på denne enheten.</div>
-
-    </div>
-    <div class="lonn-results">
-    <!-- TIMEBASERT LØNN + LØNNSKJØRING -->
-    <div class="payslip-section">
-      <div class="payslip-divider">Lønnskjøring <span class="payslip-tag">Utbetaling 20. hver måned</span></div>
-      <div class="payslip-grid" id="payslipCards"></div>
-      <div class="salary-breakdown" id="salaryBreakdown"></div>
-      <table class="payslip-month-table" id="payslipTable"></table>
-      <div class="payslip-note" id="payslipNote"></div>
-    </div>
-    </div>
+        <p class="muted small" style="margin:0">Hent tallene fra lønnsslippen. De lagres bare på denne enheten.</p>
+      </section>
+      <details class="side-card fold">
+        <summary><h3>Satser for tillegg</h3><span class="muted small">KS fra 1.10.2026</span></summary>
+        <div class="form-grid">
+          <label class="fld"><span>Kveld 17–21 %</span><input type="number" class="salary-input" id="kveldPct" value="20" step="0.5"></label>
+          <label class="fld"><span>Kveld minst kr</span><input type="number" class="salary-input" id="kveldMin" value="60" step="1"></label>
+          <label class="fld"><span>Natt 21–06 %</span><input type="number" class="salary-input" id="nattPct" value="25" step="0.5"></label>
+          <label class="fld"><span>Natt minst kr</span><input type="number" class="salary-input" id="nattMin" value="70" step="1"></label>
+          <label class="fld"><span>Lør/søn %</span><input type="number" class="salary-input" id="helgPct" value="23" step="0.5"></label>
+          <label class="fld"><span>Lør/søn minst kr</span><input type="number" class="salary-input" id="helgMin" value="73" step="1"></label>
+          <label class="fld"><span>Helligdag %</span><input type="number" class="salary-input" id="hoytidPct" value="133.33" step="0.01"></label>
+          <label class="fld"><span>Langvakt kr/t (lokalt)</span><input type="number" class="salary-input" id="longTillegg" value="0" step="1"></label>
+        </div>
+        <p class="muted small" style="margin:0">Minstesatser i KS hovedtariffavtale kap. 1 § 5–6: prosent av timelønn, men aldri under kronebeløpet. Vakter før 1.10.2026 får de gamle satsene (helg 22 % / 70 kr, kveld minst 56 kr). Helligdagstillegg gjelder hele dagen, og fra kl. 12 på påske-, pinse-, jule- og nyttårsaften.</p>
+      </details>
+    </aside>
   </div>
 </div>
 </div><!-- /page-lonn -->
-
-<!-- ÅRSOVERSIKT PAGE -->
-<div class="page" id="page-arsoversikt">
-<div class="page-topbar">
-  <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
-  <div class="page-topbar-title"><span class="page-icon-badge pi-purple"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></svg></span>Årsoversikt</div>
-</div>
-<div class="salary-panel" style="margin-top:8px">
-  <div class="salary-body open" id="overviewBody">
-    <div class="salary-disclaimer">
-      Viser hele turnusperioden (2026–2029), uavhengig av år/måned-filteret på Turnus-siden. Antall timer beregnes live fra de faktiske vaktene.
-    </div>
-    <div class="stats-row" id="yearCards" style="padding:0 0 16px"></div>
-    <div class="chart-head">
-      <span class="chart-title">Timer per måned</span>
-      <button class="chart-table-toggle" id="chartTableToggle" onclick="toggleChartTable()">Vis som tabell</button>
-    </div>
-    <div class="chart-scroll" id="chartScroll"></div>
-    <div class="chart-table-wrap" id="chartTableWrap" style="display:none"></div>
-  </div>
-</div>
-</div><!-- /page-arsoversikt -->
 
 <!-- ARBEIDSTIDSSJEKK PAGE -->
 <div class="page" id="page-arbeidstid">
@@ -1423,35 +1409,35 @@
 <!-- MER -->
 <div class="page" id="page-mer">
 <div class="page-topbar"><div class="page-topbar-title">Mer</div></div>
-<div class="mer-grid">
-  <section class="side-card">
-    <h3>Utseende</h3>
-    <div class="ios-list">
-      <div class="ios-switch"><span>Tema</span><div class="seg" role="group" aria-label="Tema" id="themeSeg"><button data-theme-opt="system">Auto</button><button data-theme-opt="light">Lyst</button><button data-theme-opt="dark">Mørkt</button></div></div>
-      <div class="ios-switch"><span>Turnus åpner i</span><div class="seg" role="group" aria-label="Standardvisning" id="viewSeg2"><button data-view-opt="kalender">Kalender</button><button data-view-opt="uker">Uker</button></div></div>
-      <label class="ios-switch"><span>Vaktbeskrivelser</span><input type="checkbox" id="descToggle2"></label>
-    </div>
-  </section>
-  <section class="side-card">
-    <h3>Ny turnusplan</h3>
-    <p class="muted" style="margin:0">Når den nye turnusen kommer, kan du lime den inn fra Excel eller PDF, eller legge inn rotasjonen og la appen fylle ut resten. Planen deles med den andre telefonen.</p>
-    <button class="side-btn" onclick="showPage('import')">Legg inn ny turnus</button>
-  </section>
-  <section class="side-card">
-    <h3>Sikkerhetskopi</h3>
-    <p class="muted" style="margin:0">Vaktene lagres i skyen. Lønnstallene, økonomien og valgene dine ligger bare på denne telefonen. Ta en kopi før du bytter telefon eller legger appen til på nytt.</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="side-btn" onclick="exportBackup()">Lagre sikkerhetskopi</button><label class="side-btn" for="backupFile">Gjenopprett</label><input type="file" id="backupFile" accept="application/json,.json" hidden onchange="importBackup(this.files[0])"></div>
-  </section>
-  <section class="side-card">
-    <h3>Nytt hjerteikon på Hjem-skjermen</h3>
-    <ol class="muted steps"><li>Trykk «Lagre sikkerhetskopi» over.</li><li>Hold fingeren på appen på Hjem-skjermen og velg «Fjern app».</li><li>Åpne lenken i Safari, trykk Del-knappen og velg «Legg til på Hjem-skjerm».</li><li>Åpne appen, gå til Mer og trykk «Gjenopprett».</li></ol>
-  </section>
-  <section class="side-card mer-links">
-    <h3>Flere sider</h3>
-    <button class="list-link" onclick="showPage('arsoversikt')"><span>Årsoversikt</span><span class="muted">Timer per måned og år ›</span></button>
-    <button class="list-link" onclick="showPage('arbeidstid')"><span>Arbeidstid</span><span class="muted">Hviletid mellom vakter ›</span></button>
-    <button class="list-link" onclick="openWhatsNew()"><span>Hva er nytt</span><span class="muted">›</span></button>
-  </section>
+<div class="settings">
+  <h4>Utseende</h4>
+  <div class="ios-list">
+    <div class="ios-switch"><span>Tema</span><div class="seg" role="group" aria-label="Tema" id="themeSeg"><button data-theme-opt="system">Auto</button><button data-theme-opt="light">Lyst</button><button data-theme-opt="dark">Mørkt</button></div></div>
+    <div class="ios-switch"><span>Turnus åpner i</span><div class="seg" role="group" aria-label="Standardvisning" id="viewSeg2"><button data-view-opt="kalender">Kalender</button><button data-view-opt="uker">Uker</button></div></div>
+    <label class="ios-switch"><span>Vaktbeskrivelser</span><input type="checkbox" id="descToggle2"></label>
+  </div>
+
+  <h4>Turnus</h4>
+  <div class="ios-list">
+    <button class="list-link" onclick="showPage('import')"><span>Legg inn ny turnusplan</span><span class="chev">›</span></button>
+    <button class="list-link" onclick="showPage('arbeidstid')"><span>Hviletid mellom vakter</span><span class="chev">›</span></button>
+    <button class="list-link" onclick="downloadAllICS()"><span>Eksporter vaktene til kalenderen</span><span class="chev">›</span></button>
+  </div>
+  <p class="foot">Ny turnus og vaktbytter deles automatisk mellom telefonene.</p>
+
+  <h4>Sikkerhetskopi</h4>
+  <div class="ios-list">
+    <button class="list-link" onclick="exportBackup()"><span>Lagre sikkerhetskopi</span><span class="chev">›</span></button>
+    <label class="list-link" for="backupFile"><span>Gjenopprett fra fil</span><span class="chev">›</span></label>
+  </div>
+  <input type="file" id="backupFile" accept="application/json,.json" hidden onchange="importBackup(this.files[0])">
+  <p class="foot">Lønnstallene, økonomien og valgene dine lagres bare på denne telefonen. Ta en kopi før du bytter telefon.</p>
+
+  <h4>Om appen</h4>
+  <div class="ios-list">
+    <button class="list-link" onclick="openWhatsNew()"><span>Hva er nytt</span><span class="chev">›</span></button>
+    <div class="list-link static"><span>Synkronisering</span><span class="muted" id="syncText">Kobler til …</span></div>
+  </div>
 </div>
 </div>
 
@@ -2080,6 +2066,7 @@ function setSyncBadge(state, text) {
     badge.classList.remove('state-ok', 'state-checking', 'state-off');
     badge.classList.add('state-' + state);
     label.textContent = text;
+    const st = document.getElementById('syncText'); if (st) st.textContent = text;
   } catch(e) {}
 }
 
@@ -2091,7 +2078,7 @@ function initCloudSync() {
     try { fsDb.enablePersistence({ synchronizeTabs: true }).catch(() => {}); } catch(e) {}
 
     const docRef = fsDb.collection('turnus').doc('shared');
-    docRef.onSnapshot(snap => {
+    docRef.onSnapshot({ includeMetadataChanges: true }, snap => {
       // metadata.fromCache: true betyr at vi (foreløpig) bare ser lokalt bufrede data og IKKE har
       // bekreftet kontakt med serveren ennå (f.eks. rett etter sideåpning, eller uten nett) — først
       // når en oppdatering kommer med fromCache=false vet vi at enheten faktisk er "Live" mot skyen.
@@ -2149,7 +2136,7 @@ function selectShift(weekIdx, dayIdx, val) {
   renderStats(getFiltered());
   renderTodayBar();
   if (document.getElementById('salaryBody').classList.contains('open')) calcPayslip();
-  if (document.getElementById('overviewBody').classList.contains('open')) renderYearOverview();
+  if (false) renderYearOverview();
   if (document.getElementById('restBody').classList.contains('open')) calcRestCheck();
 }
 
@@ -2558,46 +2545,48 @@ function sliceSalaryByMonths(R, yearSel, monthSel) {
 }
 
 function periodLabel(key) { if (!key) return '–'; const {year, month} = monthKeyParts(key); return `1.–${new Date(year, month, 0).getDate()}. ${MONTH_NAMES[month-1].toLowerCase()}`; }
+let lonnYear = null, lonnOpen = null;
 function calcPayslip() {
-  if (!document.getElementById('manualAnnual')) return;
-  const R = computeSalaryTotals(weeks);
-  const S = sliceSalaryByMonths(R, currentYear, currentFilter);
-  const n = S.keys.length;
-  const r1 = x => fmtKr(Math.round(x));
-  document.getElementById('payslipCards').innerHTML = `
-    <div class="payslip-card blue"><div class="payslip-card-label">Fast månedslønn</div><div class="payslip-card-value">${r1(R.fastLonn)}</div><div class="payslip-card-sub">${R.settings.pct} % av ${r1(R.annual)} · ${Math.round(R.hourlyRate)} kr/t</div></div>
-    <div class="payslip-card blue"><div class="payslip-card-label">Brutto i perioden</div><div class="payslip-card-value">${r1(S.brutto)}</div><div class="payslip-card-sub">${n} utbetaling${n===1?'':'er'} · ${r1(S.tillegg)} i tillegg</div></div>
-    <div class="payslip-card red"><div class="payslip-card-label">Skattetrekk</div><div class="payslip-card-value">− ${r1(S.skatt)}</div><div class="payslip-card-sub">${R.taxPctVal} %${R.settings.halfDec ? ', halv skatt i desember' : ''}</div></div>
-    <div class="payslip-card green"><div class="payslip-card-label">Netto i perioden</div><div class="payslip-card-value">${r1(S.netto)}</div><div class="payslip-card-sub">snitt ${r1(S.snittNetto)} per måned</div></div>`;
-  const c = S.cats, a = S.catAmt;
-  document.getElementById('salaryBreakdown').innerHTML = `
-    <div class="salary-breakdown-row"><span>Fast lønn · ${n} mnd × ${r1(R.fastLonn)}</span><span class="salary-breakdown-val">${r1(S.fast)}</span></div>
-    <div class="salary-breakdown-row"><span>Kveld 17–21 · ${c.kveld.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.kveld)}</span></div>
-    <div class="salary-breakdown-row"><span>Natt 21–06 · ${c.natt.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.natt)}</span></div>
-    <div class="salary-breakdown-row"><span>Lørdag/søndag · ${c.helg.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.helg)}</span></div>
-    <div class="salary-breakdown-row"><span>Helligdag/høytid · ${c.hoytid.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.hoytid)}</span></div>
-    ${R.settings.longKr > 0 ? `<div class="salary-breakdown-row"><span>Lokalt langvakttillegg · ${c.lang.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.lang)}</span></div>` : ''}
-    <div class="salary-breakdown-row"><span>Brutto totalt</span><span class="salary-breakdown-val">${r1(S.brutto)}</span></div>`;
-  const rows = S.keys.map(key => {
-    const { year: yr, month: mn } = monthKeyParts(key);
-    const taxNote = R.taxRatePerMonth[key] < R.taxPctVal/100 ? ' <span class="payslip-tag">halv skatt</span>' : '';
-    return `<tr>
-      <td class="utbetalt">20. ${MONTH_NAMES[mn-1].toLowerCase()} ${yr}</td>
-      <td style="color:var(--text-muted)">${periodLabel(R.paidFrom[key])}</td>
-      <td style="color:var(--text-muted); text-align:right">${(R.hoursPerMonth[key]||0).toFixed(1)} t</td>
-      <td style="text-align:right">${r1(R.fastPerMonth[key])}</td>
-      <td style="text-align:right">${r1(R.tilleggPerMonth[key])}</td>
-      <td class="val-brutto">${r1(R.bruttoPerMonth[key])}</td>
-      <td class="val-skatt">− ${r1(R.skattPerMonth[key])}${taxNote}</td>
-      <td class="val-netto">${r1(R.nettoPerMonth[key])}</td>
-    </tr>`;
+  const list = document.getElementById('lonnList'); if (!list) return;
+  const R = computeSalaryTotals(weeks), today = getTodayDate();
+  const years = [...new Set(R.MONTHS.map(k => +k.slice(0, 4)))];
+  if (!lonnYear || !years.includes(lonnYear)) lonnYear = years.includes(today.getFullYear()) ? today.getFullYear() : years[0];
+  const seg = document.getElementById('lonnYearSeg');
+  seg.innerHTML = years.map(y => `<button data-year="${y}" aria-pressed="${y === lonnYear}">${y}</button>`).join('');
+  seg.querySelectorAll('[data-year]').forEach(b => b.onclick = () => { lonnYear = +b.dataset.year; lonnOpen = null; calcPayslip(); });
+  const S = sliceSalaryByMonths(R, lonnYear, 'all'), n = S.keys.length, kr = x => fmtKr(Math.round(x));
+  const pk = findPayFor(R, today), pp = monthKeyParts(pk);
+  document.getElementById('lonnTiles').innerHTML = `
+    <div class="tile accent"><span class="eyebrow">Neste utbetaling</span><span class="v">${kr(R.nettoPerMonth[pk])}</span><span class="s">netto 20. ${MONTH_NAMES[pp.month-1].toLowerCase()}</span></div>
+    <div class="tile good"><span class="eyebrow">Netto ${lonnYear}</span><span class="v">${kr(S.netto)}</span><span class="s">snitt ${kr(S.snittNetto)} per måned</span></div>
+    <div class="tile"><span class="eyebrow">Brutto ${lonnYear}</span><span class="v">${kr(S.brutto)}</span><span class="s">herav ${kr(S.tillegg)} i tillegg</span></div>
+    <div class="tile"><span class="eyebrow">Skatt ${lonnYear}</span><span class="v">${kr(S.skatt)}</span><span class="s">${R.taxPctVal} % trekk${R.settings.halfDec ? ', halv i desember' : ''}</span></div>
+    <div class="tile"><span class="eyebrow">Timer ${lonnYear}</span><span class="v">${S.hours.toFixed(1).replace('.', ',')}</span><span class="s">${n} måneder i turnusen</span></div>`;
+  document.getElementById('lonnListTitle').textContent = `Utbetalinger ${lonnYear}`;
+  const head = `<div class="pay-row pay-head"><span>Utbetales</span><span class="c-per">Tillegg for</span><span class="r c-br">Brutto</span><span class="r c-sk">Skatt</span><span class="r">Netto</span><span></span></div>`;
+  list.innerHTML = head + S.keys.map(k => {
+    const { month } = monthKeyParts(k), src = R.paidFrom[k], e = src ? R.earned[src] : null, open = lonnOpen === k, isNext = k === pk;
+    const half = R.taxRatePerMonth[k] < R.taxPctVal / 100;
+    const det = open ? `<div class="pay-detail"><div class="kv">
+        <span>Fast lønn for ${MONTH_NAMES[month-1].toLowerCase()}</span><span>${kr(R.fastPerMonth[k])}</span>
+        ${e ? `<span>Kveld 17–21 · ${e.kveld.toFixed(1).replace('.', ',')} t</span><span>${kr(e.amt.kveld)}</span>
+        <span>Natt 21–06 · ${e.natt.toFixed(1).replace('.', ',')} t</span><span>${kr(e.amt.natt)}</span>
+        <span>Lørdag/søndag · ${e.helg.toFixed(1).replace('.', ',')} t</span><span>${kr(e.amt.helg)}</span>
+        <span>Helligdag · ${e.hoytid.toFixed(1).replace('.', ',')} t</span><span>${kr(e.amt.hoytid)}</span>
+        ${R.settings.longKr > 0 ? `<span>Langvakt · ${e.lang.toFixed(1).replace('.', ',')} t</span><span>${kr(e.amt.lang)}</span>` : ''}` : '<span>Tillegg</span><span>0 kr</span>'}
+        <span class="tot">Brutto</span><span class="tot">${kr(R.bruttoPerMonth[k])}</span>
+        <span>Skattetrekk ${String(Math.round(R.taxRatePerMonth[k] * 1000) / 10).replace('.', ',')} %${half ? ' (halv skatt)' : ''}</span><span>− ${kr(R.skattPerMonth[k])}</span>
+        <span class="tot">Netto</span><span class="tot">${kr(R.nettoPerMonth[k])}</span>
+      </div><p class="muted small" style="margin:8px 0 0">Jobbet i ${MONTH_NAMES[month-1].toLowerCase()}: ${(R.hoursPerMonth[k] || 0).toFixed(1).replace('.', ',')} timer. Tilleggene for den måneden kommer på neste utbetaling.</p></div>` : '';
+    return `<button class="pay-row ${open ? 'open' : ''}" data-pay="${k}" aria-expanded="${open}">
+        <span><b>20. ${MONTH_NAMES[month-1].toLowerCase()}</b>${isNext ? ' <span class="badge">Neste</span>' : ''}</span>
+        <span class="c-per muted">${src ? periodLabel(src) : '–'}</span>
+        <span class="r c-br">${kr(R.bruttoPerMonth[k])}</span>
+        <span class="r c-sk muted">− ${kr(R.skattPerMonth[k])}${half ? ' ½' : ''}</span>
+        <span class="r"><b>${kr(R.nettoPerMonth[k])}</b></span><span class="chev">${open ? '⌃' : '⌄'}</span></button>${det}`;
   }).join('');
-  document.getElementById('payslipTable').innerHTML = `
-    <thead><tr><th>Utbetales</th><th>Tillegg for</th><th style="text-align:right">Timer i mnd</th><th style="text-align:right">Fast lønn</th><th style="text-align:right">Tillegg</th><th style="text-align:right">Brutto</th><th style="text-align:right">Skatt</th><th style="text-align:right">Netto</th></tr></thead>
-    <tbody>${rows}</tbody>`;
-  document.getElementById('payslipNote').innerHTML =
-    `Fast lønn er årslønn × stillingsprosent ÷ 12 og utbetales den 20. for hele måneden. ${R.settings.lag ? 'Tillegg for forrige måned (1. til siste dag) kommer på samme utbetaling.' : 'Tillegg utbetales samme måned.'}
-     Timelønn er ${r1(R.annual)} ÷ ${R.ANNUAL_HOURS} t = ${R.hourlyRate.toFixed(2).replace('.', ',')} kr. Ikke med: overtid, ekstravakter, feriepenger i juni og trekk for pensjon og fagforening. Skatten er et prosenttrekk, juster det til ditt skattekort.`;
+  list.querySelectorAll('[data-pay]').forEach(b => b.onclick = () => { lonnOpen = lonnOpen === b.dataset.pay ? null : b.dataset.pay; calcPayslip(); });
+  document.getElementById('payslipNote').textContent = `Fast lønn er årslønn × stillingsprosent ÷ 12 (${kr(R.fastLonn)}). Tillegg for forrige måned kommer på samme utbetaling. Timelønn: ${R.hourlyRate.toFixed(2).replace('.', ',')} kr. Ikke med: overtid, ekstravakter, feriepenger og trekk for pensjon og fagforening. Trykk på en måned for å se utregningen.`;
 }
 
 // --- PANEL TOGGLES ---
@@ -3636,6 +3625,27 @@ function renderOverview() {
     return `<button class="up-row" data-goto-day="${iso}"><span class="up-date ${hn || we ? 'hol' : ''}"><small>${DOW_SHORT[(d.getDay()+6)%7]}</small><b>${d.getDate()}</b></span>
       <span class="up-main"><div class="t">${SHIFT_NAMES[sh] || sh}${hn ? ` · <span style="color:var(--holiday)">${hn}</span>` : ''}</div><div class="s">${MONTH_NAMES[d.getMonth()].slice(0,3).toLowerCase()}${t ? ` · ${t[0]}–${t[1]}` : ''}</div></span>
       <span class="shift-chip ${chipClass(sh)}">${sh}</span></button>`; }).join('') || '<p class="muted">Ingen kommende vakter.</p>'}</div>`;
+  // Timer per måned i år, mot det en full stilling gir
+  const yr = today.getFullYear(), ks = R.MONTHS.filter(k => k.startsWith(yr + '-'));
+  const chartEl = document.getElementById('ovChart');
+  if (chartEl && ks.length) {
+    const W = window.innerWidth < 760 ? 360 : 640, H = window.innerWidth < 760 ? 200 : 210, pl = 30, pb = 24, pt = 14, iw = W - pl - 6, ih = H - pb - pt;
+    const exp = k => { const { year, month } = monthKeyParts(k); return 35.5 * (R.settings.pct / 100) * new Date(year, month, 0).getDate() / 7; };
+    const max = Math.ceil(Math.max(200, ...ks.map(k => R.hoursPerMonth[k] || 0)) / 50) * 50;
+    const step = iw / 12, bw = step * 0.56, y = v => pt + ih - (v / max) * ih;
+    let g = ''; for (let v = 0; v <= max; v += 50) g += `<line x1="${pl}" x2="${W-6}" y1="${y(v)}" y2="${y(v)}" stroke="var(--border)"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end" font-size="10" fill="var(--text-muted)">${v}</text>`;
+    let bars = '';
+    for (let m = 1; m <= 12; m++) {
+      const k = `${yr}-${String(m).padStart(2, '0')}`, x = pl + (m-1) * step + (step - bw) / 2, hv = R.hoursPerMonth[k];
+      if (hv !== undefined) { const e = exp(k);
+        bars += `<rect x="${x}" y="${y(hv)}" width="${bw}" height="${Math.max(0, ih + pt - y(hv))}" rx="4" fill="${k === monthKey(today) ? 'var(--accent-blue)' : 'color-mix(in srgb, var(--accent-blue) 45%, var(--surface))'}"><title>${MONTH_NAMES[m-1]}: ${hv.toFixed(1)} t (full stilling ca. ${Math.round(e)} t)</title></rect>
+          <line x1="${x-3}" x2="${x+bw+3}" y1="${y(e)}" y2="${y(e)}" stroke="var(--accent-amber)" stroke-width="2"/>`; }
+      bars += `<text x="${pl + (m-1) * step + step/2}" y="${H-7}" text-anchor="middle" font-size="10" fill="var(--text-muted)">${MONTH_NAMES[m-1].slice(0,3).toLowerCase()}</text>`;
+    }
+    const tot = ks.reduce((a, k) => a + (R.hoursPerMonth[k] || 0), 0);
+    chartEl.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h3>Timer per måned ${yr}</h3><span class="muted small">${tot.toFixed(1).replace('.', ',')} timer i år · <span style="color:var(--accent-amber)">━</span> full stilling</span></div>
+      <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Timer per måned ${yr}">${g}${bars}</svg>`;
+  } else if (chartEl) chartEl.hidden = true;
   document.querySelectorAll('#page-home [data-goto-day]').forEach(b => b.onclick = () => goToDay(b.dataset.gotoDay));
 }
 
@@ -3794,7 +3804,7 @@ function openWhatsNew() {
     <div class="wn-list">
       ${item('var(--accent-blue)', '📅', 'Ny kalender', 'Se hele måneden, og trykk på en dag for å bytte vakt med ett trykk.')}
       ${item('var(--accent-green)', '💰', 'Riktigere lønn', 'Fast månedslønn pluss tilleggene for forrige måned, med de nye KS-satsene.')}
-      ${item('var(--accent-purple)', '✨', 'Nytt utseende', 'Lyst eller mørkt tema som følger telefonen. Velg selv under Mer.')}
+      ${item('var(--accent-purple)', '✨', 'Nytt utseende', 'Lyst eller mørkt tema som følger telefonen. Du kan velge selv under Mer.')}
       ${item('var(--accent-amber)', '🗓️', 'Klar for neste turnus', 'Ny turnusplan kan legges inn under Mer, og den deles med Tony.')}
     </div>
     <button class="pill primary" style="justify-self:stretch;padding:12px" id="wnOk">Så fint!</button>`;
@@ -3814,14 +3824,14 @@ function renderAll() {
   renderTable(f);
   renderMobileCards(f);
   if(document.getElementById('salaryBody').classList.contains('open')) { calcPayslip(); }
-  if(document.getElementById('overviewBody').classList.contains('open')) { renderYearOverview(); }
+  if(false) { renderYearOverview(); }
   if(document.getElementById('restBody').classList.contains('open')) { calcRestCheck(); }
   if(document.getElementById('okonomiBody') && document.getElementById('okonomiBody').classList.contains('open')) { calcOkonomi(); }
   maybeAutoScrollToday();
 }
 
 // --- PAGE ROUTING (Forside) ---
-const PAGES = ['home','turnus','lonn','arsoversikt','arbeidstid','okonomi','mer','import'];
+const PAGES = ['home','turnus','lonn','arbeidstid','okonomi','mer','import'];
 function showPage(id, updateHash) {
   if (updateHash === undefined) updateHash = true;
   if (!PAGES.includes(id)) id = 'home';
@@ -3837,7 +3847,6 @@ function showPage(id, updateHash) {
   if (id === 'turnus') { renderTodayBar(); renderStats(getFiltered()); renderTable(getFiltered()); renderMobileCards(getFiltered()); if (uiPrefs.view === 'kalender') renderCalendarView(); }
   closeDaySheet();
   if (id === 'lonn') calcPayslip();
-  if (id === 'arsoversikt') renderYearOverview();
   if (id === 'arbeidstid') calcRestCheck();
   if (id === 'okonomi') { showOkSection('hub'); calcOkonomi(); }
   if (id === 'home') renderOverview();
