@@ -5,6 +5,8 @@ const CORE_ASSETS = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
+  './icon-512-maskable.png',
+  './apple-touch-icon.png',
 ];
 // Best-effort extras: nice to have cached for offline use, but this is a third-party URL that can be
 // temporarily unreachable (flaky connection, a network/DNS block on fonts.googleapis.com, etc.).

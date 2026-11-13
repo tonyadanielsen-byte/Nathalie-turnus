@@ -1,11 +1,11 @@
 {
-  "name": "Nathalie Turnus 2026–2029",
+  "name": "Nathalies turnus",
   "short_name": "Turnus",
   "description": "Årsturnus 2026–2029 – Sandåker, Nathalie – Hjemmesykepleien Tønsberg",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#111110",
-  "theme_color": "#111110",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "orientation": "portrait-primary",
   "lang": "nb",
   "icons": [
@@ -13,13 +13,19 @@
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

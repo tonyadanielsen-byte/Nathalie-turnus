@@ -6,10 +6,11 @@
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Nathalie Turnus">
+<meta name="apple-mobile-web-app-title" content="Turnus">
 <meta name="description" content="Årsturnus 2026–2029 – Sandåker, Nathalie – Hjemmesykepleien Tønsberg">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <title>Nathalie Turnus 2026–2029</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -743,6 +744,111 @@
     .payslip-month-table th:nth-child(7), .payslip-month-table td:nth-child(7) { display: none; }
     .payslip-month-table th:nth-child(6), .payslip-month-table td:nth-child(6) { display: table-cell; }
   }
+
+  /* ═════════ NAVIGASJON: toppfelt med faner (PC) og bunnmeny (mobil) ═════════ */
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--elev); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); }
+  .topnav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--elev); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--border); }
+  .topnav-inner { max-width: 1360px; margin: 0 auto; display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 16px; padding: 10px max(24px, env(safe-area-inset-right, 0px)) 10px max(24px, env(safe-area-inset-left, 0px)); }
+  .brand { display: flex; align-items: center; gap: 11px; background: none; border: 0; padding: 0; cursor: pointer; text-align: left; color: var(--text-primary); min-width: 0; }
+  .brand-icon { width: 36px; height: 36px; border-radius: 9px; flex: none; display: grid; place-items: center; background: linear-gradient(160deg, #ff5f6d, #e8264a); box-shadow: 0 2px 6px rgba(232,38,74,.35); }
+  .brand-icon svg { width: 21px; height: 21px; }
+  .brand-text { display: grid; min-width: 0; line-height: 1.2; }
+  .brand-text b { font-size: 16px; font-weight: 700; letter-spacing: -0.015em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand-text small { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tabs { display: inline-flex; gap: 2px; padding: 3px; background: var(--fill-soft); border-radius: 11px; }
+  .tabs button { border: 0; background: none; color: var(--text-secondary); font-size: 13.5px; font-weight: 500; padding: 6px 13px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+  .tabs button:hover { color: var(--text-primary); }
+  .tabs button[aria-current="page"] { background: var(--surface); color: var(--text-primary); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.18); }
+  :root:not([data-theme="light"]) .tabs button[aria-current="page"] { background: #636366; }
+  .topnav .sync-badge { justify-self: end; margin: 0; }
+  .bnav { display: none; }
+  @media (max-width: 1080px) { .topnav-inner { grid-template-columns: minmax(0,1fr) auto; } .topnav .tabs { grid-column: 1 / -1; grid-row: 2; justify-self: start; overflow-x: auto; max-width: 100%; scrollbar-width: none; } .topnav .tabs::-webkit-scrollbar { display: none; } }
+  @media (max-width: 760px) {
+    .topnav-inner { padding: 8px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px)); }
+    .topnav .tabs { display: none; }
+    .bnav { display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; background: var(--elev); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-top: 0.5px solid var(--border);
+      padding: 6px max(6px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(6px, env(safe-area-inset-left, 0px)); }
+    .bnav button { background: none; border: 0; display: grid; justify-items: center; gap: 2px; padding: 3px 0; font-size: 10.5px; font-weight: 500; color: var(--text-muted); cursor: pointer; }
+    .bnav button svg { width: 25px; height: 25px; }
+    .bnav button[aria-current="page"] { color: var(--accent-blue); }
+    .app { padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important; }
+    #toast { bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
+    #installBanner { bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+  }
+  /* Sidetitler: stor tittel i stedet for tilbakeknapp */
+  .page-topbar { position: static; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 0; padding: 22px 24px 6px; margin: 0; }
+  .page-topbar > .page-back-btn { display: none; }
+  #page-import .page-topbar > .page-back-btn { display: inline-flex; }
+  .page-topbar-title { font-size: 30px; font-weight: 700; letter-spacing: -0.03em; }
+  .page-icon-badge { display: none; }
+  @media (max-width: 760px) { .page-topbar { padding: 16px 16px 4px; } .page-topbar-title { font-size: 26px; } }
+
+  /* ═════════ OVERSIKT ═════════ */
+  .ov { padding: 22px 24px 28px; display: grid; gap: 18px; }
+  .ov-hello h2 { font-family: var(--font-display); font-size: 32px; font-weight: 700; letter-spacing: -0.03em; margin: 0; }
+  .ov-hello .muted { color: var(--text-muted); font-size: 15px; margin-top: 2px; }
+  .ov-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 18px; }
+  .ov-grid > * { grid-column: span 12; min-width: 0; }
+  @media (min-width: 1000px) { .ov-next { grid-column: span 7; } .ov-pay { grid-column: span 5; } .ov-month { grid-column: span 8; } .ov-up { grid-column: span 4; grid-row: span 2; align-self: start; } }
+  .next-main { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .next-code { font-size: 30px; font-weight: 800; width: 86px; height: 72px; border-radius: 18px; display: grid; place-items: center; color: #fff; background: var(--c); flex: none; }
+  .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; }
+  .next-when { font-family: var(--font-display); font-size: 30px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
+  .next-time { color: var(--text-secondary); font-size: 15px; margin-top: 3px; }
+  .weekstrip { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 6px; }
+  .weekstrip button { border: 0; display: grid; gap: 5px; justify-items: center; padding: 10px 2px; border-radius: 12px; background: var(--surface2); font-size: 12px; color: var(--text-muted); cursor: pointer; }
+  .weekstrip button b { color: var(--text-primary); font-size: 17px; font-weight: 600; }
+  .weekstrip button.today { background: var(--accent-blue); color: rgba(255,255,255,.85); }
+  .weekstrip button.today b { color: #fff; }
+  .weekstrip button.today .shift-chip, .weekstrip button.today .chip-empty { background: rgba(255,255,255,.92); }
+  .weekstrip .chip-empty { display: inline-grid; place-items: center; min-width: 32px; height: 24px; border-radius: 7px; box-shadow: inset 0 0 0 1px var(--border-strong); color: var(--text-muted); }
+  .pay-big { font-family: var(--font-display); font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .tile { background: var(--surface); border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow); display: grid; gap: 2px; }
+  .tile .v { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .tile .s { font-size: 12.5px; color: var(--text-muted); }
+  .tile.accent .v { color: var(--accent-blue); } .tile.warn .v { color: var(--accent-amber); }
+  .up-row { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border: 0; border-bottom: 0.5px solid var(--border); background: none; text-align: left; color: var(--text-primary); cursor: pointer; width: 100%; font: inherit; }
+  .up-row:last-child { border-bottom: 0; }
+  .up-date { display: grid; justify-items: center; line-height: 1.05; }
+  .up-date small { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+  .up-date b { font-size: 21px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .up-date.hol small, .up-date.hol b { color: var(--holiday); }
+  .up-main { min-width: 0; } .up-main .t { font-weight: 600; } .up-main .s { font-size: 13px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .pill.primary { background: var(--accent-blue); color: #fff; justify-self: start; }
+  @media (max-width: 760px) { .ov { padding: 16px 16px 24px; } .ov-hello h2 { font-size: 27px; } .next-when { font-size: 25px; } .pay-big { font-size: 34px; } }
+
+  /* ═════════ MER og NY TURNUS ═════════ */
+  .mer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 18px; padding: 12px 24px 28px; align-items: start; }
+  .list-link { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border: 0; border-bottom: 0.5px solid var(--border); background: none; color: var(--text-primary); font: inherit; font-size: 15px; cursor: pointer; text-align: left; }
+  .list-link:last-child { border-bottom: 0; }
+  .steps { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; }
+  label.side-btn { display: inline-block; }
+  .import-wrap { display: grid; gap: 18px; padding: 12px 24px 28px; max-width: 1100px; }
+  #impText { min-height: 170px; font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size: 13.5px; resize: vertical; width: 100%; }
+  .table-scroll { overflow-x: auto; }
+  .rot-table { border-collapse: collapse; }
+  .rot-table th { font-size: 11.5px; color: var(--text-muted); font-weight: 600; padding: 4px; text-transform: uppercase; }
+  .rot-table td { padding: 3px; }
+  .rot-table select { background: var(--surface2); border: 0; border-radius: 8px; padding: 7px 4px; color: var(--text-primary); font-size: 14px; min-width: 58px; }
+  .prev-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .prev-table th { font-size: 11.5px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; text-align: left; padding: 6px; border-bottom: 0.5px solid var(--border); }
+  .prev-table td { padding: 6px; border-bottom: 0.5px solid var(--border); white-space: nowrap; }
+  .prev-table td.r, .prev-table th.r { text-align: right; font-variant-numeric: tabular-nums; }
+  .warn-text { color: var(--accent-amber); font-weight: 600; }
+  @media (max-width: 760px) { .mer-grid, .import-wrap { padding: 8px 16px 24px; } }
+
+  /* Hva er nytt */
+  .wn-sheet { position: fixed; z-index: 9995; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(460px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow-y: auto; background: var(--surface); border-radius: 22px; box-shadow: var(--shadow-pop); padding: 26px 24px 20px; display: grid; gap: 14px; }
+  .wn-sheet .brand-icon { width: 64px; height: 64px; border-radius: 16px; justify-self: center; }
+  .wn-sheet .brand-icon svg { width: 36px; height: 36px; }
+  .wn-sheet h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -0.025em; text-align: center; margin: 0; }
+  .wn-list { display: grid; gap: 14px; margin: 4px 0; }
+  .wn-item { display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: start; }
+  .wn-item i { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; font-style: normal; font-size: 19px; color: #fff; }
+  .wn-item b { display: block; font-size: 15.5px; }
+  .wn-item span { color: var(--text-muted); font-size: 14px; }
+  @media (prefers-reduced-motion: no-preference) { .wn-sheet { animation: wnIn .28s cubic-bezier(.2,.9,.3,1.2); } @keyframes wnIn { from { transform: translate(-50%, -46%) scale(.96); opacity: 0; } } }
 </style>
 <script>
   /* Tema settes før siden tegnes, så det ikke blinker. 'system' følger telefonens innstilling. */
@@ -760,57 +866,31 @@
 </script>
 </head>
 <body>
+<!-- TOPPLINJE: navn, faner (PC) og synk-status -->
+<header class="topnav">
+  <div class="topnav-inner">
+    <button class="brand" onclick="showPage('home')" aria-label="Til oversikten">
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.8 4.4 7.2C19.5 16.4 12 21 12 21z"/></svg></span>
+      <span class="brand-text"><b>Nathalies turnus</b><small>Hjemmesykepleien · Sone Klokkeråsen</small></span>
+    </button>
+    <nav class="tabs" aria-label="Sider">
+      <button data-nav="home">Oversikt</button><button data-nav="turnus">Turnus</button><button data-nav="lonn">Lønn</button><button data-nav="okonomi">Økonomi</button><button data-nav="arsoversikt">Årsoversikt</button><button data-nav="arbeidstid">Arbeidstid</button><button data-nav="mer">Mer</button>
+    </nav>
+    <span class="sync-badge state-checking" id="cloudSyncBadge" title="Viser om vaktendringer synkes mellom telefonene"><span class="sync-dot"></span><span id="cloudSyncBadgeText">Kobler til…</span></span>
+  </div>
+</header>
+
 <div class="app">
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-top" onclick="showPage('home')" style="cursor:pointer">
-    <h1>Årsturnus 2026–2029 – Sandåker, Nathalie</h1>
-    <span class="unit-badge">Hjemmesykepleien · Sone Klokkeråsen</span>
-  </div>
-  <div class="header-sub">Tønsberg Kommune · 31702 · 100% stilling · Fagforbundet/KS · Oppdatert 15.07.2026</div>
-</div>
-
-<!-- HOME PAGE -->
+<!-- OVERSIKT -->
 <div class="page active" id="page-home">
-  <div class="home-greeting">Velkommen! Velg hva du vil se på:</div>
-  <div class="today-bar" id="todayBar"></div>
-  <div class="home-grid">
-    <button class="home-card hc-blue" onclick="showPage('turnus')">
-      <span class="home-card-arrow">→</span>
-      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></div>
-      <div class="home-card-title">Turnus</div>
-      <div class="home-card-sub">Kalender, vakter og vaktbytter</div>
-    </button>
-    <button class="home-card hc-green" onclick="showPage('lonn')">
-      <span class="home-card-arrow">→</span>
-      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.5-3 2.5-3 1.1-3 2.5S10.7 17 12 17s3-1.1 3-2.5"/></svg></div>
-      <div class="home-card-title">Lønn</div>
-      <div class="home-card-sub">Lønnskjøring, utbetaling og tillegg</div>
-    </button>
-    <button class="home-card hc-purple" onclick="showPage('arsoversikt')">
-      <span class="home-card-arrow">→</span>
-      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></svg></div>
-      <div class="home-card-title">Årsoversikt</div>
-      <div class="home-card-sub">Timer per måned og år, 2026–2029</div>
-    </button>
-    <button class="home-card hc-teal" onclick="showPage('arbeidstid')">
-      <span class="home-card-arrow">→</span>
-      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg></div>
-      <div class="home-card-title">Arbeidstid</div>
-      <div class="home-card-sub">Sjekk hviletid mellom vakter</div>
-    </button>
-    <button class="home-card hc-amber" onclick="showPage('okonomi')">
-      <span class="home-card-arrow">→</span>
-      <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M19 7H8a5 5 0 0 0 0 10h9"/><circle cx="17" cy="12" r="1.4" fill="currentColor" stroke="none"/><path d="M19 7V5.5a1.5 1.5 0 0 0-1.5-1.5H6"/></svg></div>
-      <div class="home-card-title">Økonomi</div>
-      <div class="home-card-sub">Anbefalt fordeling av lønn</div>
-    </button>
-  </div>
-  <div class="appearance">
-    <span class="appearance-title">Utseende</span>
-    <div class="seg" role="group" aria-label="Tema" id="themeSeg">
-      <button data-theme-opt="system">Automatisk</button><button data-theme-opt="light">Lyst</button><button data-theme-opt="dark">Mørkt</button>
+  <div class="ov">
+    <div class="ov-hello"><h2 id="ovGreeting">Hei, Nathalie</h2><div class="muted" id="ovDate"></div></div>
+    <div class="ov-grid">
+      <section class="side-card ov-next" id="ovNext"></section>
+      <section class="side-card ov-pay" id="ovPay"></section>
+      <section class="ov-month" id="ovMonth"></section>
+      <section class="side-card ov-up" id="ovUp"></section>
     </div>
   </div>
 </div>
@@ -820,7 +900,6 @@
 <div class="page-topbar">
   <button class="page-back-btn" onclick="showPage('home')">← Forside</button>
   <div class="page-topbar-title"><span class="page-icon-badge pi-blue"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span>Turnus</div>
-  <span class="sync-badge state-checking" id="cloudSyncBadge" title="Viser om turnus-endringer synkes til skyen"><span class="sync-dot"></span><span id="cloudSyncBadgeText">Kobler til…</span></span>
 </div>
 
 <div class="view-bar">
@@ -1341,7 +1420,77 @@
 </div>
 </div><!-- /page-okonomi -->
 
+<!-- MER -->
+<div class="page" id="page-mer">
+<div class="page-topbar"><div class="page-topbar-title">Mer</div></div>
+<div class="mer-grid">
+  <section class="side-card">
+    <h3>Utseende</h3>
+    <div class="ios-list">
+      <div class="ios-switch"><span>Tema</span><div class="seg" role="group" aria-label="Tema" id="themeSeg"><button data-theme-opt="system">Auto</button><button data-theme-opt="light">Lyst</button><button data-theme-opt="dark">Mørkt</button></div></div>
+      <div class="ios-switch"><span>Turnus åpner i</span><div class="seg" role="group" aria-label="Standardvisning" id="viewSeg2"><button data-view-opt="kalender">Kalender</button><button data-view-opt="uker">Uker</button></div></div>
+      <label class="ios-switch"><span>Vaktbeskrivelser</span><input type="checkbox" id="descToggle2"></label>
+    </div>
+  </section>
+  <section class="side-card">
+    <h3>Ny turnusplan</h3>
+    <p class="muted" style="margin:0">Når den nye turnusen kommer, kan du lime den inn fra Excel eller PDF, eller legge inn rotasjonen og la appen fylle ut resten. Planen deles med den andre telefonen.</p>
+    <button class="side-btn" onclick="showPage('import')">Legg inn ny turnus</button>
+  </section>
+  <section class="side-card">
+    <h3>Sikkerhetskopi</h3>
+    <p class="muted" style="margin:0">Vaktene lagres i skyen. Lønnstallene, økonomien og valgene dine ligger bare på denne telefonen. Ta en kopi før du bytter telefon eller legger appen til på nytt.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="side-btn" onclick="exportBackup()">Lagre sikkerhetskopi</button><label class="side-btn" for="backupFile">Gjenopprett</label><input type="file" id="backupFile" accept="application/json,.json" hidden onchange="importBackup(this.files[0])"></div>
+  </section>
+  <section class="side-card">
+    <h3>Nytt hjerteikon på Hjem-skjermen</h3>
+    <ol class="muted steps"><li>Trykk «Lagre sikkerhetskopi» over.</li><li>Hold fingeren på appen på Hjem-skjermen og velg «Fjern app».</li><li>Åpne lenken i Safari, trykk Del-knappen og velg «Legg til på Hjem-skjerm».</li><li>Åpne appen, gå til Mer og trykk «Gjenopprett».</li></ol>
+  </section>
+  <section class="side-card mer-links">
+    <h3>Flere sider</h3>
+    <button class="list-link" onclick="showPage('arsoversikt')"><span>Årsoversikt</span><span class="muted">Timer per måned og år ›</span></button>
+    <button class="list-link" onclick="showPage('arbeidstid')"><span>Arbeidstid</span><span class="muted">Hviletid mellom vakter ›</span></button>
+    <button class="list-link" onclick="openWhatsNew()"><span>Hva er nytt</span><span class="muted">›</span></button>
+  </section>
+</div>
+</div>
+
+<!-- NY TURNUS -->
+<div class="page" id="page-import">
+<div class="page-topbar"><button class="page-back-btn" onclick="showPage('mer')">‹ Mer</button><div class="page-topbar-title">Ny turnusplan</div></div>
+<div class="import-wrap">
+  <section class="side-card">
+    <div class="seg" role="group" aria-label="Metode" id="impMethod"><button data-imp="paste" aria-pressed="true">Lim inn</button><button data-imp="rot" aria-pressed="false">Rotasjon</button></div>
+    <div id="impPaste">
+      <p class="muted" style="margin:0 0 10px">Kopier ukene fra turnusen (Excel, GAT eller PDF) og lim dem inn. Én linje per uke, med vaktene mandag til søndag. Tom dag skrives som «-». Står datoen for mandagen på linja, brukes den.</p>
+      <div class="salary-grid"><div class="salary-input-group"><label class="salary-input-label" for="impStart">Første mandag (hvis linjene ikke har dato)</label><input type="date" class="salary-input" id="impStart" value="2027-01-04"></div></div>
+      <textarea class="salary-input" id="impText" rows="8" placeholder="Uke 1   D  D  D  D  D  -  F1&#10;Uke 2   A  A  F1 -  -  LL LL&#10;Uke 3   D  D  D  D  D  -  F1"></textarea>
+    </div>
+    <div id="impRot" hidden>
+      <p class="muted" style="margin:0 0 10px">Fyll inn én runde av turnusen (for eksempel 4 uker). Appen gjentar den fra startdatoen til sluttdatoen. Etterpå kan du rette ferie og helligdager i kalenderen.</p>
+      <div class="salary-grid">
+        <div class="salary-input-group"><label class="salary-input-label" for="rotWeeks">Uker i rotasjonen</label><select class="salary-input" id="rotWeeks"></select></div>
+        <div class="salary-input-group"><label class="salary-input-label" for="rotStart">Startdato (mandag)</label><input type="date" class="salary-input" id="rotStart" value="2027-01-04"></div>
+        <div class="salary-input-group"><label class="salary-input-label" for="rotEnd">Sluttdato</label><input type="date" class="salary-input" id="rotEnd" value="2027-12-31"></div>
+      </div>
+      <div class="table-scroll"><table class="rot-table" id="rotGrid"></table></div>
+    </div>
+    <button class="pill primary" id="impPreviewBtn">Vis forhåndsvisning</button>
+  </section>
+  <section class="side-card" id="impPreview" hidden></section>
+</div>
+</div>
+
 </div><!-- /.app -->
+
+<!-- BUNNMENY (mobil) -->
+<nav class="bnav" aria-label="Sider">
+  <button data-nav="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Oversikt</span></button>
+  <button data-nav="turnus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4.5" width="18" height="16.5" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg><span>Turnus</span></button>
+  <button data-nav="lonn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="13" rx="3"/><path d="M2.5 10h19M6.5 15h4"/></svg><span>Lønn</span></button>
+  <button data-nav="okonomi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7H8a5 5 0 0 0 0 10h9"/><circle cx="17" cy="12" r="1.2" fill="currentColor"/><path d="M19 7V5.5A1.5 1.5 0 0 0 17.5 4H6"/></svg><span>Økonomi</span></button>
+  <button data-nav="mer"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg><span>Mer</span></button>
+</nav>
 
 <!-- GLOBAL SHIFT PICKER -->
 <div id="shiftPicker">
@@ -1602,10 +1751,26 @@ const weeks2029 = [
 ];
 
 // All weeks combined (2026 = originalWeeks, rest from above)
-const allWeeks = [
+const BASE_WEEKS = [
   ...originalWeeks.map(w=>({...w, year:2026})),
   ...weeks2027, ...weeks2028, ...weeks2029
 ];
+// Ny turnusplan lagt inn i appen (Mer → Ny turnusplan) legges oppå grunnturnusen, nøkkelet på ukens
+// mandag. Den synkes via Firebase som feltet «plan», og vaktbytter (turnusOverrides) legges oppå den igjen.
+let turnusPlan = lsGet('turnusPlan', {}) || {};
+function buildBaseWeeks() {
+  const byStart = {};
+  BASE_WEEKS.forEach(w => { byStart[w.start] = JSON.parse(JSON.stringify(w)); });
+  Object.keys(turnusPlan).forEach(st => {
+    const p = turnusPlan[st]; if (!p || !Array.isArray(p.shifts)) return;
+    const d = parseDate(st), en = addDays(d, 6), th = addDays(d, 3);
+    const tueThu = new Date(Date.UTC(th.getFullYear(), th.getMonth(), th.getDate())); const y0 = new Date(Date.UTC(tueThu.getUTCFullYear(), 0, 1));
+    const wk = Math.ceil(((tueThu - y0) / 864e5 + 1) / 7);
+    byStart[st] = Object.assign(byStart[st] || { uke: String(wk), periode: `${fmt(d)}–${fmt(en)}`, start: st, year: th.getFullYear() }, { shifts: [...p.shifts], ts: p.ts });
+  });
+  return Object.values(byStart).sort((a, b) => a.start.localeCompare(b.start));
+}
+let allWeeks = buildBaseWeeks();
 
 let currentFilter = 'all';
 let currentYear = 'all';
@@ -1879,6 +2044,7 @@ function applyTurnusOverrides(baseWeeks) {
 }
 function loadTurnusOverrides() {
   turnusOverrides = lsGet('turnusOverrides', {}) || {};
+  allWeeks = buildBaseWeeks();
   weeks = applyTurnusOverrides(allWeeks);
   savedWeeks = JSON.parse(JSON.stringify(weeks));
 }
@@ -1938,17 +2104,23 @@ function initCloudSync() {
         // Dokumentet finnes ikke ennå i skyen (aller første gang synk skrus på) — så fremt DENNE
         // enheten allerede har egne lagrede vaktendringer fra før, "sår" vi skyen med dem, slik at
         // den andre enheten får dem neste gang den åpner appen.
-        if (Object.keys(turnusOverrides).length) pushTurnusOverridesToCloud();
+        if (Object.keys(turnusOverrides).length || Object.keys(turnusPlan).length) pushTurnusOverridesToCloud();
         return;
       }
       const data = snap.data();
       if (!data || typeof data.overrides !== 'object' || data.overrides === null) return;
+      // «plan» = ny turnus lagt inn i appen. Mangler feltet (en eldre versjon av appen skrev bare
+      // «overrides»), men denne enheten har en plan, sendes den opp igjen i stedet for å slettes.
+      const remotePlan = (data.plan && typeof data.plan === 'object') ? data.plan : null;
+      if (!remotePlan && Object.keys(turnusPlan).length && !snap.metadata.hasPendingWrites) setTimeout(pushTurnusOverridesToCloud, 0);
+      const planChanged = !!remotePlan && JSON.stringify(remotePlan) !== JSON.stringify(turnusPlan);
       const incoming = JSON.stringify(data.overrides);
       const current = JSON.stringify(turnusOverrides);
-      if (incoming === current) return; // ingen reell endring — unngå unødvendig re-render/loop
+      if (incoming === current && !planChanged) return; // ingen reell endring — unngå unødvendig re-render/loop
       fsApplyingRemote = true;
       turnusOverrides = data.overrides;
       lsSet('turnusOverrides', turnusOverrides);
+      if (planChanged) { turnusPlan = remotePlan; lsSet('turnusPlan', turnusPlan); allWeeks = buildBaseWeeks(); }
       weeks = applyTurnusOverrides(allWeeks);
       savedWeeks = JSON.parse(JSON.stringify(weeks));
       renderAll();
@@ -1962,6 +2134,7 @@ function pushTurnusOverridesToCloud() {
   try {
     fsDb.collection('turnus').doc('shared').set({
       overrides: turnusOverrides,
+      plan: turnusPlan,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     }).catch(() => { /* ingen nett akkurat nå — localStorage har allerede endringen, synkes automatisk senere */ });
   } catch(e) {}
@@ -2470,7 +2643,7 @@ function renderYearOverview() {
     for(let m=1;m<=12;m++) total += (hoursByMonth[`${y}-${String(m).padStart(2,'0')}`]||0);
     return `<div class="stat-card" style="border-left:3px solid var(--accent-blue)">
       <div class="stat-label"><span class="stat-ico" style="color:var(--accent-blue)">${icoYear}</span>${y}</div>
-      <div class="stat-value">${total.toFixed(1)}</div>
+      <div class="stat-value">${total.toFixed(1).replace('.', ',')}</div>
       <div class="stat-sub">timer totalt</div>
     </div>`;
   }).join('');
@@ -2520,7 +2693,7 @@ function renderYearOverview() {
     }
   });
 
-  const svg = `<svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}">${gridSvg}${barsSvg}</svg>`;
+  const svg = `<svg width="100%" style="min-width:${svgW}px;display:block" viewBox="0 0 ${svgW} ${svgH}">${gridSvg}${barsSvg}</svg>`;
   document.getElementById('chartScroll').innerHTML = svg;
 
   // hover / focus tooltip
@@ -3243,20 +3416,19 @@ function applyUiPrefs() {
   document.body.classList.toggle('view-cal', uiPrefs.view === 'kalender');
   document.body.classList.toggle('view-uker', uiPrefs.view !== 'kalender');
   document.body.classList.toggle('no-desc', !uiPrefs.showDesc);
-  document.querySelectorAll('#viewSeg [data-view-opt]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.viewOpt === uiPrefs.view)));
+  document.querySelectorAll('#viewSeg [data-view-opt], #viewSeg2 [data-view-opt]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.viewOpt === uiPrefs.view)));
   document.querySelectorAll('#themeSeg [data-theme-opt]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeOpt === uiPrefs.theme)));
-  const dt = document.getElementById('descToggle'); if (dt) dt.checked = !!uiPrefs.showDesc;
+  ['descToggle','descToggle2'].forEach(id => { const el = document.getElementById(id); if (el) el.checked = !!uiPrefs.showDesc; });
   if (window.applyTheme) window.applyTheme();
 }
 function bindUiPrefs() {
-  document.querySelectorAll('#viewSeg [data-view-opt]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#viewSeg [data-view-opt], #viewSeg2 [data-view-opt]').forEach(b => b.addEventListener('click', () => {
     uiPrefs.view = b.dataset.viewOpt; saveUiPrefs(); applyUiPrefs();
     if (editMode && uiPrefs.view === 'kalender') toggleEditMode();
     renderAll();
   }));
   document.querySelectorAll('#themeSeg [data-theme-opt]').forEach(b => b.addEventListener('click', () => { uiPrefs.theme = b.dataset.themeOpt; saveUiPrefs(); applyUiPrefs(); }));
-  const dt = document.getElementById('descToggle');
-  if (dt) dt.addEventListener('change', () => { uiPrefs.showDesc = dt.checked; saveUiPrefs(); applyUiPrefs(); });
+  ['descToggle','descToggle2'].forEach(id => { const dt = document.getElementById(id); if (dt) dt.addEventListener('change', () => { uiPrefs.showDesc = dt.checked; saveUiPrefs(); applyUiPrefs(); }); });
 }
 
 // ═════════ LAGRING AV VAKTENDRINGER (samme format som før: avvik per uke, synkes via Firebase) ═════════
@@ -3402,11 +3574,241 @@ function openDaySheet() {
 function closeDaySheet() { ['daySheet','daySheetBackdrop'].forEach(id => { const el = document.getElementById(id); if (el) el.remove(); }); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDaySheet(); });
 
+// ═════════ OVERSIKT ═════════
+function findPayFor(R, today) {
+  const keys = R.MONTHS.filter(k => { const { year, month } = monthKeyParts(k); return new Date(year, month-1, 20) >= today; });
+  return keys[0] || R.MONTHS[R.MONTHS.length-1];
+}
+function goToDay(iso) {
+  uiPrefs.view = 'kalender'; saveUiPrefs(); applyUiPrefs();
+  calMonth = iso.slice(0, 7); selectedIso = iso;
+  showPage('turnus');
+}
+function renderOverview() {
+  const nextEl = document.getElementById('ovNext'); if (!nextEl || !weeks.length) return;
+  const today = getTodayDate(), todayIso = toIso(today), idx = dayIndex();
+  const h = new Date().getHours();
+  document.getElementById('ovGreeting').textContent = (h < 10 ? 'God morgen' : h < 17 ? 'Hei' : 'God kveld') + ', Nathalie';
+  const wd = DOW_LONG[(today.getDay()+6)%7];
+  document.getElementById('ovDate').textContent = `${wd[0].toUpperCase()}${wd.slice(1)} ${today.getDate()}. ${MONTH_NAMES[today.getMonth()].toLowerCase()} · uke ${isoWeekNo(today)}`;
+  // Neste vakt + denne uka
+  const nextIsos = Object.keys(idx).filter(k => k >= todayIso && isWork(idx[k].sh)).sort();
+  const nx = nextIsos[0];
+  let nextHtml;
+  if (nx) {
+    const sh = idx[nx].sh, t = SHIFT_TIMES[sh], diff = Math.round((parseDate(nx) - today) / 864e5);
+    const when = diff === 0 ? 'I dag' : diff === 1 ? 'I morgen' : dayTitle(nx);
+    const hn = holidayLabel(nx);
+    nextHtml = `<div class="next-main"><span class="next-code" style="--c:${shiftColor(sh)}">${sh}</span>
+      <div><div class="eyebrow">Neste vakt</div><div class="next-when">${when}</div>
+      <div class="next-time">${SHIFT_NAMES[sh] || sh}${t ? ` · ${t[0]}–${t[1]}` : ''} · ${String(SHIFT_HOURS[sh]||0).replace('.', ',')} t${hn ? ` · <b style="color:var(--holiday)">${hn}</b>` : ''}</div></div></div>`;
+  } else nextHtml = `<div><div class="eyebrow">Neste vakt</div><div class="next-when">Ingen flere vakter i planen</div><div class="next-time">Legg inn ny turnus under Mer.</div></div>`;
+  const mon = addDays(today, -((today.getDay()+6)%7));
+  const strip = Array.from({ length: 7 }, (_, i) => { const d = addDays(mon, i), iso = toIso(d), info = idx[iso], sh = info ? info.sh : '';
+    return `<button class="${iso === todayIso ? 'today' : ''}" data-goto-day="${iso}"><span>${DOW_SHORT[i]}</span><b>${d.getDate()}</b>${sh ? `<span class="shift-chip ${chipClass(sh)}">${sh}</span>` : '<span class="chip-empty">–</span>'}</button>`; }).join('');
+  nextEl.innerHTML = `${nextHtml}<div><div class="eyebrow" style="margin-bottom:8px">Denne uka</div><div class="weekstrip">${strip}</div></div>
+    ${nx && SHIFT_TIMES[idx[nx].sh] ? `<button class="side-btn" data-ics-next>Legg neste vakt i telefonens kalender</button>` : ''}`;
+  const icsBtn = nextEl.querySelector('[data-ics-next]'); if (icsBtn) icsBtn.onclick = () => downloadSingleICS(idx[nx].wi, idx[nx].di);
+  // Neste utbetaling
+  const R = computeSalaryTotals(weeks), pk = findPayFor(R, today), pp = monthKeyParts(pk);
+  const taxPct = Math.round(R.taxRatePerMonth[pk] * 1000) / 10;
+  document.getElementById('ovPay').innerHTML = `<div class="eyebrow">Neste utbetaling · 20. ${MONTH_NAMES[pp.month-1].toLowerCase()}</div>
+    <div><div class="pay-big">${fmtKr(Math.round(R.nettoPerMonth[pk]))}</div><div class="muted">estimert netto på konto</div></div>
+    <div class="kv"><span>Fast lønn for ${MONTH_NAMES[pp.month-1].toLowerCase()}</span><span>${fmtKr(Math.round(R.fastPerMonth[pk]))}</span>
+    <span>Tillegg ${periodLabel(R.paidFrom[pk])}</span><span>${fmtKr(Math.round(R.tilleggPerMonth[pk]))}</span>
+    <span>Skattetrekk ${String(taxPct).replace('.', ',')} %</span><span>− ${fmtKr(Math.round(R.skattPerMonth[pk]))}</span></div>
+    <button class="side-btn" onclick="showPage('lonn')">Se hele lønnsoversikten</button>`;
+  // Denne måneden
+  const mk = monthKey(today), e = R.earned[mk];
+  let shifts = 0, weekend = 0, holi = [];
+  Object.keys(idx).forEach(k => { if (!k.startsWith(mk) || !isWork(idx[k].sh)) return; shifts++; const d = parseDate(k); if (d.getDay()===0||d.getDay()===6) weekend++; if (NO_HOLIDAYS[k]) holi.push(NO_HOLIDAYS[k]); });
+  document.getElementById('ovMonth').innerHTML = `<div class="eyebrow" style="margin:0 0 10px 2px">${MONTH_NAMES[today.getMonth()]} ${today.getFullYear()}</div>
+    <div class="tiles">
+      <div class="tile accent"><span class="eyebrow">Timer</span><span class="v">${e ? e.hours.toFixed(1).replace('.', ',') : '0'}</span><span class="s">${shifts} vakter</span></div>
+      <div class="tile"><span class="eyebrow">Helgevakter</span><span class="v">${weekend}</span><span class="s">lørdag og søndag</span></div>
+      <div class="tile"><span class="eyebrow">Kveld og natt</span><span class="v">${e ? (e.kveld + e.natt).toFixed(1).replace('.', ',') : '0'}</span><span class="s">timer etter kl. 17</span></div>
+      <div class="tile ${holi.length ? 'warn' : ''}"><span class="eyebrow">Helligdager</span><span class="v">${holi.length}</span><span class="s">${holi.length ? holi.join(', ') : 'ingen vakter'}</span></div>
+      <div class="tile"><span class="eyebrow">Tillegg</span><span class="v">${fmtKr(Math.round(e ? e.total : 0))}</span><span class="s">utbetales 20. ${MONTH_NAMES[(today.getMonth()+1)%12].toLowerCase()}</span></div>
+    </div>`;
+  // Kommende vakter
+  document.getElementById('ovUp').innerHTML = `<h3>Kommende vakter</h3><div>${nextIsos.slice(0, 7).map(iso => {
+    const d = parseDate(iso), sh = idx[iso].sh, t = SHIFT_TIMES[sh], hn = holidayLabel(iso), we = d.getDay()===0||d.getDay()===6;
+    return `<button class="up-row" data-goto-day="${iso}"><span class="up-date ${hn || we ? 'hol' : ''}"><small>${DOW_SHORT[(d.getDay()+6)%7]}</small><b>${d.getDate()}</b></span>
+      <span class="up-main"><div class="t">${SHIFT_NAMES[sh] || sh}${hn ? ` · <span style="color:var(--holiday)">${hn}</span>` : ''}</div><div class="s">${MONTH_NAMES[d.getMonth()].slice(0,3).toLowerCase()}${t ? ` · ${t[0]}–${t[1]}` : ''}</div></span>
+      <span class="shift-chip ${chipClass(sh)}">${sh}</span></button>`; }).join('') || '<p class="muted">Ingen kommende vakter.</p>'}</div>`;
+  document.querySelectorAll('#page-home [data-goto-day]').forEach(b => b.onclick = () => goToDay(b.dataset.gotoDay));
+}
+
+// ═════════ NY TURNUSPLAN (lim inn eller rotasjon) ═════════
+const KNOWN_CODES = Object.keys(SHIFT_HOURS).filter(Boolean);
+const NOT_CODES = new Set(['UKE','UKENR','NR','MAN','TIR','ONS','TOR','FRE','LØR','SØN','TS','SUM','TIMER','T','PERIODE']);
+let impWeeks = [];
+function mondayOf(d) { return addDays(d, -((d.getDay()+6)%7)); }
+function weekObj(startDate, shifts, ts) {
+  const st = mondayOf(startDate), en = addDays(st, 6), th = addDays(st, 3);
+  let hrs = 0; shifts.forEach(x => { hrs += (SHIFT_HOURS[x] || 0); });
+  return { uke: String(isoWeekNo(st)), periode: `${fmt(st)}–${fmt(en)}`, start: toIso(st), ts: ts != null ? ts : Math.round(hrs*2)/2, year: th.getFullYear(), shifts };
+}
+function parsePastedPlan(text, firstMonday) {
+  const out = []; let cursor = mondayOf(parseDate(firstMonday));
+  text.split(/\r?\n/).forEach(line => {
+    if (!line.trim()) return;
+    let start = null;
+    const dm = line.match(/(\d{1,2})\.(\d{1,2})\.(\d{2,4})/) || line.match(/(\d{4})-(\d{2})-(\d{2})/);
+    if (dm) { const d = dm[0].includes('-') ? parseDate(dm[0]) : new Date(dm[3].length === 2 ? 2000 + +dm[3] : +dm[3], +dm[2]-1, +dm[1]); if (!isNaN(d)) start = mondayOf(d); }
+    const cleaned = line.replace(/(\d{1,2})\.(\d{1,2})(\.\d{2,4})?(\s*[–-]\s*\d{1,2}\.\d{1,2}(\.\d{2,4})?)?/g, ' ').replace(/\d{4}-\d{2}-\d{2}/g, ' ');
+    const cells = cleaned.includes('\t') ? cleaned.split('\t') : cleaned.trim().split(/\s+/);
+    const codes = []; let ts = null;
+    cells.forEach(c => {
+      const t = c.trim().toUpperCase();
+      if (/^\d+([.,]\d+)?$/.test(t)) { if (codes.length >= 7 || t.includes(',') || t.includes('.')) ts = parseFloat(t.replace(',', '.')); return; }
+      if (t === '' ) { if (cleaned.includes('\t') && codes.length > 0 && codes.length < 7) codes.push(''); return; }
+      if (['-','–','—','.','X','/'].includes(t)) { codes.push(''); return; }
+      if (NOT_CODES.has(t)) return;
+      if (/^[A-ZÆØÅ][A-ZÆØÅ0-9]{0,3}$/.test(t)) codes.push(t);
+    });
+    if (!codes.filter(Boolean).length) return;
+    while (codes.length < 7) codes.push('');
+    const st = start || cursor;
+    out.push(weekObj(st, codes.slice(0, 7), ts));
+    cursor = addDays(st, 7);
+  });
+  return out;
+}
+function rotationPlan(rot, startIso, endIso) {
+  const out = []; let d = mondayOf(parseDate(startIso)), i = 0; const end = parseDate(endIso);
+  while (d <= end && i < 600) { out.push(weekObj(d, [...rot[i % rot.length]], null)); d = addDays(d, 7); i++; }
+  return out;
+}
+function buildRotGrid() {
+  const sel = document.getElementById('rotWeeks'), grid = document.getElementById('rotGrid'); if (!sel || !grid) return;
+  if (!sel.options.length) { for (let n = 1; n <= 12; n++) sel.add(new Option(`${n} uke${n>1?'r':''}`, n)); sel.value = '4'; }
+  const n = +sel.value, prev = [...grid.querySelectorAll('tr[data-r]')].map(tr => [...tr.querySelectorAll('select')].map(s => s.value));
+  const opts = c => SHIFT_OPTS.map(o => `<option value="${o.code}" ${o.code === c ? 'selected' : ''}>${o.code || '–'}</option>`).join('');
+  grid.innerHTML = `<tr><th></th>${DOW_SHORT.map(d => `<th>${d}</th>`).join('')}</tr>` + Array.from({ length: n }, (_, r) =>
+    `<tr data-r="${r}"><th>Uke ${r+1}</th>${Array.from({ length: 7 }, (_, c) => `<td><select aria-label="Uke ${r+1} ${DOW_SHORT[c]}">${opts(prev[r] ? prev[r][c] : '')}</select></td>`).join('')}</tr>`).join('');
+}
+function initImportPage() {
+  if (initImportPage.done) return; initImportPage.done = true;
+  buildRotGrid();
+  document.getElementById('rotWeeks').addEventListener('change', buildRotGrid);
+  document.querySelectorAll('#impMethod [data-imp]').forEach(b => b.onclick = () => {
+    document.querySelectorAll('#impMethod [data-imp]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    document.getElementById('impPaste').hidden = b.dataset.imp !== 'paste';
+    document.getElementById('impRot').hidden = b.dataset.imp !== 'rot';
+    document.getElementById('impPreview').hidden = true;
+  });
+  document.getElementById('impPreviewBtn').onclick = () => {
+    const paste = !document.getElementById('impPaste').hidden;
+    if (paste) {
+      const txt = document.getElementById('impText').value;
+      if (!txt.trim()) { showToast('Lim inn turnusen først.'); return; }
+      impWeeks = parsePastedPlan(txt, document.getElementById('impStart').value || '2027-01-04');
+    } else {
+      const rot = [...document.querySelectorAll('#rotGrid tr[data-r]')].map(tr => [...tr.querySelectorAll('select')].map(s => s.value));
+      if (!rot.flat().some(Boolean)) { showToast('Fyll inn vaktene i rotasjonen først.'); return; }
+      const a = document.getElementById('rotStart').value, z = document.getElementById('rotEnd').value;
+      if (!a || !z || z < a) { showToast('Sjekk start- og sluttdato.'); return; }
+      impWeeks = rotationPlan(rot, a, z);
+    }
+    renderImportPreview();
+  };
+}
+function renderImportPreview() {
+  const box = document.getElementById('impPreview');
+  if (!impWeeks.length) { box.hidden = false; box.innerHTML = '<h3>Fant ingen uker</h3><p class="muted" style="margin:0">Sjekk at hver linje har vaktkoder for mandag til søndag, for eksempel «D D A F1 - LL LL».</p>'; return; }
+  const unknown = new Set(); let tsOff = 0;
+  const current = {}; weeks.forEach(w => { current[w.start] = w; });
+  let changedWeeks = 0, swaps = 0;
+  const rows = impWeeks.map(w => {
+    let hrs = 0; w.shifts.forEach(x => { if (x && !(x in SHIFT_HOURS)) unknown.add(x); hrs += (SHIFT_HOURS[x]||0); });
+    const off = Math.abs(hrs - w.ts) > 0.01; if (off) tsOff++;
+    const cur = current[w.start]; if (cur && JSON.stringify(cur.shifts) !== JSON.stringify(w.shifts)) changedWeeks++;
+    if (turnusOverrides[w.start]) swaps++;
+    const d0 = parseDate(w.start);
+    return `<tr><td>Uke ${w.uke}</td><td>${w.periode}.${String(w.year).slice(2)}</td>${w.shifts.map((x, i) => { const iso = toIso(addDays(d0, i)); return `<td>${x ? `<span class="shift-chip ${chipClass(x)}" ${x in SHIFT_HOURS ? '' : 'style="color:var(--accent-red)"'}>${x}</span>` : '–'}${NO_HOLIDAYS[iso] ? ' <span class="h-flag" title="' + NO_HOLIDAYS[iso] + '">H</span>' : ''}</td>`; }).join('')}
+      <td class="r">${String(hrs).replace('.', ',')}</td><td class="r ${off ? 'warn-text' : ''}">${String(w.ts).replace('.', ',')}${off ? ' ⚠' : ''}</td></tr>`;
+  }).join('');
+  const first = impWeeks[0], last = impWeeks[impWeeks.length-1];
+  box.hidden = false;
+  box.innerHTML = `<h3>${impWeeks.length} uker · ${first.periode.split('–')[0]}.${first.year} – ${last.periode.split('–')[1]}.${last.year}</h3>
+    ${unknown.size ? `<p class="warn-text" style="margin:0">Ukjente koder: ${[...unknown].join(', ')}. De gir 0 timer og ingen tillegg.</p>` : ''}
+    ${tsOff ? `<p class="warn-text" style="margin:0">${tsOff} uker har en annen timesum enn vaktene gir. Sjekk at ingen vakter mangler.</p>` : ''}
+    <p class="muted" style="margin:0">${changedWeeks} av ukene er forskjellige fra det som ligger i appen i dag.${swaps ? ` ${swaps} uker har vaktbytter som blir erstattet.` : ''} Planen deles med den andre telefonen.</p>
+    <div class="table-scroll"><table class="prev-table"><thead><tr><th>Uke</th><th>Periode</th>${DOW_SHORT.map(d => `<th>${d}</th>`).join('')}<th class="r">Timer</th><th class="r">TS</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="pill primary" id="impApply">Lagre ny turnus</button><button class="pill" id="impCancel">Avbryt</button></div>`;
+  box.querySelector('#impApply').onclick = applyImportedPlan;
+  box.querySelector('#impCancel').onclick = () => { box.hidden = true; };
+  box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function applyImportedPlan() {
+  impWeeks.forEach(w => { turnusPlan[w.start] = { shifts: [...w.shifts], ts: w.ts }; delete turnusOverrides[w.start]; });
+  lsSet('turnusPlan', turnusPlan); lsSet('turnusOverrides', turnusOverrides);
+  allWeeks = buildBaseWeeks();
+  weeks = applyTurnusOverrides(allWeeks); savedWeeks = JSON.parse(JSON.stringify(weeks));
+  pushTurnusOverridesToCloud();
+  showToast(`Ny turnus lagret: ${impWeeks.length} uker ✓`);
+  const firstIso = impWeeks[0].start; impWeeks = [];
+  document.getElementById('impPreview').hidden = true;
+  goToDay(firstIso);
+}
+
+// ═════════ SIKKERHETSKOPI ═════════
+const BACKUP_KEYS = ['lonnSettings', 'okState', 'uiPrefs', 'turnusFilter', 'turnusOverrides', 'turnusPlan'];
+async function exportBackup() {
+  const data = { app: 'nathalie-turnus', laget: new Date().toISOString(), data: {} };
+  BACKUP_KEYS.forEach(k => { const v = lsGet(k, null); if (v !== null) data.data[k] = v; });
+  const json = JSON.stringify(data, null, 2), name = `turnus-sikkerhetskopi-${toIso(new Date())}.json`;
+  const blob = new Blob([json], { type: 'application/json' });
+  try { const f = new File([blob], name, { type: 'application/json' }); if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], title: 'Sikkerhetskopi av turnus' }); showToast('Sikkerhetskopi klar ✓'); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+  showToast('Sikkerhetskopi lagret ✓');
+}
+function importBackup(file) {
+  if (!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const o = JSON.parse(r.result); if (!o || o.app !== 'nathalie-turnus' || !o.data) throw 0;
+      // Personlige data hentes tilbake. Vaktene ligger i skyen og hentes derfra (de lokale brukes bare hvis skyen er tom).
+      ['lonnSettings', 'okState', 'uiPrefs', 'turnusFilter'].forEach(k => { if (o.data[k] !== undefined) lsSet(k, o.data[k]); });
+      if (!Object.keys(turnusOverrides).length && o.data.turnusOverrides) lsSet('turnusOverrides', o.data.turnusOverrides);
+      if (!Object.keys(turnusPlan).length && o.data.turnusPlan) lsSet('turnusPlan', o.data.turnusPlan);
+      lsSet('whatsNewSeen', WHATS_NEW_VERSION);
+      showToast('Gjenopprettet ✓ Laster inn på nytt …');
+      setTimeout(() => location.reload(), 900);
+    } catch (e) { showToast('Filen kunne ikke leses. Velg en sikkerhetskopi fra denne appen.'); }
+  };
+  r.readAsText(file);
+}
+
+// ═════════ HVA ER NYTT (vises én gang) ═════════
+const WHATS_NEW_VERSION = '2026-11-nytt-design';
+function openWhatsNew() {
+  if (document.getElementById('wnSheet')) return;
+  const item = (bg, ico, t, d) => `<div class="wn-item"><i style="background:${bg}">${ico}</i><div><b>${t}</b><span>${d}</span></div></div>`;
+  const bd = document.createElement('div'); bd.className = 'sheet-backdrop'; bd.id = 'wnBackdrop';
+  const sh = document.createElement('div'); sh.className = 'wn-sheet'; sh.id = 'wnSheet'; sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true'); sh.setAttribute('aria-labelledby', 'wnTitle');
+  sh.innerHTML = `<span class="brand-icon">${document.querySelector('.brand-icon').innerHTML}</span>
+    <h2 id="wnTitle">Appen din er fornyet</h2>
+    <div class="wn-list">
+      ${item('var(--accent-blue)', '📅', 'Ny kalender', 'Se hele måneden, og trykk på en dag for å bytte vakt med ett trykk.')}
+      ${item('var(--accent-green)', '💰', 'Riktigere lønn', 'Fast månedslønn pluss tilleggene for forrige måned, med de nye KS-satsene.')}
+      ${item('var(--accent-purple)', '✨', 'Nytt utseende', 'Lyst eller mørkt tema som følger telefonen. Velg selv under Mer.')}
+      ${item('var(--accent-amber)', '🗓️', 'Klar for neste turnus', 'Ny turnusplan kan legges inn under Mer, og den deles med Tony.')}
+    </div>
+    <button class="pill primary" style="justify-self:stretch;padding:12px" id="wnOk">Så fint!</button>`;
+  const close = () => { lsSet('whatsNewSeen', WHATS_NEW_VERSION); bd.remove(); sh.remove(); };
+  bd.onclick = close; document.body.append(bd, sh); sh.querySelector('#wnOk').onclick = close; sh.querySelector('#wnOk').focus();
+}
+function maybeShowWhatsNew() { if (lsGet('whatsNewSeen', null) !== WHATS_NEW_VERSION) setTimeout(openWhatsNew, 700); }
+
 // --- INIT ---
 function renderAll() {
   const f=getFiltered();
   renderTodayBar();
   if (uiPrefs.view === 'kalender') renderCalendarView();
+  renderOverview();
   renderStats(f);
   renderHolidayWarnings(f);
   renderTable(f);
@@ -3419,7 +3821,7 @@ function renderAll() {
 }
 
 // --- PAGE ROUTING (Forside) ---
-const PAGES = ['home','turnus','lonn','arsoversikt','arbeidstid','okonomi'];
+const PAGES = ['home','turnus','lonn','arsoversikt','arbeidstid','okonomi','mer','import'];
 function showPage(id, updateHash) {
   if (updateHash === undefined) updateHash = true;
   if (!PAGES.includes(id)) id = 'home';
@@ -3438,7 +3840,12 @@ function showPage(id, updateHash) {
   if (id === 'arsoversikt') renderYearOverview();
   if (id === 'arbeidstid') calcRestCheck();
   if (id === 'okonomi') { showOkSection('hub'); calcOkonomi(); }
+  if (id === 'home') renderOverview();
+  if (id === 'import') initImportPage();
+  const navId = id === 'import' ? 'mer' : id;
+  document.querySelectorAll('[data-nav]').forEach(b => { if (b.dataset.nav === navId) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
 }
+document.querySelectorAll('[data-nav]').forEach(b => b.addEventListener('click', () => showPage(b.dataset.nav)));
 window.addEventListener('hashchange', () => {
   const id = location.hash.replace('#','') || 'home';
   showPage(id, false);
@@ -3455,6 +3862,7 @@ renderChildrenList();
 renderDebtsList();
 renderAll();
 showPage(location.hash.replace('#','') || 'home', false);
+maybeShowWhatsNew();
 initCloudSync(); // etter første lokale render, så appen alltid viser NOE med en gang (lokal data),
                   // og heller oppdaterer seg selv om skyen har noe nyere — se initCloudSync() over.
 
