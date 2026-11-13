@@ -1,4 +1,4 @@
-const CACHE = 'nathalie-turnus-v13';
+const CACHE = 'nathalie-turnus-v14';
 // Core app-shell files: must succeed, or the app has no offline capability at all.
 const CORE_ASSETS = [
   './index.html',
@@ -9,7 +9,7 @@ const CORE_ASSETS = [
 // Best-effort extras: nice to have cached for offline use, but this is a third-party URL that can be
 // temporarily unreachable (flaky connection, a network/DNS block on fonts.googleapis.com, etc.).
 const OPTIONAL_ASSETS = [
-  'https://fonts.googleapis.com/css2?family=Aptos:wght@400;500;600&display=swap'
+  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
 ];
 
 self.addEventListener('install', e => {

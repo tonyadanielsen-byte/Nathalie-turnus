@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#111110">
+<meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nathalie Turnus">
@@ -11,26 +11,33 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Nathalie Turnus 2026–2029</title>
-<link href="https://fonts.googleapis.com/css2?family=Aptos:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /* Farger i Apple-stil. Mørkt er standard; lyst følger systemet eller valget under «Utseende» på forsiden. */
   :root {
-    --bg: #111110;
-    --surface: #1a1a19;
-    --surface2: #232321;
-    --surface3: #2c2c2a;
-    --border: rgba(255,255,255,0.10);
-    --border-strong: rgba(255,255,255,0.18);
-    --text-primary: #f0ede8;
-    --text-secondary: #c3c2b7;
-    --text-muted: #898781;
-    --accent-blue: #3987e5;
-    --accent-green: #199e70;
-    --accent-amber: #eda100;
-    --accent-red: #e34948;
-    --accent-purple: #9085e9;
-    --accent-teal: #5DCAA5;
-    --font: 'Aptos', 'Segoe UI', system-ui, sans-serif;
+    --bg: #000000; --surface: #1c1c1e; --surface2: #2c2c2e; --surface3: #3a3a3c; --elev: rgba(28,28,30,0.78);
+    --border: rgba(84,84,88,0.42); --border-strong: rgba(120,120,128,0.5);
+    --text-primary: #f5f5f7; --text-secondary: #d1d1d6; --text-muted: #98989f;
+    --accent-blue: #0a84ff; --accent-green: #30d158; --accent-amber: #ff9f0a; --accent-red: #ff453a; --accent-purple: #bf5af2; --accent-teal: #40c8e0;
+    --tint-blue: #64a8ff; --tint-green: #30d158; --tint-red: #ff6961; --tint-yellow: #ffd60a;
+    --fill-soft: rgba(120,120,128,0.24); --fill-faint: rgba(120,120,128,0.08);
+    --k-dag: #4aa3ff; --k-kveld: #c77dff; --k-lang: #32d27a; --k-fri: #98989d; --k-other: #ff6b9a; --holiday: #ff6961;
+    --shadow: 0 0 0 0.5px rgba(255,255,255,0.06); --shadow-pop: 0 18px 50px rgba(0,0,0,0.6);
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', system-ui, sans-serif;
+    --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', system-ui, sans-serif;
+    color-scheme: dark;
+  }
+  :root[data-theme="light"] {
+    --bg: #f2f2f7; --surface: #ffffff; --surface2: #f2f2f7; --surface3: #e5e5ea; --elev: rgba(249,249,251,0.8);
+    --border: rgba(60,60,67,0.13); --border-strong: rgba(60,60,67,0.24);
+    --text-primary: #1c1c1e; --text-secondary: #3c3c43; --text-muted: #8a8a8e;
+    --accent-blue: #007aff; --accent-green: #248a3d; --accent-amber: #c56a00; --accent-red: #d70015; --accent-purple: #9b3fd1; --accent-teal: #0a8fa8;
+    --tint-blue: #0a64d6; --tint-green: #248a3d; --tint-red: #d70015; --tint-yellow: #a05a00;
+    --fill-soft: rgba(120,120,128,0.14); --fill-faint: rgba(120,120,128,0.05);
+    --k-dag: #0a6cdf; --k-kveld: #9b3fd1; --k-lang: #1c9a4f; --k-fri: #8e8e93; --k-other: #d6316a; --holiday: #e0281c;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 18px rgba(0,0,0,0.05); --shadow-pop: 0 18px 50px rgba(0,0,0,0.18);
+    color-scheme: light;
   }
   html, body {
     background:
@@ -104,7 +111,7 @@
   .budget-status.over { background: rgba(227,73,72,0.10); border: 0.5px solid var(--accent-red); color: var(--text-secondary); }
   .budget-tips-list { margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; }
   .budget-tips-list li { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
-  .budget-tips-list li strong { color: #e8c34a; font-weight: 500; }
+  .budget-tips-list li strong { color: var(--tint-yellow); font-weight: 500; }
   /* Økonomi: delt inn i en "mini-forside" (hub) med egne underdsider (Inntekter / Budsjett / Gjeld &
      faste utgifter / Fremdrift) man klikker seg inn i — samme mønster som appens egen Forside — i
      stedet for én lang, sammenhengende side. Reduserer scroll og gjør det tydelig hva som er PLAN
@@ -131,7 +138,7 @@
   .sync-badge .sync-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
   .sync-badge.state-ok { background: rgba(93,202,165,0.16); color: var(--accent-teal); border: 0.5px solid rgba(93,202,165,0.4); }
   .sync-badge.state-ok .sync-dot { background: var(--accent-teal); box-shadow: 0 0 0 3px rgba(93,202,165,0.25); animation: syncPulse 2s ease-in-out infinite; }
-  .sync-badge.state-checking { background: rgba(255,255,255,0.06); color: var(--text-muted); border: 0.5px solid var(--border-strong); }
+  .sync-badge.state-checking { background: var(--fill-soft); color: var(--text-muted); border: 0.5px solid var(--border-strong); }
   .sync-badge.state-checking .sync-dot { background: var(--text-muted); animation: syncPulse 1s ease-in-out infinite; }
   .sync-badge.state-off { background: rgba(237,161,0,0.14); color: var(--accent-amber); border: 0.5px solid rgba(237,161,0,0.35); }
   .sync-badge.state-off .sync-dot { background: var(--accent-amber); }
@@ -215,13 +222,13 @@
   .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
   .stat-card.warn .stat-value { color: var(--accent-amber); }
   .stat-card.good .stat-value { color: var(--accent-green); }
-  .stat-card.salary .stat-value { color: #7db5f5; font-size: 18px; }
+  .stat-card.salary .stat-value { color: var(--tint-blue); font-size: 18px; }
 
   /* SALARY PANEL */
   .salary-panel { margin: 0 24px 12px; background: var(--surface); border: 0.5px solid rgba(57,135,229,0.4); border-radius: 10px; overflow: hidden; }
   .salary-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; cursor: pointer; user-select: none; border-bottom: 0.5px solid var(--border); }
   .salary-panel-header:hover { background: var(--surface2); }
-  .salary-panel-title { font-size: 12px; font-weight: 500; color: #7db5f5; display: flex; align-items: center; gap: 6px; }
+  .salary-panel-title { font-size: 12px; font-weight: 500; color: var(--tint-blue); display: flex; align-items: center; gap: 6px; }
   .salary-toggle { font-size: 11px; color: var(--text-muted); transition: transform 0.2s; }
   .salary-toggle.open { transform: rotate(180deg); }
   .salary-body { display: none; padding: 16px; }
@@ -235,7 +242,7 @@
   .salary-breakdown { margin-top: 12px; font-size: 12px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px; }
   .salary-breakdown-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 0.5px solid var(--border); }
   .salary-breakdown-row:last-child { border-bottom: none; font-weight: 500; color: var(--text-secondary); }
-  .salary-breakdown-val { color: #7db5f5; }
+  .salary-breakdown-val { color: var(--tint-blue); }
 
   /* PAYSLIP SECTION */
   .payslip-section { margin: 0 24px 12px; }
@@ -247,20 +254,20 @@
   .payslip-card.blue  { border-color: rgba(57,135,229,0.35); }
   .payslip-card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
   .payslip-card-value { font-size: 20px; font-weight: 500; }
-  .payslip-card.green .payslip-card-value { color: #5dcaa5; }
-  .payslip-card.red   .payslip-card-value { color: #e86767; }
-  .payslip-card.blue  .payslip-card-value { color: #7db5f5; }
+  .payslip-card.green .payslip-card-value { color: var(--tint-green); }
+  .payslip-card.red   .payslip-card-value { color: var(--tint-red); }
+  .payslip-card.blue  .payslip-card-value { color: var(--tint-blue); }
   .payslip-card-sub   { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
   .payslip-month-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 14px; }
   .payslip-month-table th { font-size: 10px; color: var(--text-muted); text-align: left; padding: 5px 8px; border-bottom: 0.5px solid var(--border-strong); text-transform: uppercase; letter-spacing: 0.05em; }
   .payslip-month-table td { padding: 6px 8px; border-bottom: 0.5px solid var(--border); color: var(--text-secondary); }
   .payslip-month-table tr:last-child td { border-bottom: none; }
-  .payslip-month-table td.val-brutto { color: #7db5f5; text-align: right; }
-  .payslip-month-table td.val-netto  { color: #5dcaa5; text-align: right; }
-  .payslip-month-table td.val-skatt  { color: #e86767; text-align: right; }
+  .payslip-month-table td.val-brutto { color: var(--tint-blue); text-align: right; }
+  .payslip-month-table td.val-netto  { color: var(--tint-green); text-align: right; }
+  .payslip-month-table td.val-skatt  { color: var(--tint-red); text-align: right; }
   .payslip-month-table td.utbetalt   { font-weight: 500; }
   .payslip-note { font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 0.5px solid var(--border); padding-top: 8px; }
-  .payslip-tag { display: inline-block; font-size: 10px; background: rgba(57,135,229,0.15); color: #7db5f5; border-radius: 3px; padding: 2px 7px; margin-left: 6px; vertical-align: middle; }
+  .payslip-tag { display: inline-block; font-size: 10px; background: rgba(57,135,229,0.15); color: var(--tint-blue); border-radius: 3px; padding: 2px 7px; margin-left: 6px; vertical-align: middle; }
 
   /* HOLIDAY WARNING */
   .holiday-warn { margin: 0 24px 12px; background: rgba(237,161,0,0.09); border: 0.5px solid var(--accent-amber); border-radius: 8px; padding: 12px 16px; }
@@ -296,7 +303,7 @@
   /* GLOBAL SHIFT PICKER */
   #shiftPicker {
     position: fixed; z-index: 9999;
-    background: #1e1e1c; border: 0.5px solid var(--border-strong);
+    background: var(--surface2); border: 0.5px solid var(--border-strong);
     border-radius: 8px; padding: 6px;
     min-width: 160px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.6);
@@ -314,7 +321,7 @@
   .chip-D4  { background: rgba(57,135,229,0.17); color: #78b0f2; }
   .chip-A   { background: rgba(144,133,233,0.26); color: #c7c0fa; }
   .chip-AK  { background: rgba(144,133,233,0.32); color: #dad4ff; }
-  .chip-F1  { background: rgba(255,255,255,0.07); color: var(--text-muted); font-style: italic; }
+  .chip-F1  { background: var(--fill-soft); color: var(--text-muted); font-style: italic; }
   .chip-LA  { background: rgba(25,158,112,0.26); color: #6fdcb6; }
   .chip-LL  { background: rgba(25,158,112,0.26); color: #6fdcb6; }
   .chip-LY  { background: rgba(25,158,112,0.32); color: #85e4c4; }
@@ -332,23 +339,23 @@
   .chart-table-toggle { font-family: var(--font); font-size: 11px; color: var(--accent-blue); background: none; border: none; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; padding: 2px; }
   .chart-scroll { overflow-x: auto; padding-bottom: 4px; }
   .chart-bar { fill: var(--accent-blue); }
-  .chart-bar:hover, .chart-bar.hovered { fill: #6aaef2; }
+  .chart-bar:hover, .chart-bar.hovered { fill: var(--tint-blue); }
   .chart-gridline { stroke: var(--border); stroke-width: 1; }
   .chart-axis-label { fill: var(--text-muted); font-size: 9px; font-family: var(--font); }
   .chart-value-label { fill: var(--text-secondary); font-size: 10px; font-family: var(--font); font-weight: 500; }
   #chartTooltip {
     position: fixed; z-index: 9999; pointer-events: none;
-    background: #1e1e1c; border: 0.5px solid var(--border-strong); border-radius: 6px;
+    background: var(--surface2); border: 0.5px solid var(--border-strong); border-radius: 6px;
     padding: 6px 10px; font-size: 11px; color: var(--text-primary);
     box-shadow: 0 6px 20px rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.1s;
   }
   #chartTooltip.show { opacity: 1; }
-  #chartTooltip .tt-val { color: #7db5f5; font-weight: 500; }
+  #chartTooltip .tt-val { color: var(--tint-blue); font-weight: 500; }
   .chart-table-wrap { max-height: 320px; overflow-y: auto; margin-top: 8px; }
   .chart-table-wrap table { width: 100%; border-collapse: collapse; font-size: 12px; }
   .chart-table-wrap th { text-align: left; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 5px 8px; border-bottom: 0.5px solid var(--border-strong); position: sticky; top: 0; background: var(--surface); }
   .chart-table-wrap td { padding: 5px 8px; border-bottom: 0.5px solid var(--border); color: var(--text-secondary); }
-  .chart-table-wrap td.chart-table-val { text-align: right; color: #7db5f5; font-weight: 500; }
+  .chart-table-wrap td.chart-table-val { text-align: right; color: var(--tint-blue); font-weight: 500; }
 
   /* ARBEIDSTIDSSJEKK */
   .rest-ok { background: rgba(25,158,112,0.10); border: 0.5px solid var(--accent-green); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
@@ -378,7 +385,7 @@
   .leg-blue   { background: var(--accent-blue); box-shadow: 0 0 8px rgba(57,135,229,0.6); }
   .leg-purple { background: var(--accent-purple); box-shadow: 0 0 8px rgba(144,133,233,0.6); }
   .leg-green  { background: var(--accent-green); box-shadow: 0 0 8px rgba(25,158,112,0.6); }
-  .leg-gray   { background: rgba(255,255,255,0.25); }
+  .leg-gray   { background: var(--text-muted); }
   .leg-amber  { background: var(--accent-amber); box-shadow: 0 0 8px rgba(237,161,0,0.6); }
 
   ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -391,7 +398,7 @@
   }
 
   /* Payslip month table: zebra striping for easier scanning across many rows */
-  .payslip-month-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
+  .payslip-month-table tbody tr:nth-child(even) { background: var(--fill-faint); }
   .payslip-month-table tbody tr:hover { background: rgba(57,135,229,0.06); }
 
   /* ── RESPONSIVE / MOBILE ── */
@@ -518,7 +525,239 @@
     .toolbar, .vakt-panel, .salary-panel { display: none; }
     table { font-size: 10px; }
   }
+
+  /* ═════════ APPLE-DESIGN (lag oppå de eldre stilene) ═════════ */
+  html, body { background: var(--bg) !important; color: var(--text-primary); font-family: var(--font); font-size: 15px; letter-spacing: -0.005em; -webkit-font-smoothing: antialiased; }
+  button, input, select, textarea { font-family: var(--font) !important; }
+  .app { max-width: 1180px; }
+  @media (min-width: 1280px) { .app { max-width: 1360px; } }
+
+  /* Topp: stor tittel som i iOS */
+  .header { padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 14px; border-bottom: 0; }
+  .header::before { display: none; }
+  .header-top { gap: 10px; margin-bottom: 2px; }
+  .header h1 { font-family: var(--font-display); font-size: 30px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+  .unit-badge { background: var(--fill-soft); color: var(--text-secondary); border: 0; border-radius: 999px; padding: 4px 11px; font-size: 12px; font-weight: 500; }
+  .header-sub { font-size: 13px; color: var(--text-muted); }
+
+  /* Sidetopp med tilbakeknapp: gjennomsiktig og fast øverst */
+  .page-topbar { position: sticky; top: 0; z-index: 30; padding: calc(10px + env(safe-area-inset-top, 0px)) 24px 10px; background: var(--elev); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid var(--border); margin-bottom: 10px; }
+  .page-back-btn { background: none; border: 0; color: var(--accent-blue); font-size: 16px; font-weight: 400; padding: 6px 4px; }
+  .page-back-btn:hover { background: none; color: var(--accent-blue); opacity: .75; }
+  .page-topbar-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+  .page-icon-badge { border-radius: 9px; width: 30px; height: 30px; }
+  .page-icon-badge.pi-blue { background: var(--accent-blue); color: #fff; } .page-icon-badge.pi-green { background: var(--accent-green); color: #fff; }
+  .page-icon-badge.pi-purple { background: var(--accent-purple); color: #fff; } .page-icon-badge.pi-teal { background: var(--accent-teal); color: #fff; }
+  .page-icon-badge.pi-amber { background: var(--accent-amber); color: #fff; }
+
+  /* Forside */
+  .home-greeting { font-size: 15px; margin: 6px 24px 4px; }
+  .home-grid { gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .home-card { background: var(--surface) !important; border: 0; border-radius: 18px; box-shadow: var(--shadow); padding: 18px; }
+  .home-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+  .home-card-icon { border-radius: 12px; width: 44px; height: 44px; color: #fff !important; }
+  .home-card.hc-blue .home-card-icon { background: var(--accent-blue); } .home-card.hc-green .home-card-icon { background: var(--accent-green); }
+  .home-card.hc-purple .home-card-icon { background: var(--accent-purple); } .home-card.hc-teal .home-card-icon { background: var(--accent-teal); }
+  .home-card.hc-amber .home-card-icon { background: var(--accent-amber); }
+  .home-card-title { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; }
+  .home-card-sub { font-size: 13px; color: var(--text-muted); }
+  .home-card-arrow { color: var(--text-muted); opacity: .6; font-size: 18px; }
+  .today-block, .today-next { background: var(--surface) !important; border: 0; border-radius: 18px; box-shadow: var(--shadow); padding: 16px 18px; }
+  .today-block::before, .today-next::before { display: none; }
+  .today-label, .today-next-label { font-size: 12px; font-weight: 600; letter-spacing: .05em; }
+  .today-next-label { color: var(--accent-blue); }
+  .today-value { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+  .today-ics-btn, .ics-btn { background: var(--fill-soft); color: var(--accent-blue); border: 0; border-radius: 999px; font-weight: 600; padding: 7px 14px; }
+  .appearance { margin: 0 24px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: var(--surface); border-radius: 18px; padding: 14px 18px; box-shadow: var(--shadow); }
+  .appearance-title { font-weight: 600; }
+
+  /* Segmentert kontroll (iOS) */
+  .seg { display: inline-flex; gap: 2px; padding: 2px; background: var(--fill-soft); border-radius: 9px; }
+  .seg button { border: 0; background: none; color: var(--text-primary); padding: 6px 14px; border-radius: 7px; font-size: 13.5px; font-weight: 500; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--surface); box-shadow: 0 1px 3px rgba(0,0,0,.18); font-weight: 600; }
+  :root[data-theme="light"] .seg button[aria-pressed="true"] { background: #fff; }
+  :root:not([data-theme="light"]) .seg button[aria-pressed="true"] { background: #636366; }
+
+  /* iOS-bryter og liste */
+  .ios-list { background: var(--surface2); border-radius: 12px; overflow: hidden; }
+  .ios-list > * { padding: 11px 14px; border-bottom: 0.5px solid var(--border); }
+  .ios-list > *:last-child { border-bottom: 0; }
+  .ios-switch { display: flex; align-items: center; justify-content: space-between; gap: 14px; font-size: 14.5px; color: var(--text-primary); cursor: pointer; }
+  .ios-switch input { appearance: none; -webkit-appearance: none; width: 51px; height: 31px; border-radius: 999px; background: var(--fill-soft); position: relative; flex: none; cursor: pointer; transition: background .2s; margin: 0; }
+  .ios-switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,.15), 0 1px 1px rgba(0,0,0,.16); transition: transform .2s; }
+  .ios-switch input:checked { background: #34c759; }
+  .ios-switch input:checked::after { transform: translateX(20px); }
+  .input-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+  /* Verktøylinje og filtre */
+  .toolbar { background: transparent; border-bottom: 0; padding: 4px 24px 12px; }
+  .month-btn { background: var(--fill-soft); border: 0; border-radius: 999px; color: var(--text-primary); font-size: 13px; font-weight: 500; padding: 6px 13px; }
+  .month-btn:hover { background: var(--surface3); }
+  .month-btn.active { background: var(--text-primary); color: var(--bg); }
+  .edit-btn { background: var(--fill-soft); border: 0; color: var(--accent-amber); border-radius: 999px; font-weight: 600; }
+  .save-btn { border-radius: 999px; background: var(--accent-green); font-weight: 600; }
+  .reset-btn { border: 0; background: var(--fill-soft); border-radius: 999px; }
+  .filter-label { font-weight: 500; }
+
+  /* Kort og paneler */
+  .stat-card { background: var(--surface); border: 0 !important; border-radius: 16px; box-shadow: var(--shadow); }
+  .stat-card:hover { transform: none; box-shadow: var(--shadow); }
+  .stat-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  .stat-value { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+  .salary-panel, .vakt-panel { background: var(--surface); border: 0; border-radius: 18px; box-shadow: var(--shadow); }
+  .salary-disclaimer { background: var(--fill-faint); border-left: 0; border-radius: 12px; font-size: 13px; color: var(--text-secondary); padding: 10px 14px; }
+  .salary-input-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .salary-input { background: var(--surface2); border: 0; border-radius: 10px; font-size: 15px; padding: 10px 12px; min-height: 42px; color: var(--text-primary); }
+  .salary-input:focus { outline: 2px solid var(--accent-blue); outline-offset: 0; }
+  .payslip-divider { font-size: 12px; font-weight: 600; color: var(--text-muted); border-top: 0; }
+  .payslip-tag { background: var(--fill-soft); color: var(--text-secondary); border-radius: 999px; padding: 2px 8px; font-weight: 600; }
+  .payslip-card { background: var(--surface2); border: 0 !important; border-radius: 14px; padding: 14px 16px; }
+  .payslip-card-label { font-size: 11.5px; font-weight: 600; }
+  .payslip-card-value { font-family: var(--font-display); font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+  .payslip-month-table { font-size: 14px; }
+  .payslip-month-table td { padding: 9px 8px; }
+  .payslip-month-table tbody tr:hover { background: var(--fill-faint); }
+  .salary-breakdown { font-size: 14px; }
+  .holiday-warn { background: color-mix(in srgb, var(--accent-amber) 12%, var(--surface)); border: 0; border-radius: 16px; }
+  .okonomi-box { background: var(--surface2); border: 0; border-radius: 16px; }
+  .rest-ok, .rest-warn-summary, .budget-status { border: 0 !important; border-radius: 14px; }
+  .sync-badge { border: 0 !important; }
+  .chart-bar { fill: var(--accent-blue); }
+  #toast { background: color-mix(in srgb, var(--text-primary) 92%, transparent); color: var(--bg); border: 0; border-radius: 999px; font-weight: 500; }
+  thead th { background: var(--surface); }
+  .table-wrap table { background: var(--surface); border-radius: 16px; overflow: hidden; }
+  .section-title::before { display: none; }
+
+  /* Vaktkoder: friske farger som virker i både lyst og mørkt */
+  .shift-chip { border-radius: 7px; font-weight: 700; font-size: 12px; min-width: 32px; height: 24px; }
+  .chip-D, .chip-D1, .chip-D2, .chip-D4 { background: color-mix(in srgb, var(--k-dag) 18%, transparent); color: var(--k-dag); }
+  .chip-A, .chip-AK { background: color-mix(in srgb, var(--k-kveld) 18%, transparent); color: var(--k-kveld); }
+  .chip-LA, .chip-LL, .chip-LY { background: color-mix(in srgb, var(--k-lang) 18%, transparent); color: var(--k-lang); }
+  .chip-F1 { background: var(--fill-soft); color: var(--text-muted); font-style: normal; font-weight: 600 !important; }
+  .leg-blue { background: var(--k-dag); box-shadow: none; } .leg-purple { background: var(--k-kveld); box-shadow: none; } .leg-green { background: var(--k-lang); box-shadow: none; }
+  .leg-amber { background: var(--holiday); box-shadow: none; }
+  .h-flag { background: color-mix(in srgb, var(--holiday) 18%, transparent); color: var(--holiday); border-radius: 4px; }
+
+  /* Vaktvelger som iOS-ark */
+  #shiftPicker { background: var(--surface); border: 0; border-radius: 14px; box-shadow: var(--shadow-pop); padding: 8px; min-width: 230px; }
+  .sp-opt { border-radius: 9px; font-size: 14px; padding: 8px 10px; color: var(--text-primary); }
+  .sp-opt:hover { background: var(--fill-soft); }
+
+  /* ═════════ TURNUS: kalender + sidepanel ═════════ */
+  .view-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 4px 24px 12px; }
+  .turnus-layout { display: grid; gap: 20px; padding: 0 24px 24px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+  @media (min-width: 1100px) { .turnus-layout { grid-template-columns: minmax(0, 1fr) 360px; } .turnus-side { position: sticky; top: 76px; } }
+  .turnus-main { min-width: 0; }
+  .turnus-side { display: grid; gap: 16px; min-width: 0; }
+  .turnus-side .stats-row { padding: 0; grid-template-columns: 1fr 1fr; }
+  .turnus-side .holiday-warn, .turnus-side .vakt-panel { margin: 0; }
+  .turnus-side .legend { padding: 0; }
+  .turnus-main .table-wrap { padding: 0; }
+  .turnus-main .mobile-cards { padding: 0; }
+  .side-card { background: var(--surface); border-radius: 18px; padding: 18px; box-shadow: var(--shadow); display: grid; gap: 14px; }
+  .side-card h3 { font-family: var(--font-display); font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+  .side-card .muted { color: var(--text-muted); font-size: 13px; }
+  .kv { display: grid; grid-template-columns: 1fr auto; gap: 8px 14px; font-size: 14.5px; }
+  .kv span:nth-child(even) { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .kv .tot { border-top: 0.5px solid var(--border); padding-top: 8px; font-weight: 600; }
+  .day-ev { display: grid; grid-template-columns: 5px 1fr; gap: 12px; padding: 12px; border-radius: 12px; background: color-mix(in srgb, var(--c, var(--k-fri)) 13%, var(--surface)); }
+  .day-ev i { border-radius: 3px; background: var(--c, var(--k-fri)); }
+  .day-ev b { font-size: 17px; }
+  .codes-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .codes-grid button { border: 0; background: var(--surface2); border-radius: 11px; padding: 8px 2px; display: grid; justify-items: center; gap: 3px; font-size: 11px; color: var(--text-muted); cursor: pointer; }
+  .codes-grid button:hover { background: var(--surface3); }
+  .codes-grid button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--accent-blue); }
+  .side-btn { border: 0; background: var(--fill-soft); color: var(--accent-blue); border-radius: 999px; padding: 8px 14px; font-weight: 600; font-size: 14px; cursor: pointer; justify-self: start; }
+
+  .cal-card { background: var(--surface); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+  .cal-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 18px 20px 8px; }
+  .cal-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+  .cal-title span { color: var(--text-muted); font-weight: 500; }
+  .cal-nav { display: flex; align-items: center; gap: 8px; }
+  .round { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--fill-soft); color: var(--accent-blue); display: grid; place-items: center; font-size: 20px; font-weight: 500; cursor: pointer; line-height: 1; }
+  .round:disabled { opacity: .3; cursor: default; }
+  .pill { border: 0; background: var(--fill-soft); color: var(--accent-blue); border-radius: 999px; padding: 8px 15px; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .mchips { display: flex; gap: 6px; padding: 2px 20px 14px; overflow-x: auto; scrollbar-width: none; }
+  .mchips::-webkit-scrollbar { display: none; }
+  .mchip { border: 0; background: var(--fill-soft); color: var(--text-secondary); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 500; white-space: nowrap; cursor: pointer; flex: none; }
+  .mchip[aria-pressed="true"] { background: var(--text-primary); color: var(--bg); }
+  .mgrid { display: grid; grid-template-columns: 30px repeat(7, minmax(0, 1fr)); border-top: 0.5px solid var(--border); }
+  .mgrid .dow { font-size: 11.5px; color: var(--text-muted); text-align: right; padding: 8px 10px 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; border-bottom: 0.5px solid var(--border); }
+  .mgrid .dow.we { color: color-mix(in srgb, var(--text-muted) 70%, var(--holiday)); }
+  .mgrid .wkn { font-size: 10.5px; color: var(--text-muted); display: flex; justify-content: center; padding-top: 12px; border-bottom: 0.5px solid var(--border); font-variant-numeric: tabular-nums; }
+  .mday { position: relative; min-height: 108px; border: 0; border-bottom: 0.5px solid var(--border); border-left: 0.5px solid var(--border); background: var(--surface); padding: 6px 6px 8px; display: flex; flex-direction: column; gap: 4px; text-align: left; min-width: 0; color: var(--text-primary); cursor: pointer; font: inherit; }
+  .mday:hover { background: color-mix(in srgb, var(--surface2) 55%, var(--surface)); }
+  .mday.we { background: color-mix(in srgb, var(--surface2) 40%, var(--surface)); }
+  .mday.other { color: var(--text-muted); }
+  .mday.other .ev { opacity: .45; }
+  .mday.out { cursor: default; }
+  .mday.sel { box-shadow: inset 0 0 0 2px var(--accent-blue); z-index: 1; }
+  .mday .top { display: flex; align-items: center; justify-content: flex-end; gap: 4px; min-height: 26px; }
+  .mday .n { font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; min-width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; }
+  .mday.today .n { background: var(--holiday); color: #fff; font-weight: 700; }
+  .mday.hol .n { color: var(--holiday); font-weight: 600; }
+  .mday.today.hol .n { color: #fff; }
+  .mday .hn { font-size: 11px; color: var(--holiday); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: auto; }
+  .ev { --c: var(--k-other); display: grid; gap: 1px; padding: 5px 7px 5px 9px; border-radius: 7px; background: color-mix(in srgb, var(--c) 17%, var(--surface)); color: color-mix(in srgb, var(--c) 85%, var(--text-primary)); position: relative; overflow: hidden; min-width: 0; }
+  .ev::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c); }
+  .ev b { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ev .nm { font-weight: 500; }
+  .ev small { font-size: 11.5px; font-variant-numeric: tabular-nums; opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ev.k-dag { --c: var(--k-dag); } .ev.k-kveld { --c: var(--k-kveld); } .ev.k-lang { --c: var(--k-lang); }
+  .ev.k-fri { --c: var(--k-fri); background: transparent; } .ev.k-fri::before { display: none; }
+  .mday .edited { position: absolute; top: 9px; left: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-amber); }
+  body.view-cal .weeks-only { display: none !important; }
+  body.view-uker .cal-only { display: none !important; }
+  body.no-desc .ev .nm, body.no-desc .ev small { display: none; }
+  body.no-desc .vakt-panel, body.no-desc .legend { display: none; }
+  @media (max-width: 760px) {
+    .mgrid { grid-template-columns: repeat(7, minmax(0, 1fr)); } .mgrid .wkn, .mgrid .wkc { display: none; }
+    .mday { min-height: 64px; padding: 4px 2px 6px; align-items: center; }
+    .mday .top { justify-content: center; } .mday .hn { display: none; }
+    .ev { padding: 3px 0; justify-items: center; width: 100%; } .ev::before { display: none; } .ev .nm, .ev small { display: none; } .ev b { font-size: 12px; }
+    .mgrid .dow { text-align: center; padding-inline: 0; font-size: 10.5px; }
+    .cal-title { font-size: 26px; } .cal-top { padding: 14px 14px 6px; } .mchips { padding: 2px 14px 12px; }
+    .mday .edited { top: 5px; left: 4px; }
+  }
+  /* Dagark på mobil */
+  .sheet-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 9990; }
+  .day-sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9991; max-height: 85vh; overflow-y: auto; background: var(--bg); border-radius: 18px 18px 0 0; padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); box-shadow: var(--shadow-pop); }
+  .day-sheet .grabber { width: 36px; height: 5px; border-radius: 3px; background: var(--surface3); margin: 0 auto 10px; }
+  @media (prefers-reduced-motion: no-preference) { .day-sheet { animation: sheetUp .22s ease-out; } @keyframes sheetUp { from { transform: translateY(30px); opacity: .5; } } }
+
+  /* ═════════ LØNN: to kolonner på bred skjerm ═════════ */
+  @media (min-width: 1100px) {
+    #salaryBody.open { display: grid; grid-template-columns: 400px minmax(0, 1fr); gap: 28px; align-items: start; }
+    #salaryBody > .lonn-settings { position: sticky; top: 76px; }
+    #salaryBody > .salary-disclaimer:first-child { grid-column: 1 / -1; }
+  }
+  .lonn-results .payslip-section { margin: 0; }
+  @media (max-width: 700px) {
+    .header h1 { font-size: 24px; } .header { padding: calc(14px + env(safe-area-inset-top, 0px)) 16px 10px; }
+    .page-topbar { padding: calc(8px + env(safe-area-inset-top, 0px)) 16px 8px; }
+    .view-bar, .turnus-layout { padding-left: 16px; padding-right: 16px; }
+    .appearance { margin: 0 16px 20px; }
+    .payslip-month-table th:nth-child(2), .payslip-month-table td:nth-child(2),
+    .payslip-month-table th:nth-child(3), .payslip-month-table td:nth-child(3),
+    .payslip-month-table th:nth-child(4), .payslip-month-table td:nth-child(4),
+    .payslip-month-table th:nth-child(7), .payslip-month-table td:nth-child(7) { display: none; }
+    .payslip-month-table th:nth-child(6), .payslip-month-table td:nth-child(6) { display: table-cell; }
+  }
 </style>
+<script>
+  /* Tema settes før siden tegnes, så det ikke blinker. 'system' følger telefonens innstilling. */
+  (function () {
+    function apply() {
+      var t = 'system';
+      try { t = (JSON.parse(localStorage.getItem('uiPrefs') || '{}').theme) || 'system'; } catch (e) {}
+      var light = t === 'light' || (t === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+      document.documentElement.setAttribute('data-theme', light ? 'light' : 'dark');
+      var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', light ? '#f2f2f7' : '#000000');
+    }
+    window.applyTheme = apply; apply();
+    try { window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', apply); } catch (e) {}
+  })();
+</script>
 </head>
 <body>
 <div class="app">
@@ -541,7 +780,7 @@
       <span class="home-card-arrow">→</span>
       <div class="home-card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></div>
       <div class="home-card-title">Turnus</div>
-      <div class="home-card-sub">Ukeoversikt, vakter og redigering</div>
+      <div class="home-card-sub">Kalender, vakter og vaktbytter</div>
     </button>
     <button class="home-card hc-green" onclick="showPage('lonn')">
       <span class="home-card-arrow">→</span>
@@ -568,6 +807,12 @@
       <div class="home-card-sub">Anbefalt fordeling av lønn</div>
     </button>
   </div>
+  <div class="appearance">
+    <span class="appearance-title">Utseende</span>
+    <div class="seg" role="group" aria-label="Tema" id="themeSeg">
+      <button data-theme-opt="system">Automatisk</button><button data-theme-opt="light">Lyst</button><button data-theme-opt="dark">Mørkt</button>
+    </div>
+  </div>
 </div>
 
 <!-- TURNUS PAGE -->
@@ -578,8 +823,13 @@
   <span class="sync-badge state-checking" id="cloudSyncBadge" title="Viser om turnus-endringer synkes til skyen"><span class="sync-dot"></span><span id="cloudSyncBadgeText">Kobler til…</span></span>
 </div>
 
+<div class="view-bar">
+  <div class="seg" role="group" aria-label="Visning" id="viewSeg"><button data-view-opt="kalender">Kalender</button><button data-view-opt="uker">Uker</button></div>
+  <label class="ios-switch" style="gap:10px"><span>Vaktbeskrivelser</span><input type="checkbox" id="descToggle" checked></label>
+</div>
+
 <!-- TOOLBAR -->
-<div class="toolbar">
+<div class="toolbar weeks-only">
   <div class="toolbar-left">
     <div class="filter-group">
       <span class="filter-label">År:</span>
@@ -618,12 +868,40 @@
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-row" id="statsRow"></div>
-
-<!-- HOLIDAY WARNINGS -->
-<div id="holidayWarnSection"></div>
-
+<div class="turnus-layout">
+  <div class="turnus-main">
+    <div class="cal-card cal-only" id="calView"></div>
+    <div class="weeks-only">
+<!-- TABLE -->
+<div class="section-title">Ukeoversikt</div>
+<div class="table-wrap">
+  <table id="mainTable">
+    <thead>
+      <tr>
+        <th style="width:64px">Uke</th>
+        <th style="width:130px">Periode</th>
+        <th>Man</th><th>Tir</th><th>Ons</th><th>Tor</th><th>Fre</th><th>Lør</th><th>Søn</th>
+        <th style="text-align:right; width:46px">TS</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+  <div class="no-data" id="noData" style="display:none">
+    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24" style="opacity:0.5;margin-bottom:8px"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l6 4M15 15l-6 4"/></svg>
+    <div>Ingen uker funnet for valgt kombinasjon av år og måned</div>
+    <div style="font-size:11px;margin-top:4px;opacity:0.7">Prøv et annet filter, eller velg "Alle"</div>
+  </div>
+</div>
+<div class="mobile-cards" id="mobileCards"></div>
+    </div>
+  </div>
+  <aside class="turnus-side">
+    <div class="cal-only" id="daySide"></div>
+    <div class="cal-only" id="monthSide"></div>
+    <!-- STATS -->
+    <div class="stats-row weeks-only" id="statsRow"></div>
+    <!-- HOLIDAY WARNINGS -->
+    <div class="weeks-only" id="holidayWarnSection"></div>
 <!-- VAKTKODER PANEL -->
 <div class="vakt-panel">
   <div class="vakt-panel-header" onclick="toggleVakt()">
@@ -668,27 +946,8 @@
   <div class="leg-item"><div class="leg-dot leg-amber"></div> Norsk helligdag (H)</div>
 </div>
 
-<!-- TABLE -->
-<div class="section-title">Ukeoversikt</div>
-<div class="table-wrap">
-  <table id="mainTable">
-    <thead>
-      <tr>
-        <th style="width:64px">Uke</th>
-        <th style="width:130px">Periode</th>
-        <th>Man</th><th>Tir</th><th>Ons</th><th>Tor</th><th>Fre</th><th>Lør</th><th>Søn</th>
-        <th style="text-align:right; width:46px">TS</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
-  <div class="no-data" id="noData" style="display:none">
-    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24" style="opacity:0.5;margin-bottom:8px"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M9 15l6 4M15 15l-6 4"/></svg>
-    <div>Ingen uker funnet for valgt kombinasjon av år og måned</div>
-    <div style="font-size:11px;margin-top:4px;opacity:0.7">Prøv et annet filter, eller velg "Alle"</div>
-  </div>
+  </aside>
 </div>
-<div class="mobile-cards" id="mobileCards"></div>
 </div><!-- /page-turnus -->
 
 <!-- LØNN PAGE -->
@@ -700,9 +959,9 @@
 <div class="salary-panel" style="margin-top:8px">
   <div class="salary-body open" id="salaryBody">
     <div class="salary-disclaimer">
-      ⚠ Dette er et estimat basert på tallene du oppgir under (grunnlønn, skattetrekk og tillegg-satser) kombinert med de faktiske vaktene i turnusen. Juster tallene til det som stemmer med Nathalie sin avtale for et presist resultat. Grunnlønn regnes <strong>før</strong> tillegg — tilleggene legges på i beregningen.
+      Estimat ut fra tallene under og de faktiske vaktene i turnusen. Den faste lønnen er årslønn ÷ 12 og utbetales den 20. for hele måneden. Tilleggene regnes ut fra klokkeslettene til vaktene og kommer på lønnen måneden etter.
     </div>
-
+    <div class="lonn-settings">
     <div class="salary-input-group" style="margin-bottom:14px">
       <label class="salary-input-label">Periode vist under (samme filter som Turnus-siden)</label>
       <div class="filter-group" style="margin-top:4px">
@@ -737,42 +996,65 @@
 
     <div class="salary-grid">
       <div class="salary-input-group">
-        <label class="salary-input-label">Grunnlønn (årslønn, brutto, før tillegg)</label>
-        <input type="number" class="salary-input" id="manualAnnual" value="528300" onchange="calcPayslip()" oninput="calcPayslip()" step="100">
+        <label class="salary-input-label" for="manualAnnual">Årslønn ved 100 % (brutto, uten tillegg)</label>
+        <input type="number" class="salary-input" id="manualAnnual" value="528300" step="100">
       </div>
       <div class="salary-input-group">
-        <label class="salary-input-label">Skattetrekk %</label>
-        <input type="number" class="salary-input" id="taxPct" value="25" min="0" max="70" step="0.5" onchange="calcPayslip()" oninput="calcPayslip()">
+        <label class="salary-input-label" for="stillingPct">Stillingsprosent</label>
+        <input type="number" class="salary-input" id="stillingPct" value="100" min="1" max="100" step="0.5">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label" for="taxPct">Skattetrekk % (fra skattekortet)</label>
+        <input type="number" class="salary-input" id="taxPct" value="25" min="0" max="70" step="0.5">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label" for="annualHours">Timer i årsverk (gir timelønn)</label>
+        <select class="salary-input" id="annualHours">
+          <option value="1850" selected>1850 t (35,5 t/uke, turnus)</option>
+          <option value="1950">1950 t (37,5 t/uke, dagtid)</option>
+        </select>
       </div>
     </div>
+    <div class="ios-list" style="margin-bottom:14px">
+      <label class="ios-switch"><span>Tillegg for forrige måned (1. til siste dag) utbetales sammen med lønnen</span><input type="checkbox" id="tilleggLag" checked></label>
+      <label class="ios-switch"><span>Halv skatt i desember</span><input type="checkbox" id="halfTaxDec" checked></label>
+    </div>
 
-    <div class="payslip-divider" style="margin-top:14px">Tillegg (kr/time) <span class="payslip-tag">justerbare</span></div>
+    <div class="payslip-divider" style="margin-top:14px">Tillegg etter KS hovedtariffavtale <span class="payslip-tag">satser fra 1.10.2026</span></div>
     <div class="salary-grid">
       <div class="salary-input-group">
-        <label class="salary-input-label">Aftentillegg</label>
-        <input type="number" class="salary-input" id="eveningTillegg" value="58" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+        <label class="salary-input-label" for="kveldPct">Kveld kl. 17–21: % av timelønn / minst kr</label>
+        <div class="input-pair"><input type="number" class="salary-input" id="kveldPct" value="20" step="0.5" aria-label="Kveld prosent"><input type="number" class="salary-input" id="kveldMin" value="60" step="1" aria-label="Kveld minst kr"></div>
       </div>
       <div class="salary-input-group">
-        <label class="salary-input-label">Helgetillegg (lør/søn)</label>
-        <input type="number" class="salary-input" id="weekendTillegg" value="65" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+        <label class="salary-input-label" for="nattPct">Natt kl. 21–06: % av timelønn / minst kr</label>
+        <div class="input-pair"><input type="number" class="salary-input" id="nattPct" value="25" step="0.5" aria-label="Natt prosent"><input type="number" class="salary-input" id="nattMin" value="70" step="1" aria-label="Natt minst kr"></div>
       </div>
       <div class="salary-input-group">
-        <label class="salary-input-label">Helligdagstillegg</label>
-        <input type="number" class="salary-input" id="holidayTillegg" value="115" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+        <label class="salary-input-label" for="helgPct">Lørdag og søndag: % av timelønn / minst kr</label>
+        <div class="input-pair"><input type="number" class="salary-input" id="helgPct" value="23" step="0.5" aria-label="Helg prosent"><input type="number" class="salary-input" id="helgMin" value="73" step="1" aria-label="Helg minst kr"></div>
       </div>
       <div class="salary-input-group">
-        <label class="salary-input-label">Langvakttillegg</label>
-        <input type="number" class="salary-input" id="longTillegg" value="30" step="1" onchange="calcPayslip()" oninput="calcPayslip()">
+        <label class="salary-input-label" for="hoytidPct">Helligdag/høytid: % av timelønn</label>
+        <input type="number" class="salary-input" id="hoytidPct" value="133.33" step="0.01">
+      </div>
+      <div class="salary-input-group">
+        <label class="salary-input-label" for="longTillegg">Lokalt langvakttillegg (kr/t, 0 = ingen)</label>
+        <input type="number" class="salary-input" id="longTillegg" value="0" step="1">
       </div>
     </div>
+    <div class="salary-disclaimer" style="margin-top:4px">Satsene er minstesatser i KS hovedtariffavtale kap. 1 § 5–6: prosent av timelønn, men aldri under kronebeløpet. For vakter før 1.10.2026 brukes de gamle satsene automatisk (helg 22 % / 70 kr, kveld minst 56 kr). Kveldstillegg gjelder bare timene etter kl. 17, nattillegg etter kl. 21. Høytidstillegg gjelder hele helligdagen og fra kl. 12 på påske-, pinse-, jule- og nyttårsaften. Dine tall lagres på denne enheten.</div>
 
+    </div>
+    <div class="lonn-results">
     <!-- TIMEBASERT LØNN + LØNNSKJØRING -->
     <div class="payslip-section">
-      <div class="payslip-divider">Timebasert lønn & lønnskjøring <span class="payslip-tag">Utbetaling 20. hver måned</span></div>
+      <div class="payslip-divider">Lønnskjøring <span class="payslip-tag">Utbetaling 20. hver måned</span></div>
       <div class="payslip-grid" id="payslipCards"></div>
       <div class="salary-breakdown" id="salaryBreakdown"></div>
       <table class="payslip-month-table" id="payslipTable"></table>
       <div class="payslip-note" id="payslipNote"></div>
+    </div>
     </div>
   </div>
 </div>
@@ -1011,7 +1293,7 @@
         <div id="budgetStatus"></div>
         <div id="budgetTips"></div>
         <div class="payslip-note" style="margin-top:10px">
-          Forbrukskategoriene (mat, klær, personlig pleie, fritid/mediebruk, transport, husholdningsartikler) er beregnet fra <strong style="color:#7db5f5">SIFOs referansebudsjett for forbruksutgifter</strong> (OsloMet), basert på antall voksne/barn og alder du oppgir, skalert med forbruksnivået over. Ved delt bosted (barnet bor mindre enn 100% av tiden hos deg) skaleres mat/klær/pleie/fritid/transport-postene for det barnet ned til den faktiske andelen — sett dette per barn under «Husstand». Bilkostnader brukes i stedet for kollektivtransport dersom husstanden har bil. Bolig, andre faste utgifter og sparing er dine egne tall. <strong>NB:</strong> SIFOs «fritid/mediebruk»-tall inkluderer allerede internett, TV/strømmetjenester <strong>og innboforsikring</strong> — ikke legg disse inn på nytt under «Andre faste utgifter». Dette er en veiledende fordeling — ikke en fasit, og ikke det samme som hva som faktisk skjer (se «Fremdrift»).
+          Forbrukskategoriene (mat, klær, personlig pleie, fritid/mediebruk, transport, husholdningsartikler) er beregnet fra <strong style="color:var(--tint-blue)">SIFOs referansebudsjett for forbruksutgifter</strong> (OsloMet), basert på antall voksne/barn og alder du oppgir, skalert med forbruksnivået over. Ved delt bosted (barnet bor mindre enn 100% av tiden hos deg) skaleres mat/klær/pleie/fritid/transport-postene for det barnet ned til den faktiske andelen — sett dette per barn under «Husstand». Bilkostnader brukes i stedet for kollektivtransport dersom husstanden har bil. Bolig, andre faste utgifter og sparing er dine egne tall. <strong>NB:</strong> SIFOs «fritid/mediebruk»-tall inkluderer allerede internett, TV/strømmetjenester <strong>og innboforsikring</strong> — ikke legg disse inn på nytt under «Andre faste utgifter». Dette er en veiledende fordeling — ikke en fasit, og ikke det samme som hva som faktisk skjer (se «Fremdrift»).
         </div>
       </div>
     </div>
@@ -1084,32 +1366,32 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script>
-const NO_HOLIDAYS = {
-  // 2026
-  '2026-01-01':'Nyttårsdag','2026-04-02':'Skjærtorsdag','2026-04-03':'Langfredag',
-  '2026-04-05':'1. påskedag','2026-04-06':'2. påskedag','2026-05-01':'Arbeidernes dag',
-  '2026-05-14':'Kristi Himmelfartsdag','2026-05-17':'Grunnlovsdag',
-  '2026-05-24':'1. pinsedag','2026-05-25':'2. pinsedag',
-  '2026-12-25':'1. juledag','2026-12-26':'2. juledag',
-  // 2027
-  '2027-01-01':'Nyttårsdag','2027-03-25':'Skjærtorsdag','2027-03-26':'Langfredag',
-  '2027-03-28':'1. påskedag','2027-03-29':'2. påskedag','2027-05-01':'Arbeidernes dag',
-  '2027-05-06':'Kristi Himmelfartsdag','2027-05-17':'Grunnlovsdag',
-  '2027-05-16':'1. pinsedag','2027-05-17':'2. pinsedag',
-  '2027-12-25':'1. juledag','2027-12-26':'2. juledag',
-  // 2028
-  '2028-01-01':'Nyttårsdag','2028-04-13':'Skjærtorsdag','2028-04-14':'Langfredag',
-  '2028-04-16':'1. påskedag','2028-04-17':'2. påskedag','2028-05-01':'Arbeidernes dag',
-  '2028-05-25':'Kristi Himmelfartsdag','2028-05-17':'Grunnlovsdag',
-  '2028-06-04':'1. pinsedag','2028-06-05':'2. pinsedag',
-  '2028-12-25':'1. juledag','2028-12-26':'2. juledag',
-  // 2029
-  '2029-01-01':'Nyttårsdag','2029-03-29':'Skjærtorsdag','2029-03-30':'Langfredag',
-  '2029-04-01':'1. påskedag','2029-04-02':'2. påskedag','2029-05-01':'Arbeidernes dag',
-  '2029-05-10':'Kristi Himmelfartsdag','2029-05-17':'Grunnlovsdag',
-  '2029-05-20':'1. pinsedag','2029-05-21':'2. pinsedag',
-  '2029-12-25':'1. juledag','2029-12-26':'2. juledag',
-};
+// Norske helligdager regnes ut for hvert år (påske via Gauss/Meeus), så det aldri blir feil
+// eller mangler et år. NO_HOLIDAYS = hele helligdager (00–24). HOLIDAY_EVES = aftener der KS gir
+// høytidstillegg fra kl. 12 (påske-, pinse-, jule- og nyttårsaften).
+function easterSunday(y) {
+  const a=y%19, b=Math.floor(y/100), c=y%100, d=Math.floor(b/4), e=b%4, f=Math.floor((b+8)/25), g=Math.floor((b-f+1)/3),
+    h=(19*a+b-d-g+15)%30, i=Math.floor(c/4), k=c%4, l=(32+2*e+2*i-h-k)%7, m=Math.floor((a+11*h+22*l)/451),
+    mo=Math.floor((h+l-7*m+114)/31), da=((h+l-7*m+114)%31)+1;
+  return new Date(y, mo-1, da);
+}
+const NO_HOLIDAYS = {};
+const HOLIDAY_EVES = {};
+(function buildHolidays() {
+  const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const plus = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
+  for (let y=2025; y<=2032; y++) {
+    const e = easterSunday(y);
+    const add = (d,n) => { const k=iso(d); NO_HOLIDAYS[k] = NO_HOLIDAYS[k] ? NO_HOLIDAYS[k]+' / '+n : n; };
+    add(new Date(y,0,1),'Nyttårsdag'); add(plus(e,-3),'Skjærtorsdag'); add(plus(e,-2),'Langfredag');
+    add(e,'1. påskedag'); add(plus(e,1),'2. påskedag'); add(new Date(y,4,1),'Arbeidernes dag');
+    add(new Date(y,4,17),'Grunnlovsdag'); add(plus(e,39),'Kristi himmelfartsdag');
+    add(plus(e,49),'1. pinsedag'); add(plus(e,50),'2. pinsedag');
+    add(new Date(y,11,25),'1. juledag'); add(new Date(y,11,26),'2. juledag');
+    HOLIDAY_EVES[iso(plus(e,-1))]='Påskeaften'; HOLIDAY_EVES[iso(plus(e,48))]='Pinseaften';
+    HOLIDAY_EVES[iso(new Date(y,11,24))]='Julaften'; HOLIDAY_EVES[iso(new Date(y,11,31))]='Nyttårsaften';
+  }
+})();
 
 // Shift hours (for salary calc)
 const SHIFT_HOURS = { D:7, D1:7.25, D2:6.5, D4:7.5, A:7.5, AK:6, F1:0, LA:14.5, LL:14.5, LY:14.5, '':0 };
@@ -1123,8 +1405,7 @@ const SHIFT_TIMES = {
 const IS_EVENING = { A:true, AK:true, LA:true, LL:true, LY:true };
 // Is long shift
 const IS_LONG = { LA:true, LL:true, LY:true };
-// NB: tillegg-satser (kr/t) er nå justerbare i UI (se #eveningTillegg/#weekendTillegg/#holidayTillegg/#longTillegg),
-// med samme standardverdier som tidligere (58/65/115/30 kr/t).
+// Tillegg regnes ut fra klokkeslettene (se shiftTillegg) med KS-satser som kan justeres på Lønn-siden.
 
 
 const days = ['Man','Tir','Ons','Tor','Fre','Lør','Søn'];
@@ -1575,32 +1856,9 @@ function toggleEditMode() {
 }
 
 function saveChanges() {
-  // Recalc TS per week from actual shift hours
-  weeks.forEach(w => {
-    let total = 0;
-    w.shifts.forEach(s => { total += (SHIFT_HOURS[s]||0); });
-    w.ts = Math.round(total * 2) / 2;
-  });
-  savedWeeks = JSON.parse(JSON.stringify(weeks));
-
-  // BUG FIX: this used to ONLY update the in-memory `savedWeeks` variable — nothing was ever written
-  // to localStorage, so every saved shift-edit was silently lost the moment the tab/app was closed
-  // (exactly the "vaktene går tilbake" symptom reported). Persist edits now, as a SPARSE diff against
-  // the original allWeeks baseline (keyed by each week's unique start-date), not a full snapshot of
-  // every week — that way, if a future app update corrects/extends the base schedule, those changes
-  // still reach a user who has only hand-edited a few of their own weeks; only the weeks they actually
-  // changed stay pinned to their own edit.
-  const baseByStart = {};
-  allWeeks.forEach(w => { baseByStart[w.start] = w; });
-  weeks.forEach(w => {
-    const base = baseByStart[w.start];
-    const changed = !base || JSON.stringify(base.shifts) !== JSON.stringify(w.shifts);
-    if (changed) turnusOverrides[w.start] = { shifts: [...w.shifts], ts: w.ts };
-    else delete turnusOverrides[w.start]; // edited back to match the baseline — no override needed anymore
-  });
-  lsSet('turnusOverrides', turnusOverrides);
-  pushTurnusOverridesToCloud(); // synk til Nathalies/Tonys andre enhet, se initCloudSync() lenger ned
-
+  // Lagrer endringene lokalt (som avvik per uke mot grunnturnusen) og synker dem til den andre
+  // telefonen via Firebase — se persistTurnus().
+  persistTurnus();
   toggleEditMode();
   renderAll();
 }
@@ -2002,196 +2260,171 @@ function numVal(id, fallback) {
   return isNaN(v) ? fallback : v;
 }
 
-// Shared salary-computation core, used by both the Lønn-side (calcPayslip, driven by the
-// Turnus-toolbar year/month filter) and the Økonomi-side (calcOkonomi, driven by its OWN
-// independent year/month filter) — so the two pages never silently share/clobber each other's
-// filter state.
+// --- LØNNSINNSTILLINGER (lagres lokalt på enheten) ---
+const LONN_FIELDS = ['manualAnnual','stillingPct','taxPct','annualHours','kveldPct','kveldMin','nattPct','nattMin','helgPct','helgMin','hoytidPct','longTillegg'];
+const LONN_CHECKS = ['tilleggLag','halfTaxDec'];
+function saveLonnSettings() {
+  const o = {};
+  LONN_FIELDS.forEach(id => { const el=document.getElementById(id); if (el) o[id]=el.value; });
+  LONN_CHECKS.forEach(id => { const el=document.getElementById(id); if (el) o[id]=el.checked; });
+  lsSet('lonnSettings', o);
+}
+function loadLonnSettings() {
+  const o = lsGet('lonnSettings', null);
+  if (o) {
+    LONN_FIELDS.forEach(id => { const el=document.getElementById(id); if (el && o[id]!==undefined && o[id]!=='') el.value=o[id]; });
+    LONN_CHECKS.forEach(id => { const el=document.getElementById(id); if (el && typeof o[id]==='boolean') el.checked=o[id]; });
+  }
+  const body = document.getElementById('salaryBody');
+  if (body) ['input','change'].forEach(ev => body.addEventListener(ev, e => {
+    if (!e.target.matches('input, select')) return;
+    saveLonnSettings(); calcPayslip();
+  }));
+}
+function readLonnSettings() {
+  const chk = id => { const el=document.getElementById(id); return el ? el.checked : true; };
+  return {
+    annual: numVal('manualAnnual', 528300),
+    pct: Math.min(100, Math.max(0, numVal('stillingPct', 100))),
+    tax: Math.min(70, Math.max(0, numVal('taxPct', 25))),
+    annualHours: numVal('annualHours', 1850) || 1850,
+    lag: chk('tilleggLag'), halfDec: chk('halfTaxDec'),
+    rates: { kveldPct:numVal('kveldPct',20), kveldMin:numVal('kveldMin',60), nattPct:numVal('nattPct',25), nattMin:numVal('nattMin',70),
+             helgPct:numVal('helgPct',23), helgMin:numVal('helgMin',73) },
+    hoytidPct: numVal('hoytidPct', 133.33), longKr: numVal('longTillegg', 0),
+  };
+}
+// Satser før 1.10.2026 (KS HTA 2024–2026) — brukes automatisk for vakter før den datoen.
+const OLD_RATES = { kveldPct:20, kveldMin:56, nattPct:25, nattMin:70, helgPct:22, helgMin:70 };
+const NEW_RATES_FROM = '2026-10-01';
+
+// Tillegg for én vakt, regnet minutt for minutt (5-min oppløsning) ut fra klokkeslettene.
+// Ulønnet pause trekkes fra forholdsmessig (betalte timer ÷ timer på klokka).
+function shiftTillegg(date, sh, hourly, S) {
+  const r = { hours:0, kveld:0, natt:0, helg:0, hoytid:0, lang:0, amt:{ kveld:0, natt:0, helg:0, hoytid:0, lang:0 }, total:0 };
+  const paid = SHIFT_HOURS[sh] || 0;
+  if (!isWork(sh) || !paid) return r;
+  r.hours = paid;
+  if (IS_LONG[sh]) { r.lang = paid; r.amt.lang = paid * (S.longKr || 0); }
+  const t = SHIFT_TIMES[sh];
+  if (t) {
+    const toMin = x => { const [h,m]=x.split(':').map(Number); return h*60+m; };
+    const s0 = toMin(t[0]); let e0 = toMin(t[1]); if (e0 <= s0) e0 += 1440;
+    const ratio = paid / ((e0 - s0) / 60);
+    for (let m = s0; m < e0; m += 5) {
+      const mid = m + 2.5, off = Math.floor(mid / 1440), h = (mid - off*1440) / 60;
+      const d = addDays(date, off), iso = toIso(d), part = (5/60) * ratio;
+      const R = iso < NEW_RATES_FROM ? OLD_RATES : S.rates;
+      if (h >= 17 && h < 21) { r.kveld += part; r.amt.kveld += part * Math.max(hourly*R.kveldPct/100, R.kveldMin); }
+      if (h >= 21 || h < 6)  { r.natt  += part; r.amt.natt  += part * Math.max(hourly*R.nattPct/100,  R.nattMin); }
+      const wd = d.getDay();
+      if (wd === 0 || wd === 6) { r.helg += part; r.amt.helg += part * Math.max(hourly*R.helgPct/100, R.helgMin); }
+      if (NO_HOLIDAYS[iso] || (HOLIDAY_EVES[iso] && h >= 12)) { r.hoytid += part; r.amt.hoytid += part * hourly * S.hoytidPct / 100; }
+    }
+  }
+  r.total = r.amt.kveld + r.amt.natt + r.amt.helg + r.amt.hoytid + r.amt.lang;
+  return r;
+}
+function prevMonthKey(key) { const {year, month} = monthKeyParts(key); const d = new Date(year, month-2, 1); return monthKey(d); }
+
+// Lønnsmodell (KS/kommune): fast månedslønn = årslønn × stillingsprosent ÷ 12, utbetalt den 20. for hele
+// kalendermåneden. Tillegg opptjent i én måned (1. til siste dag) utbetales sammen med lønnen måneden etter.
+// Brukes av både Lønn-siden og Økonomi-siden (via sliceSalaryByMonths).
 function computeSalaryTotals(filteredWeeks) {
-  const annual = numVal('manualAnnual', 528300);
-  const taxPctVal = Math.min(70, Math.max(0, numVal('taxPct', 25)));
-  const TAX = taxPctVal / 100;
-
-  const eveningRate = numVal('eveningTillegg', 58);
-  const weekendRate = numVal('weekendTillegg', 65);
-  const holidayRate = numVal('holidayTillegg', 115);
-  const longRate    = numVal('longTillegg', 30);
-
-  const MONTHS = [...new Set(
-    filteredWeeks.flatMap(w => {
-      const s = parseDate(w.start);
-      return Array.from({length:7}, (_,i) => {
-        const d = addDays(s,i);
-        return monthKey(d);
-      });
-    })
-  )].sort();
-
-  const ANNUAL_HOURS = 1850;
+  const S = readLonnSettings();
+  const annual = S.annual, taxPctVal = S.tax, ANNUAL_HOURS = S.annualHours;
   const hourlyRate = annual / ANNUAL_HOURS;
-
-  const hoursPerMonth = {};
-  const tilleggPerMonth = {};
-  const eveningHoursPerMonth = {}, weekendHoursPerMonth = {}, holidayHoursPerMonth = {}, longHoursPerMonth = {};
-  MONTHS.forEach(m => { hoursPerMonth[m]=0; tilleggPerMonth[m]=0; eveningHoursPerMonth[m]=0; weekendHoursPerMonth[m]=0; holidayHoursPerMonth[m]=0; longHoursPerMonth[m]=0; });
-
-  let eveningHours=0, weekendHours=0, holidayHours=0, longHours=0;
-
+  const fastLonn = annual * S.pct / 100 / 12;
+  const MONTHS = [...new Set(filteredWeeks.flatMap(w => { const s=parseDate(w.start); return Array.from({length:7}, (_,i) => monthKey(addDays(s,i))); }))].sort();
+  const blank = () => ({ hours:0, kveld:0, natt:0, helg:0, hoytid:0, lang:0, amt:{ kveld:0, natt:0, helg:0, hoytid:0, lang:0 }, total:0 });
+  const earned = {}; MONTHS.forEach(m => earned[m] = blank());
   filteredWeeks.forEach(w => {
     const s = parseDate(w.start);
     w.shifts.forEach((sh, i) => {
-      if (!isWork(sh)) return;
-      const d = addDays(s, i);
-      const key = monthKey(d);
-      if (!(key in hoursPerMonth)) return;
-      const h = SHIFT_HOURS[sh] || 0;
-      hoursPerMonth[key] += h;
-
-      let extra = 0;
-      if (IS_EVENING[sh]) { extra += h*eveningRate; eveningHours += h; eveningHoursPerMonth[key] += h; }
-      if (i>=5)           { extra += h*weekendRate; weekendHours += h; weekendHoursPerMonth[key] += h; }
-      if (NO_HOLIDAYS[toIso(d)]) { extra += h*holidayRate; holidayHours += h; holidayHoursPerMonth[key] += h; }
-      if (IS_LONG[sh])    { extra += h*longRate; longHours += h; longHoursPerMonth[key] += h; }
-      tilleggPerMonth[key] += extra;
+      const d = addDays(s, i), key = monthKey(d);
+      if (!earned[key] || !isWork(sh)) return;
+      const t = shiftTillegg(d, sh, hourlyRate, S), e = earned[key];
+      e.hours += t.hours; ['kveld','natt','helg','hoytid','lang'].forEach(k => { e[k] += t[k]; e.amt[k] += t.amt[k]; }); e.total += t.total;
     });
   });
-
-  const totalHours = Object.values(hoursPerMonth).reduce((a,b) => a+b, 0);
-  const totalTillegg = Object.values(tilleggPerMonth).reduce((a,b) => a+b, 0);
-
-  const bruttoPerMonth = {};
+  const hoursPerMonth = {}, tilleggPerMonth = {}, tilleggEarnedPerMonth = {}, paidFrom = {}, fastPerMonth = {}, bruttoPerMonth = {}, skattPerMonth = {}, nettoPerMonth = {}, taxRatePerMonth = {};
   MONTHS.forEach(m => {
-    bruttoPerMonth[m] = hoursPerMonth[m] * hourlyRate + tilleggPerMonth[m];
+    hoursPerMonth[m] = earned[m].hours;
+    tilleggEarnedPerMonth[m] = earned[m].total;
+    const src = S.lag ? prevMonthKey(m) : m;
+    paidFrom[m] = earned[src] ? src : null;
+    tilleggPerMonth[m] = earned[src] ? earned[src].total : 0;
+    fastPerMonth[m] = fastLonn;
+    bruttoPerMonth[m] = fastLonn + tilleggPerMonth[m];
+    taxRatePerMonth[m] = taxPctVal / 100 * (S.halfDec && m.endsWith('-12') ? 0.5 : 1);
+    skattPerMonth[m] = bruttoPerMonth[m] * taxRatePerMonth[m];
+    nettoPerMonth[m] = bruttoPerMonth[m] - skattPerMonth[m];
   });
-
-  const totalBrutto = Object.values(bruttoPerMonth).reduce((a,b) => a+b, 0);
-  const totalSkatt  = totalBrutto * TAX;
-  const totalNetto  = totalBrutto - totalSkatt;
-  const snittNetto  = MONTHS.length > 0 ? totalNetto / MONTHS.length : 0;
-
-  return { MONTHS, hoursPerMonth, tilleggPerMonth, bruttoPerMonth, totalHours, totalTillegg,
-    totalBrutto, totalSkatt, totalNetto, snittNetto, taxPctVal, hourlyRate, annual, ANNUAL_HOURS,
-    eveningHours, weekendHours, holidayHours, longHours, eveningRate, weekendRate, holidayRate, longRate,
-    eveningHoursPerMonth, weekendHoursPerMonth, holidayHoursPerMonth, longHoursPerMonth };
+  const sum = o => Object.values(o).reduce((a,b) => a+b, 0);
+  const totalBrutto = sum(bruttoPerMonth), totalSkatt = sum(skattPerMonth), totalNetto = totalBrutto - totalSkatt;
+  return { MONTHS, earned, hoursPerMonth, tilleggPerMonth, tilleggEarnedPerMonth, paidFrom, fastPerMonth, bruttoPerMonth, skattPerMonth, nettoPerMonth, taxRatePerMonth,
+    totalHours: sum(hoursPerMonth), totalTillegg: sum(tilleggPerMonth), totalBrutto, totalSkatt, totalNetto,
+    snittNetto: MONTHS.length ? totalNetto / MONTHS.length : 0, taxPctVal, hourlyRate, annual, ANNUAL_HOURS, fastLonn, settings: S };
 }
 
-// Picks out ONLY the month-keys that genuinely match a year/month selection from an already-computed
-// salary result (see computeSalaryTotals). This is deliberately NOT the same as re-filtering weeks and
-// re-running computeSalaryTotals: a turnus week spanning e.g. 27. juli–2. aug touches TWO month-keys,
-// but only 1-2 days actually belong to August. If we averaged over "months touched" instead of picking
-// exact keys, a single boundary day would drag a whole month into the average and badly skew "snitt/mnd"
-// for a specific month (this was the July-2026-shows-5997kr bug — and the same flaw also showed up as a
-// phantom "August: 0.0t" row + a diluted "snitt" on the Lønn-siden itself). Always call
-// computeSalaryTotals(weeks) (the FULL, unfiltered set) first, so every month's bucket is complete
-// and correct, then slice out exactly the requested months from that.
+// Skjærer ut nøyaktig de kalendermånedene som matcher år/måned-valget fra et ferdig utregnet resultat
+// (regnet på HELE turnusen, så hver måned er komplett). Brukes av Lønn- og Økonomi-siden.
 function sliceSalaryByMonths(R, yearSel, monthSel) {
   const keys = R.MONTHS.filter(key => {
     const { year, month } = monthKeyParts(key);
     return (yearSel === 'all' || year === yearSel) && (monthSel === 'all' || month === monthSel);
   });
-  let brutto=0, hours=0, tillegg=0, eveningHours=0, weekendHours=0, holidayHours=0, longHours=0;
+  const out = { keys, brutto:0, skatt:0, netto:0, hours:0, tillegg:0, fast:0, cats:{ kveld:0, natt:0, helg:0, hoytid:0, lang:0 }, catAmt:{ kveld:0, natt:0, helg:0, hoytid:0, lang:0 } };
   keys.forEach(k => {
-    brutto += (R.bruttoPerMonth[k]||0);
-    hours += (R.hoursPerMonth[k]||0);
-    tillegg += (R.tilleggPerMonth[k]||0);
-    eveningHours += (R.eveningHoursPerMonth[k]||0);
-    weekendHours += (R.weekendHoursPerMonth[k]||0);
-    holidayHours += (R.holidayHoursPerMonth[k]||0);
-    longHours += (R.longHoursPerMonth[k]||0);
+    out.brutto += R.bruttoPerMonth[k]||0; out.skatt += R.skattPerMonth[k]||0; out.netto += R.nettoPerMonth[k]||0;
+    out.hours += R.hoursPerMonth[k]||0; out.tillegg += R.tilleggPerMonth[k]||0; out.fast += R.fastPerMonth[k]||0;
+    const src = R.paidFrom[k]; if (src && R.earned[src]) ['kveld','natt','helg','hoytid','lang'].forEach(c => { out.cats[c] += R.earned[src][c]; out.catAmt[c] += R.earned[src].amt[c]; });
   });
-  const skatt = brutto * (R.taxPctVal/100);
-  const netto = brutto - skatt;
-  const snittNetto = keys.length ? netto/keys.length : 0;
-  return { keys, brutto, skatt, netto, snittNetto, hours, tillegg, eveningHours, weekendHours, holidayHours, longHours };
+  out.snittNetto = keys.length ? out.netto / keys.length : 0;
+  return out;
 }
 
+function periodLabel(key) { if (!key) return '–'; const {year, month} = monthKeyParts(key); return `1.–${new Date(year, month, 0).getDate()}. ${MONTH_NAMES[month-1].toLowerCase()}`; }
 function calcPayslip() {
-  const annualEl = document.getElementById('manualAnnual');
-  if (!annualEl) return;
-  // Compute from the FULL turnus (all weeks), then slice out exactly the selected year/month —
-  // never re-filter weeks first. A week spanning e.g. 27. juli-2. aug would otherwise pull a
-  // near-empty "August" into the picture and dilute the "snitt/mnd" figure (see sliceSalaryByMonths).
-  const Rfull = computeSalaryTotals(weeks);
-  const S = sliceSalaryByMonths(Rfull, currentYear, currentFilter);
-  const { taxPctVal, hourlyRate, annual, ANNUAL_HOURS, eveningRate, weekendRate, holidayRate, longRate } = Rfull;
-  const totalHours = S.hours, totalTillegg = S.tillegg, totalBrutto = S.brutto, totalSkatt = S.skatt,
-    totalNetto = S.netto, snittNetto = S.snittNetto,
-    eveningHours = S.eveningHours, weekendHours = S.weekendHours, holidayHours = S.holidayHours, longHours = S.longHours;
-  const TURNUS_MONTHS_FILTERED = S.keys;
-
-  // Summary cards
+  if (!document.getElementById('manualAnnual')) return;
+  const R = computeSalaryTotals(weeks);
+  const S = sliceSalaryByMonths(R, currentYear, currentFilter);
+  const n = S.keys.length;
+  const r1 = x => fmtKr(Math.round(x));
   document.getElementById('payslipCards').innerHTML = `
-    <div class="payslip-card blue">
-      <div class="payslip-card-label">Grunnlønn (årslønn, 100%)</div>
-      <div class="payslip-card-value">${fmtKr(Math.round(annual))}</div>
-      <div class="payslip-card-sub">${Math.round(hourlyRate)} kr/t · ${ANNUAL_HOURS}t/år</div>
-    </div>
-    <div class="payslip-card blue">
-      <div class="payslip-card-label">Brutto turnusperiode</div>
-      <div class="payslip-card-value">${fmtKr(Math.round(totalBrutto))}</div>
-      <div class="payslip-card-sub">${Math.round(totalHours)}t · inkl. ${fmtKr(Math.round(totalTillegg))} tillegg</div>
-    </div>
-    <div class="payslip-card red">
-      <div class="payslip-card-label">Skattetrekk (${taxPctVal}%)</div>
-      <div class="payslip-card-value">− ${fmtKr(Math.round(totalSkatt))}</div>
-      <div class="payslip-card-sub">estimert trekk · turnusperiode</div>
-    </div>
-    <div class="payslip-card green">
-      <div class="payslip-card-label">Netto turnusperiode</div>
-      <div class="payslip-card-value">${fmtKr(Math.round(totalNetto))}</div>
-      <div class="payslip-card-sub">snitt ${fmtKr(Math.round(snittNetto))} / mnd · ${TURNUS_MONTHS_FILTERED.length} mnd vist</div>
-    </div>
-  `;
-
-  // Tillegg-nedbryting for perioden som vises
+    <div class="payslip-card blue"><div class="payslip-card-label">Fast månedslønn</div><div class="payslip-card-value">${r1(R.fastLonn)}</div><div class="payslip-card-sub">${R.settings.pct} % av ${r1(R.annual)} · ${Math.round(R.hourlyRate)} kr/t</div></div>
+    <div class="payslip-card blue"><div class="payslip-card-label">Brutto i perioden</div><div class="payslip-card-value">${r1(S.brutto)}</div><div class="payslip-card-sub">${n} utbetaling${n===1?'':'er'} · ${r1(S.tillegg)} i tillegg</div></div>
+    <div class="payslip-card red"><div class="payslip-card-label">Skattetrekk</div><div class="payslip-card-value">− ${r1(S.skatt)}</div><div class="payslip-card-sub">${R.taxPctVal} %${R.settings.halfDec ? ', halv skatt i desember' : ''}</div></div>
+    <div class="payslip-card green"><div class="payslip-card-label">Netto i perioden</div><div class="payslip-card-value">${r1(S.netto)}</div><div class="payslip-card-sub">snitt ${r1(S.snittNetto)} per måned</div></div>`;
+  const c = S.cats, a = S.catAmt;
   document.getElementById('salaryBreakdown').innerHTML = `
-    <div class="salary-breakdown-row"><span>Grunnlønn · ${Math.round(totalHours)}t × ${Math.round(hourlyRate)} kr</span><span class="salary-breakdown-val">${fmtKr(Math.round(totalHours*hourlyRate))}</span></div>
-    <div class="salary-breakdown-row"><span>Aftentillegg · ${Math.round(eveningHours)}t × ${eveningRate} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(eveningHours*eveningRate))}</span></div>
-    <div class="salary-breakdown-row"><span>Helgetillegg · ${Math.round(weekendHours)}t × ${weekendRate} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(weekendHours*weekendRate))}</span></div>
-    <div class="salary-breakdown-row"><span>Helligdagstillegg · ${Math.round(holidayHours)}t × ${holidayRate} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(holidayHours*holidayRate))}</span></div>
-    <div class="salary-breakdown-row"><span>Langvakttillegg · ${Math.round(longHours)}t × ${longRate} kr</span><span class="salary-breakdown-val">+ ${fmtKr(Math.round(longHours*longRate))}</span></div>
-    <div class="salary-breakdown-row"><span>Brutto totalt (${TURNUS_MONTHS_FILTERED.length} mnd vist)</span><span class="salary-breakdown-val">${fmtKr(Math.round(totalBrutto))}</span></div>
-  `;
-
-  // Månedstabell — brutto basert på faktiske timer + tillegg, ett rad PER faktisk måned i utvalget
-  // (ikke per uke som tilfeldigvis overlapper utvalget — se sliceSalaryByMonths).
-  const rows = TURNUS_MONTHS_FILTERED.map(key => {
+    <div class="salary-breakdown-row"><span>Fast lønn · ${n} mnd × ${r1(R.fastLonn)}</span><span class="salary-breakdown-val">${r1(S.fast)}</span></div>
+    <div class="salary-breakdown-row"><span>Kveld 17–21 · ${c.kveld.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.kveld)}</span></div>
+    <div class="salary-breakdown-row"><span>Natt 21–06 · ${c.natt.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.natt)}</span></div>
+    <div class="salary-breakdown-row"><span>Lørdag/søndag · ${c.helg.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.helg)}</span></div>
+    <div class="salary-breakdown-row"><span>Helligdag/høytid · ${c.hoytid.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.hoytid)}</span></div>
+    ${R.settings.longKr > 0 ? `<div class="salary-breakdown-row"><span>Lokalt langvakttillegg · ${c.lang.toFixed(1)} t</span><span class="salary-breakdown-val">+ ${r1(a.lang)}</span></div>` : ''}
+    <div class="salary-breakdown-row"><span>Brutto totalt</span><span class="salary-breakdown-val">${r1(S.brutto)}</span></div>`;
+  const rows = S.keys.map(key => {
     const { year: yr, month: mn } = monthKeyParts(key);
-    const h      = Rfull.hoursPerMonth[key] || 0;
-    const brutto = Rfull.bruttoPerMonth[key] || 0;
-    const skatt  = brutto * (taxPctVal/100);
-    const netto  = brutto - skatt;
-    const payDate = `20.${String(mn).padStart(2,'0')}.${yr}`;
-    const mLabel = MONTH_NAMES[mn-1] + (currentYear === 'all' ? ` ${yr}` : '');
+    const taxNote = R.taxRatePerMonth[key] < R.taxPctVal/100 ? ' <span class="payslip-tag">halv skatt</span>' : '';
     return `<tr>
-      <td class="utbetalt">${mLabel}</td>
-      <td style="color:var(--text-muted); text-align:right">${h.toFixed(1)}t</td>
-      <td class="val-brutto">${fmtKr(Math.round(brutto))}</td>
-      <td class="val-skatt">− ${fmtKr(Math.round(skatt))}</td>
-      <td class="val-netto">${fmtKr(Math.round(netto))}</td>
-      <td style="color:var(--text-muted); font-size:11px; text-align:right">${payDate}</td>
+      <td class="utbetalt">20. ${MONTH_NAMES[mn-1].toLowerCase()} ${yr}</td>
+      <td style="color:var(--text-muted)">${periodLabel(R.paidFrom[key])}</td>
+      <td style="color:var(--text-muted); text-align:right">${(R.hoursPerMonth[key]||0).toFixed(1)} t</td>
+      <td style="text-align:right">${r1(R.fastPerMonth[key])}</td>
+      <td style="text-align:right">${r1(R.tilleggPerMonth[key])}</td>
+      <td class="val-brutto">${r1(R.bruttoPerMonth[key])}</td>
+      <td class="val-skatt">− ${r1(R.skattPerMonth[key])}${taxNote}</td>
+      <td class="val-netto">${r1(R.nettoPerMonth[key])}</td>
     </tr>`;
   }).join('');
-
   document.getElementById('payslipTable').innerHTML = `
-    <thead>
-      <tr>
-        <th>Måned</th>
-        <th style="text-align:right">Timer jobbet</th>
-        <th style="text-align:right">Brutto</th>
-        <th style="text-align:right">Skattetrekk</th>
-        <th style="text-align:right">Netto</th>
-        <th style="text-align:right">Utbetalingsdato</th>
-      </tr>
-    </thead>
-    <tbody>${rows}</tbody>
-  `;
-
+    <thead><tr><th>Utbetales</th><th>Tillegg for</th><th style="text-align:right">Timer i mnd</th><th style="text-align:right">Fast lønn</th><th style="text-align:right">Tillegg</th><th style="text-align:right">Brutto</th><th style="text-align:right">Skatt</th><th style="text-align:right">Netto</th></tr></thead>
+    <tbody>${rows}</tbody>`;
   document.getElementById('payslipNote').innerHTML =
-    `Brutto pr. måned regnes som <strong style="color:#7db5f5">faktiske timer × ${Math.round(hourlyRate)} kr/t</strong> (grunnlønn ${fmtKr(annual)} ÷ ${ANNUAL_HOURS}t)
-     <strong style="color:#7db5f5">pluss tillegg</strong> for aften-, helge-, helligdags- og langvakttimer den måneden, basert på satsene over.
-     Måneder med færre timer (f.eks. ferieuker) gir lavere utbetaling.
-     Skattetrekk ${taxPctVal}% er satt manuelt – juster til ditt eget skattekort for et mer presist estimat.
-     Lønnskjøring den 20. i hver måned.`;
+    `Fast lønn er årslønn × stillingsprosent ÷ 12 og utbetales den 20. for hele måneden. ${R.settings.lag ? 'Tillegg for forrige måned (1. til siste dag) kommer på samme utbetaling.' : 'Tillegg utbetales samme måned.'}
+     Timelønn er ${r1(R.annual)} ÷ ${R.ANNUAL_HOURS} t = ${R.hourlyRate.toFixed(2).replace('.', ',')} kr. Ikke med: overtid, ekstravakter, feriepenger i juni og trekk for pensjon og fagforening. Skatten er et prosenttrekk, juster det til ditt skattekort.`;
 }
 
 // --- PANEL TOGGLES ---
@@ -2793,9 +3026,9 @@ function calcOkonomi() {
   const segs = [
     { label:'Bolig & faste', val:fasteTotal*periodMonths, color:'#3987e5' },
     { label:'Gjeld', val:gjeldTotal*periodMonths, color:'#d1477a' },
-    { label:'Mat', val:matTotal*periodMonths, color:'#eda100' },
+    { label:'Mat', val:matTotal*periodMonths, color:'var(--accent-amber)' },
     { label:'Klær & pleie', val:klarPleieTotal*periodMonths, color:'#9085e9' },
-    { label:'Fritid & medier', val:fritidTotal*periodMonths, color:'#5DCAA5' },
+    { label:'Fritid & medier', val:fritidTotal*periodMonths, color:'var(--tint-green)' },
     { label:'Transport', val:transportTotal*periodMonths, color:'#e34948' },
     { label:'Husholdning', val:husholdningTotal*periodMonths, color:'#c3c2b7' },
     { label:'Sparing', val:totalSparing*periodMonths, color:'#199e70' },
@@ -2874,7 +3107,7 @@ function calcOkonomi() {
     if (c.key === 'sparing') faktiskSparingVal += actualPeriod; else faktiskBruktSum += actualPeriod;
     const diff = actualPeriod - plannedPeriod;
     const goodDiff = c.key==='sparing' ? diff>=0 : diff<=0;
-    const diffColor = Math.abs(diff)<1 ? 'var(--text-muted)' : (goodDiff ? '#5dcaa5' : '#e86767');
+    const diffColor = Math.abs(diff)<1 ? 'var(--text-muted)' : (goodDiff ? 'var(--tint-green)' : 'var(--tint-red)');
     // Andel og differanse vises som en liten undertekst UNDER hovedtallet i samme celle, i stedet
     // som egne kolonner — med en 110px-bred input i "Faktisk"-cellen er det ikke plass til 4-5
     // kolonner på en smal mobilskjerm uten at siste kolonne (differansen) blir klemt bort helt
@@ -2913,9 +3146,9 @@ function calcOkonomi() {
   if (budsjettCardsEl) budsjettCardsEl.innerHTML = `
     <div class="payslip-card blue"><div class="payslip-card-label">Netto til fordeling</div><div class="payslip-card-value">${fmtKr(Math.round(periodNettoTotal))}</div><div class="payslip-card-sub">${periodLabel}${periodMonths>1?` · snitt ${fmtKr(Math.round(netto))}/mnd`:''}</div></div>
     <div class="payslip-card"><div class="payslip-card-label">Bolig + faste utgifter${gjeldTotal>0?' + gjeld':''}</div><div class="payslip-card-value" style="color:#8dc0ff">${fmtKr(Math.round((fasteTotal+gjeldTotal)*periodMonths))}</div><div class="payslip-card-sub">${gjeldTotal>0?`inkl. ${fmtKr(Math.round(gjeldTotal*periodMonths))} i gjeldsavdrag`:'dine egne tall'}</div></div>
-    <div class="payslip-card"><div class="payslip-card-label">SIFO-basert forbruk</div><div class="payslip-card-value" style="color:#eda100">${fmtKr(Math.round(sifoTotal*periodMonths))}</div><div class="payslip-card-sub">mat, klær, pleie, fritid, transport, husholdning · ${SIFO_LEVEL_LABELS[sifoLevelKey]} nivå</div></div>
+    <div class="payslip-card"><div class="payslip-card-label">SIFO-basert forbruk</div><div class="payslip-card-value" style="color:var(--accent-amber)">${fmtKr(Math.round(sifoTotal*periodMonths))}</div><div class="payslip-card-sub">mat, klær, pleie, fritid, transport, husholdning · ${SIFO_LEVEL_LABELS[sifoLevelKey]} nivå</div></div>
     <div class="payslip-card green"><div class="payslip-card-label">Sparing (anbefalt)</div><div class="payslip-card-value">${fmtKr(Math.round(totalSparing*periodMonths))}</div><div class="payslip-card-sub">${goalChecked?'basert på sparemål':'basert på %'}${extraSparing>0?' + prioritert rest':''}</div></div>
-    <div class="payslip-card"><div class="payslip-card-label">Planlagt sitte igjen med</div><div class="payslip-card-value" style="color:#7db5f5">${fmtKr(Math.round(plannedOverskudd))}</div><div class="payslip-card-sub">om alt går som anbefalt</div></div>
+    <div class="payslip-card"><div class="payslip-card-label">Planlagt sitte igjen med</div><div class="payslip-card-value" style="color:var(--tint-blue)">${fmtKr(Math.round(plannedOverskudd))}</div><div class="payslip-card-sub">om alt går som anbefalt</div></div>
   `;
   const fremdriftCardsEl = document.getElementById('okFremdriftCards');
   if (fremdriftCardsEl) fremdriftCardsEl.innerHTML = `
@@ -2935,16 +3168,16 @@ function calcOkonomi() {
         <div style="margin-bottom:12px">
           <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:600;margin-bottom:2px">
             <span>Sparemål</span>
-            <span style="color:${onTrack?'#5dcaa5':'var(--text-muted)'}">${fmtKr(Math.round(faktiskSparingVal))} / ${fmtKr(Math.round(targetForPeriod))}</span>
+            <span style="color:${onTrack?'var(--tint-green)':'var(--text-muted)'}">${fmtKr(Math.round(faktiskSparingVal))} / ${fmtKr(Math.round(targetForPeriod))}</span>
           </div>
-          <div class="ok-progress-bar-wrap"><div class="ok-progress-bar-fill" style="width:${pct.toFixed(0)}%;background:${onTrack?'#5dcaa5':'#eda100'}"></div></div>
+          <div class="ok-progress-bar-wrap"><div class="ok-progress-bar-fill" style="width:${pct.toFixed(0)}%;background:${onTrack?'var(--tint-green)':'var(--accent-amber)'}"></div></div>
           <div style="font-size:10px;color:var(--text-muted);margin-top:2px">${onTrack?'✓ På sparemålet for':'Bak sparemålet for'} ${periodLabel}</div>
         </div>`;
     }
     hubHtml += `
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
         <span style="font-size:12px;color:var(--text-muted)">Faktisk resultat · ${periodLabel}</span>
-        <span style="font-size:19px;font-weight:700;color:${faktiskOverskudd>=0?'#5dcaa5':'#e86767'}">${faktiskOverskudd>=0?'+':''}${fmtKr(Math.round(faktiskOverskudd))}</span>
+        <span style="font-size:19px;font-weight:700;color:${faktiskOverskudd>=0?'var(--tint-green)':'var(--tint-red)'}">${faktiskOverskudd>=0?'+':''}${fmtKr(Math.round(faktiskOverskudd))}</span>
       </div>
       <div style="font-size:10.5px;color:var(--text-muted);margin-top:2px">Basert på de faktiske tallene du har lagt inn under «Fremdrift» (planlagte tall brukes der du ikke har fylt inn noe selv).</div>
     `;
@@ -3003,10 +3236,177 @@ function buildTips(ctx) {
   return tips;
 }
 
+// ═════════ VISNINGSVALG (tema, kalender/uker, vaktbeskrivelser) — lagres på enheten ═════════
+let uiPrefs = Object.assign({ theme: 'system', view: 'kalender', showDesc: true }, lsGet('uiPrefs', {}) || {});
+function saveUiPrefs() { lsSet('uiPrefs', uiPrefs); }
+function applyUiPrefs() {
+  document.body.classList.toggle('view-cal', uiPrefs.view === 'kalender');
+  document.body.classList.toggle('view-uker', uiPrefs.view !== 'kalender');
+  document.body.classList.toggle('no-desc', !uiPrefs.showDesc);
+  document.querySelectorAll('#viewSeg [data-view-opt]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.viewOpt === uiPrefs.view)));
+  document.querySelectorAll('#themeSeg [data-theme-opt]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeOpt === uiPrefs.theme)));
+  const dt = document.getElementById('descToggle'); if (dt) dt.checked = !!uiPrefs.showDesc;
+  if (window.applyTheme) window.applyTheme();
+}
+function bindUiPrefs() {
+  document.querySelectorAll('#viewSeg [data-view-opt]').forEach(b => b.addEventListener('click', () => {
+    uiPrefs.view = b.dataset.viewOpt; saveUiPrefs(); applyUiPrefs();
+    if (editMode && uiPrefs.view === 'kalender') toggleEditMode();
+    renderAll();
+  }));
+  document.querySelectorAll('#themeSeg [data-theme-opt]').forEach(b => b.addEventListener('click', () => { uiPrefs.theme = b.dataset.themeOpt; saveUiPrefs(); applyUiPrefs(); }));
+  const dt = document.getElementById('descToggle');
+  if (dt) dt.addEventListener('change', () => { uiPrefs.showDesc = dt.checked; saveUiPrefs(); applyUiPrefs(); });
+}
+
+// ═════════ LAGRING AV VAKTENDRINGER (samme format som før: avvik per uke, synkes via Firebase) ═════════
+function persistTurnus() {
+  weeks.forEach(w => { let t = 0; w.shifts.forEach(x => { t += (SHIFT_HOURS[x]||0); }); w.ts = Math.round(t*2)/2; });
+  savedWeeks = JSON.parse(JSON.stringify(weeks));
+  const baseByStart = {};
+  allWeeks.forEach(w => { baseByStart[w.start] = w; });
+  weeks.forEach(w => {
+    const base = baseByStart[w.start];
+    const changed = !base || JSON.stringify(base.shifts) !== JSON.stringify(w.shifts);
+    if (changed) turnusOverrides[w.start] = { shifts: [...w.shifts], ts: w.ts };
+    else delete turnusOverrides[w.start];
+  });
+  lsSet('turnusOverrides', turnusOverrides);
+  pushTurnusOverridesToCloud();
+}
+
+// ═════════ KALENDER ═════════
+const SHIFT_NAMES = { D:'Dagvakt', D1:'Dagvakt', D2:'Dagvakt', D4:'Dagvakt', A:'Aftenvakt', AK:'Kort aftenvakt', LA:'Mellomvakt', LL:'Langvakt', LY:'Langvakt', F1:'Fridag' };
+function shiftKind(sh) { if (!sh) return ''; if (sh === 'F1') return 'k-fri'; if (sh[0] === 'D') return 'k-dag'; if (sh[0] === 'A') return 'k-kveld'; if (sh[0] === 'L') return 'k-lang'; return ''; }
+function shiftColor(sh) { const k = shiftKind(sh); return k ? `var(--${k.replace('k-','k-')})` : 'var(--k-other)'; }
+const DOW_SHORT = ['Man','Tir','Ons','Tor','Fre','Lør','Søn'];
+const DOW_LONG = ['mandag','tirsdag','onsdag','torsdag','fredag','lørdag','søndag'];
+let calMonth = null, selectedIso = null;
+function dayIndex() { const map = {}; weeks.forEach((w, wi) => { const s = parseDate(w.start); w.shifts.forEach((sh, di) => { map[toIso(addDays(s, di))] = { wi, di, sh }; }); }); return map; }
+function calMonths() {
+  const first = parseDate(weeks[0].start), last = addDays(parseDate(weeks[weeks.length-1].start), 6);
+  const out = []; let d = new Date(first.getFullYear(), first.getMonth(), 1);
+  while (d <= last) { out.push(monthKey(d)); d = new Date(d.getFullYear(), d.getMonth()+1, 1); }
+  return out;
+}
+function isoWeekNo(d) { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return Math.ceil(((t - y0) / 864e5 + 1) / 7); }
+function dayTitle(iso) { const d = parseDate(iso), w = DOW_LONG[(d.getDay()+6)%7]; return `${w[0].toUpperCase()}${w.slice(1)} ${d.getDate()}. ${MONTH_NAMES[d.getMonth()].toLowerCase()}`; }
+function holidayLabel(iso) { return NO_HOLIDAYS[iso] || HOLIDAY_EVES[iso] || ''; }
+
+function renderCalendarView() {
+  const box = document.getElementById('calView'); if (!box || !weeks.length) return;
+  const months = calMonths(), todayIso = toIso(getTodayDate());
+  if (!calMonth || !months.includes(calMonth)) calMonth = months.includes(todayIso.slice(0,7)) ? todayIso.slice(0,7) : months[0];
+  if (!selectedIso || selectedIso.slice(0,7) !== calMonth) selectedIso = todayIso.slice(0,7) === calMonth ? todayIso : null;
+  const idx = dayIndex(), { year: y, month: m } = monthKeyParts(calMonth);
+  const first = new Date(y, m-1, 1), start = addDays(first, -((first.getDay()+6)%7));
+  const lastDay = new Date(y, m, 0), end = addDays(lastDay, 6 - ((lastDay.getDay()+6)%7));
+  if (!selectedIso) { const firstWork = Object.keys(idx).filter(k => k.startsWith(calMonth)).sort()[0]; selectedIso = firstWork || `${calMonth}-01`; }
+  let cells = '<div class="dow wkc" aria-hidden="true"></div>' + DOW_SHORT.map((d,i) => `<div class="dow ${i>=5?'we':''}">${d}</div>`).join('');
+  for (let d = new Date(start); d <= end; d = addDays(d, 1)) {
+    if ((d.getDay()+6)%7 === 0) cells += `<div class="wkn">${isoWeekNo(d)}</div>`;
+    const iso = toIso(d), info = idx[iso], sh = info ? info.sh : '', hn = holidayLabel(iso), other = d.getMonth() !== m-1;
+    const edited = info && allWeeks[info.wi] && allWeeks[info.wi].shifts[info.di] !== sh;
+    const cls = ['mday', other?'other':'', (d.getDay()===0||d.getDay()===6)?'we':'', NO_HOLIDAYS[iso]?'hol':'', iso===todayIso?'today':'', iso===selectedIso?'sel':'', info?'':'out'].join(' ');
+    let ev = '';
+    if (sh) { const t = SHIFT_TIMES[sh]; ev = `<span class="ev ${shiftKind(sh)}"><b>${sh}${sh!=='F1' ? ` <span class="nm">${SHIFT_NAMES[sh]||''}</span>` : ''}</b>${t ? `<small>${t[0]}–${t[1]}</small>` : ''}</span>`; }
+    cells += `<button class="${cls}" data-cal-day="${iso}" ${info?'':'disabled'} aria-label="${dayTitle(iso)}: ${sh || 'ingen vakt'}${hn ? ', '+hn : ''}">
+      <span class="top">${hn ? `<span class="hn">${hn}</span>` : ''}<span class="n">${d.getDate()}</span></span>${ev}${edited ? '<span class="edited" title="Endret fra opprinnelig turnus"></span>' : ''}</button>`;
+  }
+  const i = months.indexOf(calMonth);
+  const multi = months[0].slice(0,4) !== months[months.length-1].slice(0,4);
+  box.innerHTML = `
+    <div class="cal-top">
+      <div class="cal-title">${MONTH_NAMES[m-1]} <span>${y}</span></div>
+      <div class="cal-nav"><button class="pill" id="calToday">I dag</button>
+        <button class="round" id="calPrev" ${i<=0?'disabled':''} aria-label="Forrige måned">‹</button>
+        <button class="round" id="calNext" ${i>=months.length-1?'disabled':''} aria-label="Neste måned">›</button></div>
+    </div>
+    <div class="mchips" id="mchips">${months.map(k => { const p = monthKeyParts(k); return `<button class="mchip" data-cal-month="${k}" aria-pressed="${k===calMonth}">${MONTH_NAMES[p.month-1].slice(0,3).toLowerCase()}${multi ? ' '+String(p.year).slice(2) : ''}</button>`; }).join('')}</div>
+    <div class="mgrid">${cells}</div>`;
+  box.querySelector('#calPrev').onclick = () => { calMonth = months[i-1]; selectedIso = null; renderCalendarView(); };
+  box.querySelector('#calNext').onclick = () => { calMonth = months[i+1]; selectedIso = null; renderCalendarView(); };
+  box.querySelector('#calToday').onclick = () => { if (months.includes(todayIso.slice(0,7))) { calMonth = todayIso.slice(0,7); selectedIso = todayIso; renderCalendarView(); } };
+  box.querySelectorAll('[data-cal-month]').forEach(b => b.onclick = () => { calMonth = b.dataset.calMonth; selectedIso = null; renderCalendarView(); });
+  box.querySelectorAll('[data-cal-day]').forEach(b => b.onclick = () => {
+    selectedIso = b.dataset.calDay; if (selectedIso.slice(0,7) !== calMonth) calMonth = selectedIso.slice(0,7);
+    renderCalendarView();
+    if (window.innerWidth < 1100) openDaySheet();
+  });
+  const sel = box.querySelector('.mchip[aria-pressed="true"]'); if (sel) sel.scrollIntoView({ block: 'nearest', inline: 'center' });
+  renderCalSide(idx);
+}
+
+function dayPanelHtml(idx) {
+  const iso = selectedIso, info = idx[iso]; if (!info) return '';
+  const sh = info.sh, t = SHIFT_TIMES[sh], hn = holidayLabel(iso);
+  const R = readLonnSettings(), hourly = R.annual / R.annualHours;
+  const p = isWork(sh) ? shiftTillegg(parseDate(iso), sh, hourly, R) : null;
+  const orig = allWeeks[info.wi] ? allWeeks[info.wi].shifts[info.di] : sh;
+  const lines = p ? [['Kveld 17–21', p.kveld, p.amt.kveld], ['Natt 21–06', p.natt, p.amt.natt], ['Lørdag/søndag', p.helg, p.amt.helg], ['Helligdag', p.hoytid, p.amt.hoytid], ['Langvakt (lokalt)', p.lang, p.amt.lang]].filter(x => x[2] > 0.5) : [];
+  const opt = SHIFT_OPTS.find(o => o.code === sh);
+  return `<div class="side-card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>${dayTitle(iso)}</h3><span class="muted">Uke ${isoWeekNo(parseDate(iso))}</span></div>
+    ${hn ? `<div style="color:var(--holiday);font-weight:600;margin-top:-6px">${hn}${NO_HOLIDAYS[iso] ? '' : ' (høytidstillegg fra kl. 12)'}</div>` : ''}
+    <div class="day-ev" style="--c:${sh ? shiftColor(sh) : 'var(--k-fri)'}"><i></i><div>
+      ${sh ? `<b>${sh} · ${SHIFT_NAMES[sh] || sh}</b><div class="muted">${t ? `${t[0]}–${t[1]} · ` : ''}${(SHIFT_HOURS[sh]||0).toString().replace('.', ',')} t${opt ? '' : ''}</div>` : '<b>Ingen vakt</b><div class="muted">Fri eller ikke registrert</div>'}
+      ${orig !== sh ? `<div class="muted" style="margin-top:4px">Opprinnelig: ${orig || 'ingen vakt'}</div>` : ''}
+    </div></div>
+    ${lines.length ? `<div class="kv">${lines.map(x => `<span>${x[0]} · ${x[1].toFixed(1).replace('.', ',')} t</span><span>${fmtKr(Math.round(x[2]))}</span>`).join('')}<span class="tot">Tillegg for vakta</span><span class="tot">${fmtKr(Math.round(p.total))}</span></div>` : ''}
+    <div><div class="stat-label" style="margin-bottom:8px">Bytt vakt</div>
+      <div class="codes-grid">${SHIFT_OPTS.map(o => `<button data-set-shift="${o.code}" aria-pressed="${o.code === sh}" title="${o.desc}"><span class="shift-chip ${chipClass(o.code)}" style="${o.code ? '' : 'background:transparent;box-shadow:inset 0 0 0 1px var(--border-strong);color:var(--text-muted)'}">${o.label}</span><span>${o.code ? ((SHIFT_HOURS[o.code]||0) + ' t').replace('.', ',') : 'Ingen'}</span></button>`).join('')}</div></div>
+    ${t ? `<button class="side-btn" data-ics-day>Legg til i telefonens kalender</button>` : ''}
+  </div>`;
+}
+function monthPanelHtml() {
+  const R = computeSalaryTotals(weeks), e = R.earned[calMonth];
+  const { year, month } = monthKeyParts(calMonth);
+  let shifts = 0, weekend = 0, holi = 0;
+  weeks.forEach(w => { const s = parseDate(w.start); w.shifts.forEach((sh, i) => { const d = addDays(s, i); if (monthKey(d) !== calMonth || !isWork(sh)) return; shifts++; if (d.getDay()===0||d.getDay()===6) weekend++; if (NO_HOLIDAYS[toIso(d)]) holi++; }); });
+  const payKey = monthKey(new Date(year, month, 1));
+  const payNet = R.nettoPerMonth[payKey];
+  return `<div class="side-card"><h3>${MONTH_NAMES[month-1]} ${year}</h3>
+    <div class="kv"><span>Timer</span><span>${e ? e.hours.toFixed(1).replace('.', ',') : 0}</span><span>Vakter</span><span>${shifts}</span>
+    <span>Helgevakter</span><span>${weekend}</span><span>Vakter på helligdag</span><span>${holi}</span>
+    <span>Timer etter kl. 17</span><span>${e ? (e.kveld + e.natt).toFixed(1).replace('.', ',') : 0}</span>
+    <span class="tot">Tillegg opptjent</span><span class="tot">${fmtKr(Math.round(e ? e.total : 0))}</span></div>
+    ${payNet !== undefined && R.settings.lag ? `<div class="muted">Tilleggene utbetales 20. ${MONTH_NAMES[(month)%12].toLowerCase()}. Estimert netto da: <b style="color:var(--text-primary)">${fmtKr(Math.round(payNet))}</b>.</div>` : ''}
+  </div>`;
+}
+function bindDayPanel(root, idx) {
+  root.querySelectorAll('[data-set-shift]').forEach(b => b.onclick = () => {
+    const info = idx[selectedIso]; if (!info) return;
+    weeks[info.wi].shifts[info.di] = b.dataset.setShift;
+    persistTurnus();
+    showToast(`Vakten ${dayTitle(selectedIso).toLowerCase()} er endret og lagret ✓`);
+    renderAll();
+    const sheet = document.getElementById('daySheetBody'); if (sheet) { sheet.innerHTML = dayPanelHtml(dayIndex()); bindDayPanel(sheet, dayIndex()); }
+  });
+  const ics = root.querySelector('[data-ics-day]'); if (ics) ics.onclick = () => { const info = idx[selectedIso]; if (info) downloadSingleICS(info.wi, info.di); };
+}
+function renderCalSide(idx) {
+  const day = document.getElementById('daySide'), mon = document.getElementById('monthSide');
+  if (day) { day.innerHTML = dayPanelHtml(idx); bindDayPanel(day, idx); }
+  if (mon) mon.innerHTML = monthPanelHtml();
+}
+function openDaySheet() {
+  closeDaySheet();
+  const idx = dayIndex(); if (!idx[selectedIso]) return;
+  const bd = document.createElement('div'); bd.className = 'sheet-backdrop'; bd.id = 'daySheetBackdrop'; bd.onclick = closeDaySheet;
+  const sh = document.createElement('div'); sh.className = 'day-sheet'; sh.id = 'daySheet'; sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true');
+  sh.innerHTML = `<div class="grabber"></div><div id="daySheetBody">${dayPanelHtml(idx)}</div><button class="pill" style="width:100%;margin-top:12px" id="daySheetClose">Ferdig</button>`;
+  document.body.append(bd, sh);
+  bindDayPanel(sh.querySelector('#daySheetBody'), idx);
+  sh.querySelector('#daySheetClose').onclick = closeDaySheet;
+}
+function closeDaySheet() { ['daySheet','daySheetBackdrop'].forEach(id => { const el = document.getElementById(id); if (el) el.remove(); }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDaySheet(); });
+
 // --- INIT ---
 function renderAll() {
   const f=getFiltered();
   renderTodayBar();
+  if (uiPrefs.view === 'kalender') renderCalendarView();
   renderStats(f);
   renderHolidayWarnings(f);
   renderTable(f);
@@ -3032,7 +3432,8 @@ function showPage(id, updateHash) {
     if (id === 'home') history.pushState(null,'',location.pathname+location.search);
     else location.hash = id;
   }
-  if (id === 'turnus') { renderTodayBar(); renderStats(getFiltered()); renderTable(getFiltered()); renderMobileCards(getFiltered()); }
+  if (id === 'turnus') { renderTodayBar(); renderStats(getFiltered()); renderTable(getFiltered()); renderMobileCards(getFiltered()); if (uiPrefs.view === 'kalender') renderCalendarView(); }
+  closeDaySheet();
   if (id === 'lonn') calcPayslip();
   if (id === 'arsoversikt') renderYearOverview();
   if (id === 'arbeidstid') calcRestCheck();
@@ -3044,6 +3445,9 @@ window.addEventListener('hashchange', () => {
 });
 
 buildPicker();
+applyUiPrefs();
+bindUiPrefs();
+loadLonnSettings();
 loadTurnusOverrides();
 loadTurnusFilter();
 loadOkState();
